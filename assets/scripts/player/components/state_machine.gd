@@ -19,5 +19,9 @@ func _process(_delta: float) -> void:
 
 
 func setup_children_controller() -> void:
+	if not player_controller:
+		push_error("PlayerStateMachine needs a reference to the PlayerController")
+		return
+
 	for state: PlayerState in find_children("*", "PlayerState", true, false):
 			state.player_controller = player_controller
