@@ -108,6 +108,10 @@ dev_reload={
 3d_physics/layer_2="enemies"
 3d_physics/layer_3="world"
 
+[physics]
+
+3d/physics_engine="Jolt Physics"
+
 [rendering]
 
 anti_aliasing/quality/msaa_3d=2
