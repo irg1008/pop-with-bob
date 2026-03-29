@@ -76,6 +76,7 @@ mouse_capture_component = NodePath("../Components/MouseCapture")
 
 [node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=821594060 node_paths=PackedStringArray("player")]
 script = ExtResource("4_cv1cy")
+debug = true
 player = NodePath("../..")
 
 [node name="InteractionRayCast" type="RayCast3D" parent="CameraController/Camera3D" unique_id=267050600]

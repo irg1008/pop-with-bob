@@ -3,6 +3,7 @@ extends RayCast3D
 
 @export var debug: bool = false
 
+
 var current_object: Object = null
 
 

@@ -21,9 +21,11 @@ enum CameraDirection {
 @export var crouch_offset: float = 0.0
 @export var crouch_speed: float = 3.0
 
-var _rotation: Vector3
 
 const DEFAULT_HEIGHT: float = 0.5
+
+
+var _rotation: Vector3
 
 
 func _process(_delta: float) -> void:

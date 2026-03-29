@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://dqbkvpkvpfxws" path="res://scenes/player/player_controller.tscn" id="1_ycx7s"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_ycx7s"]
-frequency = 0.1419
+frequency = 0.4302
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_htrvu"]
 noise = SubResource("FastNoiseLite_ycx7s")
@@ -15,7 +15,7 @@ albedo_texture = SubResource("NoiseTexture2D_htrvu")
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_qgtqi"]
 material = SubResource("StandardMaterial3D_6lfjr")
-size = Vector2(15, 15)
+size = Vector2(50, 50)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ycx7s"]
 

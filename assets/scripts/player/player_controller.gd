@@ -25,6 +25,7 @@ class_name PlayerController extends CharacterBody3D
 @export var jump_velocity: float = 5.0
 @export var fall_velocity_threhold: float = -5.0
 
+
 var _input_dir: Vector2 = Vector2.ZERO
 var _movement_velocity: Vector3 = Vector3.ZERO
 
