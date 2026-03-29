@@ -31,6 +31,7 @@ var _rotation: Vector3
 func _process(_delta: float) -> void:
 	update_camera_rotation(mouse_capture_component.mouse_input)
 
+
 func update_camera_rotation(input: Vector2) -> void:
 	_rotation.x += input.y
 	_rotation.y += input.x
