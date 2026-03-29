@@ -40,7 +40,6 @@ default_font_size = 12
 [sub_resource type="SphereShape3D" id="SphereShape3D_ggkdx"]
 
 [node name="PlayerController" type="CharacterBody3D" unique_id=1792353029 node_paths=PackedStringArray("camera", "camera_effects", "state_chart", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "step_handler")]
-collision_layer = 2
 script = ExtResource("1_0cfoe")
 camera = NodePath("CameraController")
 camera_effects = NodePath("CameraController/Camera3D")

@@ -14,4 +14,4 @@ static func spawn_impact_marker(tree: SceneTree, position: Vector3) -> void:
 		tree.current_scene.add_child(marker)
 		marker.global_position = position
 
-		tree.create_timer(0.5).timeout.connect(marker.queue_free)
+		tree.create_timer(5.0).timeout.connect(marker.queue_free)
