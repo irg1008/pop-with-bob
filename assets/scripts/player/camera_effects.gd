@@ -3,7 +3,7 @@ class_name CameraEffects extends Camera3D
 @export var debug: bool = false
 
 @export_category("References")
-@export var player: PlayerController
+@export var player_controller: PlayerController
 
 @export_category("Effects")
 @export var enable_tilt: bool = true
@@ -68,10 +68,10 @@ func calculate_tilt(direction: Vector3, velocity: Vector3, deg: float, max_deg: 
 
 func calculate_bob_amount(delta: float) -> float:
 	# We calculate speed without vertical velocity to avoid headbob when falling or jumping
-	var velocity: Vector3 = player.velocity
+	var velocity: Vector3 = player_controller.velocity
 	var speed: float = Vector2(velocity.x, velocity.z).length()
 
-	if speed > 0.1 and player.is_on_floor():
+	if speed > 0.1 and player_controller.is_on_floor():
 		# Cycle faster with higher speed
 		_bob_step_timer += delta * bob_frequency * speed
 		_bob_step_timer = fmod(_bob_step_timer, 1)
@@ -85,13 +85,13 @@ func calculate_bob_amount(delta: float) -> float:
 
 
 func calculate_view_offset(delta: float) -> void:
-	if not player:
+	if not player_controller:
 		return
 
 	_fall_kick_timer -= delta
 	_damage_kick_timer -= delta
 
-	var velocity: Vector3 = player.velocity
+	var velocity: Vector3 = player_controller.velocity
 
 	var angles: Vector3 = Vector3.ZERO
 	var offset: Vector3 = Vector3.ZERO

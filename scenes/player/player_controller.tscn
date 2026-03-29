@@ -33,7 +33,7 @@ default_font_size = 12
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ggkdx"]
 
-[node name="PlayerController" type="CharacterBody3D" unique_id=1792353029 node_paths=PackedStringArray("camera", "camera_effects", "state_chart", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast")]
+[node name="PlayerController" type="CharacterBody3D" unique_id=1792353029 node_paths=PackedStringArray("camera", "camera_effects", "state_chart", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "step_handler")]
 script = ExtResource("1_0cfoe")
 debug = true
 camera = NodePath("CameraController")
@@ -43,6 +43,7 @@ standing_collision = NodePath("StandingCollision")
 crouching_collision = NodePath("CrouchingCollision")
 crouch_check = NodePath("CrouchCheck")
 interaction_raycast = NodePath("CameraController/Camera3D/InteractionRayCast")
+step_handler = NodePath("Components/StepHandler")
 
 [node name="StateChartDebugger" parent="." unique_id=1134529071 instance=ExtResource("2_nwn0c")]
 anchors_preset = 0
@@ -75,11 +76,11 @@ script = ExtResource("2_0nonk")
 player_controller = NodePath("..")
 mouse_capture_component = NodePath("../Components/MouseCapture")
 
-[node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=821594060 node_paths=PackedStringArray("player")]
+[node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=821594060 node_paths=PackedStringArray("player_controller")]
 current = true
 script = ExtResource("4_cv1cy")
 debug = true
-player = NodePath("../..")
+player_controller = NodePath("../..")
 
 [node name="InteractionRayCast" type="RayCast3D" parent="CameraController/Camera3D" unique_id=267050600]
 target_position = Vector3(0, 0, -3)
@@ -91,8 +92,9 @@ debug = true
 [node name="MouseCapture" type="Node" parent="Components" unique_id=336100980]
 script = ExtResource("1_4q5nu")
 
-[node name="StepHandler" type="Node" parent="Components" unique_id=1140707639]
+[node name="StepHandler" type="Node" parent="Components" unique_id=1140707639 node_paths=PackedStringArray("player_controller")]
 script = ExtResource("7_0l0yx")
+player_controller = NodePath("../..")
 
 [node name="StateMachine" type="Node" parent="." unique_id=44780937 node_paths=PackedStringArray("player_controller")]
 unique_name_in_owner = true
