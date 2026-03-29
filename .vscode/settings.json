@@ -17,5 +17,6 @@
     "titleBar.activeForeground": "#e7e7e7",
     "titleBar.inactiveBackground": "#1b1f2499",
     "titleBar.inactiveForeground": "#e7e7e799"
-  }
+  },
+  "workbench.iconTheme": "catppuccin-mocha",
 }

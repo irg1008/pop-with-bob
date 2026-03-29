@@ -1,0 +1,26 @@
+[gd_scene format=3 uid="uid://dm5x3qkicfjgm"]
+
+[ext_resource type="PackedScene" uid="uid://cddkm166mcxg4" path="res://scenes/environment/world_environment.tscn" id="1_1ykrc"]
+[ext_resource type="PackedScene" uid="uid://dqbkvpkvpfxws" path="res://scenes/player/player_controller.tscn" id="1_ycx7s"]
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qgtqi"]
+size = Vector2(20, 20)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_1ykrc"]
+
+[node name="PrototypeLevel" type="Node3D" unique_id=2034229489]
+
+[node name="Geometry" type="Node3D" parent="." unique_id=908322790]
+
+[node name="Floor" type="StaticBody3D" parent="Geometry" unique_id=1152952726]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Floor" unique_id=1192306267]
+mesh = SubResource("PlaneMesh_qgtqi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Floor" unique_id=1754561379]
+shape = SubResource("WorldBoundaryShape3D_1ykrc")
+
+[node name="PlayerController" parent="." unique_id=2123959411 instance=ExtResource("1_ycx7s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1400485, 0)
+
+[node name="WorldEnvironment" parent="." unique_id=669383791 instance=ExtResource("1_1ykrc")]

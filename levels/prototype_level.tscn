@@ -1,0 +1,75 @@
+[gd_scene format=3 uid="uid://dm5x3qkicfjgm"]
+
+[ext_resource type="PackedScene" uid="uid://cddkm166mcxg4" path="res://scenes/environment/world_environment.tscn" id="1_1ykrc"]
+[ext_resource type="PackedScene" uid="uid://dqbkvpkvpfxws" path="res://scenes/player/player_controller.tscn" id="1_ycx7s"]
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_ycx7s"]
+frequency = 0.1419
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_htrvu"]
+noise = SubResource("FastNoiseLite_ycx7s")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_6lfjr"]
+albedo_color = Color(0.5259835, 0.2532278, 0.0866332, 1)
+albedo_texture = SubResource("NoiseTexture2D_htrvu")
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_qgtqi"]
+material = SubResource("StandardMaterial3D_6lfjr")
+size = Vector2(15, 15)
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ycx7s"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_ycx7s"]
+top_radius = 3.0
+bottom_radius = 3.0
+height = 0.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_htrvu"]
+custom_solver_bias = 1.0
+height = 0.5
+radius = 3.0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_htrvu"]
+top_radius = 1.0
+bottom_radius = 1.0
+height = 0.5
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_ycx7s"]
+custom_solver_bias = 1.0
+height = 0.5
+radius = 1.0
+
+[node name="PrototypeLevel" type="Node3D" unique_id=2034229489]
+
+[node name="Geometry" type="Node3D" parent="." unique_id=908322790]
+
+[node name="Floor" type="StaticBody3D" parent="Geometry" unique_id=1152952726]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Floor" unique_id=1192306267]
+mesh = SubResource("PlaneMesh_qgtqi")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Floor" unique_id=1754561379]
+shape = SubResource("WorldBoundaryShape3D_ycx7s")
+
+[node name="Ceiling" type="StaticBody3D" parent="Geometry" unique_id=1401600868]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 1.5, -3)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Ceiling" unique_id=37167304]
+mesh = SubResource("CylinderMesh_ycx7s")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Ceiling" unique_id=1445998004]
+shape = SubResource("CylinderShape3D_htrvu")
+
+[node name="Ceiling2" type="StaticBody3D" parent="Geometry" unique_id=1502211116]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3, 0.846187, 1.0630915)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Ceiling2" unique_id=1610853037]
+mesh = SubResource("CylinderMesh_htrvu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Ceiling2" unique_id=969569461]
+shape = SubResource("CylinderShape3D_ycx7s")
+
+[node name="PlayerController" parent="." unique_id=2123959411 instance=ExtResource("1_ycx7s")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9783354, 0)
+
+[node name="WorldEnvironment" parent="." unique_id=669383791 instance=ExtResource("1_1ykrc")]

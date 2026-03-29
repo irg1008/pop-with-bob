@@ -15,7 +15,7 @@ var target_velocity: Vector3 = Vector3.ZERO
 func _physics_process(delta: float) -> void:
   var direction: Vector3 = Vector3.ZERO
   direction.x = Input.get_action_strength("move_right") - Input.get_action_strength("move_left")
-  direction.z = Input.get_action_strength("move_back") - Input.get_action_strength("move_forward")
+  direction.z = Input.get_action_strength("move_backward") - Input.get_action_strength("move_forward")
 
   var strength: float = min(direction.length(), 1.0)
 

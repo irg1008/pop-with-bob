@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://defdm2qdva75q"]
 
-[ext_resource type="PackedScene" uid="uid://bicorb7we351t" path="res://art/mob.glb" id="1_dy6sc"]
+[ext_resource type="PackedScene" uid="uid://bicorb7we351t" path="res://assets/art/mob.glb" id="1_dy6sc"]
 [ext_resource type="Script" uid="uid://c5wp01kn08qxe" path="res://mob.gd" id="1_nokgg"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_nokgg"]
