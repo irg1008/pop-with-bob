@@ -72,13 +72,15 @@ func calculate_bob_amount(delta: float) -> float:
 	var speed: float = Vector2(velocity.x, velocity.z).length()
 
 	if speed > 0.1 and player.is_on_floor():
-		# Cycle faster when higher speed, smoothed
+		# Cycle faster with higher speed
 		_bob_step_timer += delta * bob_frequency * speed
 		_bob_step_timer = fmod(_bob_step_timer, 1)
 	else:
 		_bob_step_timer = 0.0
 
 	var bob_sin: float = sin(_bob_step_timer * TAU) * bob_amplitude # Smoother sine wave
+
+	# More headbob with higher speed
 	return bob_sin * speed
 
 
