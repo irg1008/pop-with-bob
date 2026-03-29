@@ -7,8 +7,6 @@ enum CameraDirection {
 }
 
 
-@export var debug: bool = false
-
 @export_category("References")
 @export var player_controller: PlayerController
 @export var mouse_capture_component: MouseCaptureComponent
