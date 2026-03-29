@@ -33,7 +33,7 @@ var _speed: float = 0.0
 var _sprint_modifier: float = 0.0
 var _crouch_modifier: float = 0.0
 
-var current_fall_speed: float = 0.0
+var _current_fall_speed: float = 0.0
 
 
 func _physics_process(delta: float) -> void:
@@ -87,10 +87,10 @@ func jump() -> void:
 
 
 func update_fall_speed() -> void:
-	current_fall_speed = velocity.y
+	_current_fall_speed = velocity.y
 
 
 func check_fall_speed() -> bool:
-	var is_falling: bool = current_fall_speed < fall_velocity_threhold
-	current_fall_speed = 0.0
+	var is_falling: bool = _current_fall_speed < fall_velocity_threhold
+	_current_fall_speed = 0.0
 	return is_falling

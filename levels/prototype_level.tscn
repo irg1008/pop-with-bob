@@ -69,6 +69,42 @@ mesh = SubResource("CylinderMesh_htrvu")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Ceiling2" unique_id=969569461]
 shape = SubResource("CylinderShape3D_ycx7s")
 
+[node name="Ceiling3" type="StaticBody3D" parent="Geometry" unique_id=293479407]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.7674108, 0.59869254, 1.6525033)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Ceiling3" unique_id=662910737]
+mesh = SubResource("CylinderMesh_htrvu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Ceiling3" unique_id=450355418]
+shape = SubResource("CylinderShape3D_ycx7s")
+
+[node name="Ceiling4" type="StaticBody3D" parent="Geometry" unique_id=1083197160]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.0642724, 0.2723974, 1.8165851)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Ceiling4" unique_id=722775311]
+mesh = SubResource("CylinderMesh_htrvu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Ceiling4" unique_id=56015114]
+shape = SubResource("CylinderShape3D_ycx7s")
+
+[node name="Ceiling5" type="StaticBody3D" parent="Geometry" unique_id=2103189557]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.015191078, -0.012282252, 2.1237137)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Ceiling5" unique_id=448047998]
+mesh = SubResource("CylinderMesh_htrvu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Ceiling5" unique_id=965941840]
+shape = SubResource("CylinderShape3D_ycx7s")
+
+[node name="Ceiling6" type="StaticBody3D" parent="Geometry" unique_id=1458949281]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.6129234, -0.20182312, 2.5129738)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/Ceiling6" unique_id=1785789029]
+mesh = SubResource("CylinderMesh_htrvu")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Ceiling6" unique_id=406579656]
+shape = SubResource("CylinderShape3D_ycx7s")
+
 [node name="PlayerController" parent="." unique_id=2123959411 instance=ExtResource("1_ycx7s")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9783354, 0)
 

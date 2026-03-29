@@ -32,7 +32,7 @@ default_font_size = 12
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ggkdx"]
 
-[node name="PlayerController" type="CharacterBody3D" unique_id=2123959411 node_paths=PackedStringArray("camera", "camera_effects", "state_chart", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast")]
+[node name="PlayerController" type="CharacterBody3D" unique_id=1792353029 node_paths=PackedStringArray("camera", "camera_effects", "state_chart", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast")]
 script = ExtResource("1_0cfoe")
 debug = true
 camera = NodePath("CameraController")
@@ -75,6 +75,7 @@ player_controller = NodePath("..")
 mouse_capture_component = NodePath("../Components/MouseCapture")
 
 [node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=821594060 node_paths=PackedStringArray("player")]
+current = true
 script = ExtResource("4_cv1cy")
 debug = true
 player = NodePath("../..")
