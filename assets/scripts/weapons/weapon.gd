@@ -22,3 +22,6 @@ class_name Weapon extends Resource
 @export_group("Projectile")
 @export var projectile_speed: float = 50.0
 @export var projectile_scene: PackedScene
+
+
+const MIN_FIRE_RATE: float = 0.1

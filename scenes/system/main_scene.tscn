@@ -17,7 +17,7 @@
 [node name="GameManager" type="Node" parent="Managers" unique_id=1758947230]
 script = ExtResource("1_qoi2i")
 
-[node name="WeaponManager" type="Node" parent="Managers" unique_id=75217681 node_paths=PackedStringArray("player") groups=["player"]]
+[node name="WeaponManager" type="Node" parent="Managers" unique_id=75217681 node_paths=PackedStringArray("player")]
 script = ExtResource("2_bvk2m")
 player = NodePath("../../CurrentLevel/PlayerController")
 weapons = Dictionary[int, ExtResource("3_6aore")]({
