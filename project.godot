@@ -54,6 +54,10 @@ folder_colors={
 
 import/blender/enabled=false
 
+[global_group]
+
+player=""
+
 [input]
 
 move_left={

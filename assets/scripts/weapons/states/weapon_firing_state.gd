@@ -6,7 +6,7 @@ func _on_firing_state_entered() -> void:
 
 
 func _on_firing_state_physics_processing(_delta: float) -> void:
-	if weapon_controller.current_ammo <= 0:
+	if not weapon_controller.has_ammo():
 		weapon_controller.weapon_state_chart.send_event("onEmpty")
 		return
 

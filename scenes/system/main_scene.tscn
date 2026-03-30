@@ -17,11 +17,12 @@
 [node name="GameManager" type="Node" parent="Managers" unique_id=1758947230]
 script = ExtResource("1_qoi2i")
 
-[node name="WeaponManager" type="Node" parent="Managers" unique_id=75217681]
+[node name="WeaponManager" type="Node" parent="Managers" unique_id=75217681 node_paths=PackedStringArray("player") groups=["player"]]
 script = ExtResource("2_bvk2m")
+player = NodePath("../../CurrentLevel/PlayerController")
 weapons = Dictionary[int, ExtResource("3_6aore")]({
-0: ExtResource("4_i0w0i"),
-1: ExtResource("5_i0w0i")
+1: ExtResource("4_i0w0i"),
+2: ExtResource("5_i0w0i")
 })
 
 [node name="CurrentLevel" type="Node3D" parent="." unique_id=384735742]
@@ -37,5 +38,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, 0)
 [node name="WorldEnvironment" parent="." unique_id=669383791 instance=ExtResource("9_tpgha")]
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=1261902345]
-transform = Transform3D(1, 0, 0, 0, -0.50000006, 0.8660254, 0, -0.8660254, -0.50000006, 0, 0, 0)
+transform = Transform3D(0.8660254, 0.4330127, 0.25000003, 0, -0.50000006, 0.8660254, 0.5, -0.75, -0.43301275, 0, 0, 0)
 shadow_enabled = true

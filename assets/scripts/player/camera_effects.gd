@@ -1,6 +1,5 @@
 class_name CameraEffects extends Camera3D
 
-@export var debug: bool = false
 
 @export_category("References")
 @export var player_controller: PlayerController
@@ -180,26 +179,3 @@ func add_screen_shake(amount: float, seconds: float) -> void:
 
 	_screen_shake_tween = create_tween()
 	_screen_shake_tween.tween_method(tween_method, 0.0, 1.0, seconds).set_ease(Tween.EASE_OUT)
-
-
-func _unhandled_input(event: InputEvent) -> void:
-	if debug and event is InputEventKey and event.pressed:
-		match event.keycode:
-			KEY_1:
-				add_damage_kick(global_transform.origin + global_transform.basis.z)
-			KEY_2:
-				add_damage_kick(global_transform.origin - global_transform.basis.z)
-			KEY_3:
-				add_damage_kick(global_transform.origin + global_transform.basis.x)
-			KEY_4:
-				add_damage_kick(global_transform.origin - global_transform.basis.x)
-			KEY_5:
-				add_damage_kick(global_transform.origin + global_transform.basis.y)
-			KEY_6:
-				add_damage_kick(global_transform.origin - global_transform.basis.y)
-			KEY_F:
-				add_fall_kick()
-			KEY_J:
-				add_weapon_kick(2.0, 1.0, 1.0)
-			KEY_K:
-				add_screen_shake(0.2, 5)

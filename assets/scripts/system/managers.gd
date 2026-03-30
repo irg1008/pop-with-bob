@@ -7,5 +7,6 @@ var weapon_manager: WeaponManager
 func _ready() -> void:
 	find_managers.call_deferred()
 
+
 func find_managers() -> void:
-	weapon_manager = get_tree().get_first_node_in_group("weapon_manager")
+	weapon_manager = get_tree().get_first_node_in_group(WeaponManager.WEAPON_MANAGER_GROUP)

@@ -1,9 +1,6 @@
 extends WeaponState
 
 
-func _on_weapon_empty_state_entered() -> void:
-	print("Weapon is empty!")
-
-
 func _on_empty_state_processing(_delta: float) -> void:
-	pass
+	if weapon_controller.has_ammo():
+		weapon_controller.weapon_state_chart.send_event("onIdle")

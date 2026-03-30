@@ -6,21 +6,14 @@ class_name WeaponController extends Node
 @export var weapon_mode_parent: Node3D
 @export var weapon_state_chart: StateChart
 
-@export_category("Weapon Settings")
-@export var current_weapon: Weapon
-
+var current_weapon_data: WeaponData
+var current_weapon: Weapon:
+	get: return current_weapon_data.weapon
 
 var current_weapon_model: Node3D
-var current_ammo: int
 
 var can_fire_next: bool = true
 var fire_rate_timer: float = 0.0
-
-
-func _ready() -> void:
-	if current_weapon:
-		spawn_weapon_model()
-		current_ammo = current_weapon.max_ammo
 
 
 func _process(delta: float) -> void:
@@ -39,16 +32,24 @@ func spawn_weapon_model() -> void:
 		current_weapon_model.position = current_weapon.weapon_position
 
 
+func switch_weapon(weapon_data: WeaponData) -> void:
+	current_weapon_data = weapon_data
+	spawn_weapon_model()
+
+
+func has_ammo() -> bool:
+	return current_weapon_data.ammo > 0
+
+
 func can_fire() -> bool:
-	return current_ammo > 0 and can_fire_next
+	return has_ammo() and can_fire_next
 
 
 func fire_weapon() -> void:
 	if not can_fire():
 		return
 
-	current_ammo -= 1
-	print("Fired weapon! Remaining ammo: %d" % current_ammo)
+	current_weapon_data.ammo -= 1
 
 	# Start fire rate cooldown
 	can_fire_next = false
@@ -82,10 +83,7 @@ func _perform_hitscan() -> void:
 		if not result:
 			return
 
-		var hit_object: Object = result.collider
 		var hit_position: Vector3 = result.position
-
-		print("Hit: ", hit_object.name, " at position: ", result.position)
 		WeaponHelpers.spawn_impact_marker(get_tree(), hit_position)
 
 
