@@ -6,7 +6,8 @@ class_name WeaponController extends Node
 @export var weapon_mode_parent: Node3D
 @export var weapon_state_chart: StateChart
 
-var weapon_data: WeaponData
+var weapon_data: WeaponData:
+	get: return Managers.weapon_manager.get_current_weapon()
 var weapon: Weapon:
 	get: return weapon_data.weapon
 
@@ -30,11 +31,6 @@ func spawn_weapon_model() -> void:
 		weapon_model = weapon.weapon_model.instantiate()
 		weapon_mode_parent.add_child(weapon_model)
 		weapon_model.position = weapon.weapon_position
-
-
-func switch_weapon(new_weapon_data: WeaponData) -> void:
-	weapon_data = new_weapon_data
-	spawn_weapon_model()
 
 
 func has_ammo() -> bool:
