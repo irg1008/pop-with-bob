@@ -1,4 +1,4 @@
-class_name PlayerController extends CharacterBody3D
+class_name PlayerController extends StairsCharacter3D
 
 
 @export_category("References")
@@ -9,7 +9,6 @@ class_name PlayerController extends CharacterBody3D
 @export var crouching_collision: CollisionShape3D
 @export var crouch_check: ShapeCast3D
 @export var interaction_raycast: RayCast3D
-@export var step_handler: StepHandlerComponent
 
 @export_category("Movement Settings")
 @export_group("Easing")
@@ -23,6 +22,9 @@ class_name PlayerController extends CharacterBody3D
 @export_category("Jump Settings")
 @export var jump_velocity: float = 5.0
 @export var fall_velocity_threhold: float = -5.0
+
+
+const MIN_STEP_HEIGHT: float = 0.1
 
 
 var _input_dir: Vector2 = Vector2.ZERO
@@ -58,10 +60,16 @@ func _physics_process(delta: float) -> void:
 	_movement_velocity = Vector3(current_velocity.x, velocity.y, current_velocity.y)
 	velocity = _movement_velocity
 
-	move_and_slide()
+	var previous_height: float = position.y
 
-	if is_on_floor():
-		step_handler.handle_step_climbing()
+	move_and_stair_step()
+	
+	var height_change: float = position.y - previous_height
+	var step_height: float = step_height_up if height_change > 0 else step_height_down
+	var is_step: bool = abs(height_change) > MIN_STEP_HEIGHT and abs(height_change) <= step_height;
+	
+	if is_on_floor() and is_step:
+		camera.smooth_step(height_change)
 
 
 func get_input_direction() -> Vector2:
@@ -84,12 +92,14 @@ func crouch() -> void:
 	_crouch_modifier = crouch_speed
 	standing_collision.disabled = true
 	crouching_collision.disabled = false
+	collider = crouching_collision.get_path()
 
 
 func stand() -> void:
 	_crouch_modifier = 0.0
 	standing_collision.disabled = false
 	crouching_collision.disabled = true
+	collider = standing_collision.get_path()
 
 
 func jump() -> void:
