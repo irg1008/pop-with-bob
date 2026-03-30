@@ -47,14 +47,14 @@ func create_input_actions() -> void:
 		InputMap.action_add_event(action_name, key_event)
 
 
-func switch_to_slot(slot: int) -> void:
-		if slot in weapons:
-			current_slot = slot
-			player.weapon_controller.switch_weapon(weapons[slot])
-
-
 func initialize_starting_weapon() -> void:
 	for slot: int in range(1, 10):
 		if slot in weapons and weapons[slot].unlocked:
 			switch_to_slot(slot)
 			return
+
+
+func switch_to_slot(slot: int) -> void:
+		if slot in weapons:
+			current_slot = slot
+			player.weapon_controller.switch_weapon(weapons[slot])

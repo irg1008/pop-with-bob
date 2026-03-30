@@ -6,11 +6,11 @@ class_name WeaponController extends Node
 @export var weapon_mode_parent: Node3D
 @export var weapon_state_chart: StateChart
 
-var current_weapon_data: WeaponData
-var current_weapon: Weapon:
-	get: return current_weapon_data.weapon
+var weapon_data: WeaponData
+var weapon: Weapon:
+	get: return weapon_data.weapon
 
-var current_weapon_model: Node3D
+var weapon_model: Node3D
 
 var can_fire_next: bool = true
 var fire_rate_timer: float = 0.0
@@ -23,22 +23,22 @@ func _process(delta: float) -> void:
 
 
 func spawn_weapon_model() -> void:
-	if current_weapon_model:
-		current_weapon_model.queue_free()
+	if weapon_model:
+		weapon_model.queue_free()
 
-	if current_weapon.weapon_model:
-		current_weapon_model = current_weapon.weapon_model.instantiate()
-		weapon_mode_parent.add_child(current_weapon_model)
-		current_weapon_model.position = current_weapon.weapon_position
+	if weapon.weapon_model:
+		weapon_model = weapon.weapon_model.instantiate()
+		weapon_mode_parent.add_child(weapon_model)
+		weapon_model.position = weapon.weapon_position
 
 
-func switch_weapon(weapon_data: WeaponData) -> void:
-	current_weapon_data = weapon_data
+func switch_weapon(new_weapon_data: WeaponData) -> void:
+	weapon_data = new_weapon_data
 	spawn_weapon_model()
 
 
 func has_ammo() -> bool:
-	return current_weapon_data.ammo > 0
+	return weapon_data.ammo > 0
 
 
 func can_fire() -> bool:
@@ -49,13 +49,13 @@ func fire_weapon() -> void:
 	if not can_fire():
 		return
 
-	current_weapon_data.ammo -= 1
+	weapon_data.ammo -= 1
 
 	# Start fire rate cooldown
 	can_fire_next = false
-	fire_rate_timer = 1.0 / current_weapon.fire_rate
+	fire_rate_timer = 1.0 / weapon.fire_rate
 
-	if current_weapon.is_hitscan:
+	if weapon.is_hitscan:
 		_perform_hitscan()
 	else:
 		_spawn_projectile()
@@ -70,12 +70,12 @@ func _perform_hitscan() -> void:
 	var from: Vector3 = camera.global_position
 	var forward: Vector3 = - camera.global_transform.basis.z
 
-	for i: int in current_weapon.pellet_count:
-		var accuracy_spread: Vector3 = WeaponHelpers.get_random_accuracy_spread(current_weapon)
-		var spread_angle: Vector3 = WeaponHelpers.get_random_spread_angle(current_weapon)
+	for i: int in weapon.pellet_count:
+		var accuracy_spread: Vector3 = WeaponHelpers.get_random_accuracy_spread(weapon)
+		var spread_angle: Vector3 = WeaponHelpers.get_random_spread_angle(weapon)
 
 		var direction: Vector3 = forward + spread_angle + (accuracy_spread * camera.global_transform.basis)
-		var to: Vector3 = from + direction * current_weapon.hitscan_range
+		var to: Vector3 = from + direction * weapon.hitscan_range
 
 		var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(from, to)
 		var result: Dictionary = space_state.intersect_ray(query)
@@ -92,17 +92,17 @@ func _spawn_projectile() -> void:
 		push_error("Missing camera for projectile firing.")
 		return
 
-	if not current_weapon.projectile_scene:
+	if not weapon.projectile_scene:
 		push_error("Missing projectile scene assigned.")
 		return
 
-	var projectile: Projectile = current_weapon.projectile_scene.instantiate()
+	var projectile: Projectile = weapon.projectile_scene.instantiate()
 	get_tree().current_scene.add_child(projectile)
 	projectile.global_transform = camera.global_transform
 
 	var forward: Vector3 = - camera.global_transform.basis.z
-	var spread_direction: Vector3 = WeaponHelpers.get_random_accuracy_spread(current_weapon)
+	var spread_direction: Vector3 = WeaponHelpers.get_random_accuracy_spread(weapon)
 	var direction: Vector3 = forward + spread_direction * camera.global_transform.basis
 
-	var velocity: Vector3 = direction * current_weapon.projectile_speed
-	projectile.setup(velocity, current_weapon.damage)
+	var velocity: Vector3 = direction * weapon.projectile_speed
+	projectile.setup(velocity, weapon.damage)

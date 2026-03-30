@@ -10,8 +10,8 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if weapon_controller:
-		weapon_controller.weapon_state_chart.set_expression_property("Weapon", weapon_controller.current_weapon.weapon_name)
-		weapon_controller.weapon_state_chart.set_expression_property("Weapon ammo", weapon_controller.current_weapon_data.ammo)
+		weapon_controller.weapon_state_chart.set_expression_property("Weapon", weapon_controller.weapon.weapon_name)
+		weapon_controller.weapon_state_chart.set_expression_property("Weapon ammo", weapon_controller.weapon_data.ammo)
 
 
 func setup_children_controller() -> void:

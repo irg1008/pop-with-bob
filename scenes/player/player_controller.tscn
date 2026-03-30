@@ -16,7 +16,6 @@
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="8_2k8ub"]
 [ext_resource type="Script" uid="uid://6f5iw8r4kmje" path="res://assets/scripts/weapons/weapon_controller.gd" id="8_3nb03"]
 [ext_resource type="Script" uid="uid://d4ge8desbpn21" path="res://assets/scripts/player/states/walking_state.gd" id="8_3y0ka"]
-[ext_resource type="Resource" uid="uid://ixyv763l85hl" path="res://assets/resources/weapons/pistol.tres" id="9_aoka8"]
 [ext_resource type="Script" uid="uid://b6vidkid3cnu5" path="res://assets/scripts/player/states/sprinting_state.gd" id="9_m6lbn"]
 [ext_resource type="Script" uid="uid://cprcdclmxpe7n" path="res://assets/scripts/player/components/state_machine.gd" id="9_rkuj1"]
 [ext_resource type="Script" uid="uid://cm0n86a3xqsq4" path="res://assets/scripts/player/states/standing_state.gd" id="10_rgtnl"]
@@ -91,7 +90,6 @@ mouse_capture_component = NodePath("../Components/MouseCapture")
 [node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=821594060 node_paths=PackedStringArray("player_controller")]
 current = true
 script = ExtResource("4_cv1cy")
-debug = true
 player_controller = NodePath("../..")
 
 [node name="InteractionRayCast" type="RayCast3D" parent="CameraController/Camera3D" unique_id=267050600]
@@ -235,7 +233,6 @@ script = ExtResource("8_3nb03")
 camera = NodePath("../CameraController/Camera3D")
 weapon_mode_parent = NodePath("../CameraController/Camera3D")
 weapon_state_chart = NodePath("../WeaponComponents/WeaponStateChart")
-current_weapon = ExtResource("9_aoka8")
 
 [node name="WeaponComponents" type="Node" parent="." unique_id=282010181]
 

@@ -166,9 +166,9 @@ func update_screen_shake(progress: float, amount: float) -> void:
 	amount = remap(amount, 0.0, 1.0, MIN_SCREEN_SHAKE, MAX_SCREEN_SHAKE)
 
 	# We use (1 - progress) to invert tween and have strong shake at the start
-	var current_shake_amount: float = amount * (1.0 - progress)
-	h_offset = randf_range(-current_shake_amount, current_shake_amount)
-	v_offset = randf_range(-current_shake_amount, current_shake_amount)
+	var shake_amount: float = amount * (1.0 - progress)
+	h_offset = randf_range(-shake_amount, shake_amount)
+	v_offset = randf_range(-shake_amount, shake_amount)
 
 
 func add_screen_shake(amount: float, seconds: float) -> void:
