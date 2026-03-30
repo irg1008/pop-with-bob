@@ -36,7 +36,7 @@ var offset_height: float = 0.0
 func _ready() -> void:
 	_rotation = player_controller.rotation
 	offset_height = DEFAULT_HEIGHT
-	
+
 
 func _process(delta: float) -> void:
 	update_camera_rotation(mouse_capture_component.mouse_input)
