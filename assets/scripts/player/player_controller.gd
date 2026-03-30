@@ -60,13 +60,13 @@ func _physics_process(delta: float) -> void:
 	_movement_velocity = Vector3(current_velocity.x, velocity.y, current_velocity.y)
 	velocity = _movement_velocity
 
-	var previous_height = position.y
+	var previous_height: float = position.y
 
 	move_and_stair_step()
 	
 	var height_change: float = position.y - previous_height
-	var step_height = step_height_up if height_change > 0 else step_height_down
-	var is_step = height_change > MIN_STEP_HEIGHT and height_change <= step_height;
+	var step_height: float = step_height_up if height_change > 0 else step_height_down
+	var is_step: bool = abs(height_change) > MIN_STEP_HEIGHT and abs(height_change) <= step_height;
 	
 	if is_on_floor() and is_step:
 		camera.smooth_step(height_change)
