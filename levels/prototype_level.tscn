@@ -106,6 +106,12 @@ size = Vector3(1.1, 0.3, 1.3)
 [sub_resource type="BoxShape3D" id="BoxShape3D_triangle_star"]
 size = Vector3(1.1, 0.3, 1.3)
 
+[sub_resource type="BoxMesh" id="BoxMesh_shooting_wall"]
+size = Vector3(20, 15, 0.4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_shooting_wall"]
+size = Vector3(20, 15, 0.4)
+
 [node name="PrototypeLevel" type="Node3D" unique_id=1816823985]
 
 [node name="Geometry" type="Node3D" parent="." unique_id=1861314319]
@@ -119,6 +125,16 @@ mesh = SubResource("PlaneMesh_floor")
 shape = SubResource("WorldBoundaryShape3D_floor")
 
 [node name="StairTests" type="Node3D" parent="Geometry" unique_id=389840647]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 0)
+
+[node name="ShootingWall" type="StaticBody3D" parent="Geometry"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, -22)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/ShootingWall"]
+mesh = SubResource("BoxMesh_shooting_wall")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/ShootingWall"]
+shape = SubResource("BoxShape3D_shooting_wall")
 
 [node name="TypicalStairs" type="Node3D" parent="Geometry/StairTests" unique_id=78300833]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 0, 9.5)
@@ -642,379 +658,379 @@ mesh = SubResource("BoxMesh_single_height_test")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/SingleHeightTests/Height_0_75" unique_id=112221069]
 shape = SubResource("BoxShape3D_single_height_test")
 
-[node name="RampTests" type="Node3D" parent="Geometry/StairTests"]
+[node name="RampTests" type="Node3D" parent="Geometry/StairTests" unique_id=1949275101]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2.5)
 
-[node name="RampMildUp" type="StaticBody3D" parent="Geometry/StairTests/RampTests"]
+[node name="RampMildUp" type="StaticBody3D" parent="Geometry/StairTests/RampTests" unique_id=1135678472]
 transform = Transform3D(1, 0, 0, 0, 0.99026805, 0.1391731, 0, -0.1391731, 0.99026805, -8, 0.3, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/RampTests/RampMildUp"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/RampTests/RampMildUp" unique_id=677868542]
 mesh = SubResource("BoxMesh_ramp_test")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/RampTests/RampMildUp"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/RampTests/RampMildUp" unique_id=1264246009]
 shape = SubResource("BoxShape3D_ramp_test")
 
-[node name="RampMediumUp" type="StaticBody3D" parent="Geometry/StairTests/RampTests"]
+[node name="RampMediumUp" type="StaticBody3D" parent="Geometry/StairTests/RampTests" unique_id=893280910]
 transform = Transform3D(1, 0, 0, 0, 0.95992494, 0.27563736, 0, -0.27563736, 0.95992494, -4, 0.58, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/RampTests/RampMediumUp"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/RampTests/RampMediumUp" unique_id=256224642]
 mesh = SubResource("BoxMesh_ramp_test")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/RampTests/RampMediumUp"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/RampTests/RampMediumUp" unique_id=1031230552]
 shape = SubResource("BoxShape3D_ramp_test")
 
-[node name="RampSteepUp" type="StaticBody3D" parent="Geometry/StairTests/RampTests"]
+[node name="RampSteepUp" type="StaticBody3D" parent="Geometry/StairTests/RampTests" unique_id=674863052]
 transform = Transform3D(1, 0, 0, 0, 0.9135454, 0.40673664, 0, -0.40673664, 0.9135454, 0, 0.86, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/RampTests/RampSteepUp"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/RampTests/RampSteepUp" unique_id=1051363619]
 mesh = SubResource("BoxMesh_ramp_test")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/RampTests/RampSteepUp"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/RampTests/RampSteepUp" unique_id=1270764039]
 shape = SubResource("BoxShape3D_ramp_test")
 
-[node name="RampMildDown" type="StaticBody3D" parent="Geometry/StairTests/RampTests"]
+[node name="RampMildDown" type="StaticBody3D" parent="Geometry/StairTests/RampTests" unique_id=1050721452]
 transform = Transform3D(1, 0, 0, 0, 0.99026805, -0.1391731, 0, 0.1391731, 0.99026805, 4, 0.3, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/RampTests/RampMildDown"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/RampTests/RampMildDown" unique_id=317674354]
 mesh = SubResource("BoxMesh_ramp_test")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/RampTests/RampMildDown"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/RampTests/RampMildDown" unique_id=1437437487]
 shape = SubResource("BoxShape3D_ramp_test")
 
-[node name="RampSteepDown" type="StaticBody3D" parent="Geometry/StairTests/RampTests"]
+[node name="RampSteepDown" type="StaticBody3D" parent="Geometry/StairTests/RampTests" unique_id=229094913]
 transform = Transform3D(1, 0, 0, 0, 0.9396926, -0.34202015, 0, 0.34202015, 0.9396926, 8, 0.72, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/RampTests/RampSteepDown"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/RampTests/RampSteepDown" unique_id=467735336]
 mesh = SubResource("BoxMesh_ramp_test")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/RampTests/RampSteepDown"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/RampTests/RampSteepDown" unique_id=709856701]
 shape = SubResource("BoxShape3D_ramp_test")
 
-[node name="WallStairsFlat" type="Node3D" parent="Geometry/StairTests"]
+[node name="WallStairsFlat" type="Node3D" parent="Geometry/StairTests" unique_id=373564212]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 3.5)
 
-[node name="LeftWall" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat"]
+[node name="LeftWall" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat" unique_id=705716055]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05, 0.6, 1.2)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/LeftWall"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/LeftWall" unique_id=1005461407]
 mesh = SubResource("BoxMesh_wall_corridor")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/LeftWall"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/LeftWall" unique_id=577378642]
 shape = SubResource("BoxShape3D_wall_corridor")
 
-[node name="RightWall" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat"]
+[node name="RightWall" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat" unique_id=606655277]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.05, 0.6, 1.2)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/RightWall"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/RightWall" unique_id=1623649086]
 mesh = SubResource("BoxMesh_wall_corridor")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/RightWall"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/RightWall" unique_id=1291571130]
 shape = SubResource("BoxShape3D_wall_corridor")
 
-[node name="Step01" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat"]
+[node name="Step01" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat" unique_id=1589243472]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/Step01"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/Step01" unique_id=807107546]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/Step01"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/Step01" unique_id=1583353824]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Step02" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat"]
+[node name="Step02" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat" unique_id=785437667]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0.46)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/Step02"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/Step02" unique_id=211578516]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/Step02"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/Step02" unique_id=1598135324]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Step03" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat"]
+[node name="Step03" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat" unique_id=489376082]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0.92)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/Step03"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/Step03" unique_id=1196752347]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/Step03"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/Step03" unique_id=1884343834]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Step04" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat"]
+[node name="Step04" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat" unique_id=1517427543]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56, 1.38)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/Step04"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/Step04" unique_id=978911886]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/Step04"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/Step04" unique_id=1143957393]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Step05" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat"]
+[node name="Step05" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat" unique_id=1334215515]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 1.84)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/Step05"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/Step05" unique_id=1056283104]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/Step05"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/Step05" unique_id=694496462]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Step06" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat"]
+[node name="Step06" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat" unique_id=1295972033]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88, 2.3)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/Step06"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/Step06" unique_id=2142541317]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/Step06"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/Step06" unique_id=600744364]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Landing" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat"]
+[node name="Landing" type="StaticBody3D" parent="Geometry/StairTests/WallStairsFlat" unique_id=77204841]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.88, 2.96)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/Landing"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsFlat/Landing" unique_id=774703729]
 mesh = SubResource("BoxMesh_wall_landing")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/Landing"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsFlat/Landing" unique_id=1732135489]
 shape = SubResource("BoxShape3D_wall_landing")
 
-[node name="WallStairsInclined" type="Node3D" parent="Geometry/StairTests"]
+[node name="WallStairsInclined" type="Node3D" parent="Geometry/StairTests" unique_id=585677209]
 transform = Transform3D(1, 0, 0, 0, 0.9781476, 0.2079117, 0, -0.2079117, 0.9781476, -6.2, 0, 3.5)
 
-[node name="LeftWall" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined"]
+[node name="LeftWall" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined" unique_id=1958189491]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05, 0.6, 1.2)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/LeftWall"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/LeftWall" unique_id=315029219]
 mesh = SubResource("BoxMesh_wall_corridor")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/LeftWall"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/LeftWall" unique_id=1210183002]
 shape = SubResource("BoxShape3D_wall_corridor")
 
-[node name="RightWall" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined"]
+[node name="RightWall" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined" unique_id=2050982024]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.05, 0.6, 1.2)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/RightWall"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/RightWall" unique_id=1137364698]
 mesh = SubResource("BoxMesh_wall_corridor")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/RightWall"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/RightWall" unique_id=2122353233]
 shape = SubResource("BoxShape3D_wall_corridor")
 
-[node name="Step01" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined"]
+[node name="Step01" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined" unique_id=594041597]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/Step01"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/Step01" unique_id=1735860624]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/Step01"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/Step01" unique_id=1734181892]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Step02" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined"]
+[node name="Step02" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined" unique_id=31745475]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0.46)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/Step02"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/Step02" unique_id=712498782]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/Step02"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/Step02" unique_id=399600381]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Step03" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined"]
+[node name="Step03" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined" unique_id=1607771971]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0.92)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/Step03"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/Step03" unique_id=1303745817]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/Step03"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/Step03" unique_id=1192407185]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Step04" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined"]
+[node name="Step04" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined" unique_id=623876926]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56, 1.38)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/Step04"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/Step04" unique_id=986889207]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/Step04"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/Step04" unique_id=534853490]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Step05" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined"]
+[node name="Step05" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined" unique_id=430841884]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 1.84)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/Step05"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/Step05" unique_id=1802513138]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/Step05"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/Step05" unique_id=1333031456]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Landing" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined"]
+[node name="Landing" type="StaticBody3D" parent="Geometry/StairTests/WallStairsInclined" unique_id=1938225898]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 2.5)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/Landing"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsInclined/Landing" unique_id=1880673176]
 mesh = SubResource("BoxMesh_wall_landing")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/Landing"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsInclined/Landing" unique_id=106978526]
 shape = SubResource("BoxShape3D_wall_landing")
 
-[node name="WallStairsDeclined" type="Node3D" parent="Geometry/StairTests"]
+[node name="WallStairsDeclined" type="Node3D" parent="Geometry/StairTests" unique_id=1169369403]
 transform = Transform3D(1, 0, 0, 0, 0.9781476, -0.2079117, 0, 0.2079117, 0.9781476, 6.2, 0, 3.5)
 
-[node name="LeftWall" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined"]
+[node name="LeftWall" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined" unique_id=957783605]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.05, 0.6, 1.2)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/LeftWall"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/LeftWall" unique_id=1125982989]
 mesh = SubResource("BoxMesh_wall_corridor")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/LeftWall"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/LeftWall" unique_id=1324328192]
 shape = SubResource("BoxShape3D_wall_corridor")
 
-[node name="RightWall" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined"]
+[node name="RightWall" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined" unique_id=2129977260]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.05, 0.6, 1.2)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/RightWall"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/RightWall" unique_id=631391646]
 mesh = SubResource("BoxMesh_wall_corridor")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/RightWall"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/RightWall" unique_id=99750537]
 shape = SubResource("BoxShape3D_wall_corridor")
 
-[node name="Step01" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined"]
+[node name="Step01" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined" unique_id=2050777168]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.08, 0)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/Step01"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/Step01" unique_id=1967689642]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/Step01"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/Step01" unique_id=1815572055]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Step02" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined"]
+[node name="Step02" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined" unique_id=1600964068]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.24, 0.46)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/Step02"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/Step02" unique_id=561927102]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/Step02"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/Step02" unique_id=476767177]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Step03" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined"]
+[node name="Step03" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined" unique_id=1855520384]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4, 0.92)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/Step03"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/Step03" unique_id=1073145126]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/Step03"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/Step03" unique_id=482623623]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Step04" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined"]
+[node name="Step04" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined" unique_id=285859055]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56, 1.38)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/Step04"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/Step04" unique_id=120566457]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/Step04"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/Step04" unique_id=1999684917]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Step05" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined"]
+[node name="Step05" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined" unique_id=297177741]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 1.84)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/Step05"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/Step05" unique_id=760096956]
 mesh = SubResource("BoxMesh_wall_step")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/Step05"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/Step05" unique_id=812045388]
 shape = SubResource("BoxShape3D_wall_step")
 
-[node name="Landing" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined"]
+[node name="Landing" type="StaticBody3D" parent="Geometry/StairTests/WallStairsDeclined" unique_id=1796216679]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.72, 2.5)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/Landing"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/WallStairsDeclined/Landing" unique_id=453824521]
 mesh = SubResource("BoxMesh_wall_landing")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/Landing"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/WallStairsDeclined/Landing" unique_id=1167469304]
 shape = SubResource("BoxShape3D_wall_landing")
 
-[node name="TriangleCircleStar" type="Node3D" parent="Geometry/StairTests"]
+[node name="TriangleCircleStar" type="Node3D" parent="Geometry/StairTests" unique_id=480030641]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -12.5)
 
-[node name="Triangle01" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar"]
+[node name="Triangle01" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar" unique_id=596582678]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 3.8)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle01"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle01" unique_id=1472329110]
 mesh = SubResource("PrismMesh_triangle_star")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle01"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle01" unique_id=291995760]
 shape = SubResource("BoxShape3D_triangle_star")
 
-[node name="Triangle02" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar"]
+[node name="Triangle02" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar" unique_id=1102986847]
 transform = Transform3D(0.809017, 0, -0.58778524, 0, 1, 0, 0.58778524, 0, 0.809017, 1.29, 0.15, 1.78)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle02"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle02" unique_id=1013180697]
 mesh = SubResource("PrismMesh_triangle_star")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle02"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle02" unique_id=932471116]
 shape = SubResource("BoxShape3D_triangle_star")
 
-[node name="Triangle03" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar"]
+[node name="Triangle03" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar" unique_id=881857743]
 transform = Transform3D(0.309017, 0, -0.95105654, 0, 1, 0, 0.95105654, 0, 0.309017, 3.61, 0.15, 1.17)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle03"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle03" unique_id=1787064216]
 mesh = SubResource("PrismMesh_triangle_star")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle03"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle03" unique_id=645314679]
 shape = SubResource("BoxShape3D_triangle_star")
 
-[node name="Triangle04" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar"]
+[node name="Triangle04" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar" unique_id=1087998273]
 transform = Transform3D(-0.309017, 0, -0.95105654, 0, 1, 0, 0.95105654, 0, -0.309017, 2.09, 0.15, -0.68)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle04"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle04" unique_id=39028000]
 mesh = SubResource("PrismMesh_triangle_star")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle04"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle04" unique_id=2123524259]
 shape = SubResource("BoxShape3D_triangle_star")
 
-[node name="Triangle05" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar"]
+[node name="Triangle05" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar" unique_id=1898968245]
 transform = Transform3D(-0.809017, 0, -0.58778524, 0, 1, 0, 0.58778524, 0, -0.809017, 2.23, 0.15, -3.07)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle05"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle05" unique_id=1541346914]
 mesh = SubResource("PrismMesh_triangle_star")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle05"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle05" unique_id=1862211381]
 shape = SubResource("BoxShape3D_triangle_star")
 
-[node name="Triangle06" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar"]
+[node name="Triangle06" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar" unique_id=1424759852]
 transform = Transform3D(-1, 0, 0, 0, 1, 0, 0, 0, -1, 0, 0.15, -2.2)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle06"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle06" unique_id=419572494]
 mesh = SubResource("PrismMesh_triangle_star")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle06"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle06" unique_id=1750194137]
 shape = SubResource("BoxShape3D_triangle_star")
 
-[node name="Triangle07" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar"]
+[node name="Triangle07" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar" unique_id=1026807151]
 transform = Transform3D(-0.809017, 0, 0.58778524, 0, 1, 0, -0.58778524, 0, -0.809017, -2.23, 0.15, -3.07)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle07"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle07" unique_id=2135612186]
 mesh = SubResource("PrismMesh_triangle_star")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle07"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle07" unique_id=925207686]
 shape = SubResource("BoxShape3D_triangle_star")
 
-[node name="Triangle08" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar"]
+[node name="Triangle08" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar" unique_id=1482871580]
 transform = Transform3D(-0.309017, 0, 0.95105654, 0, 1, 0, -0.95105654, 0, -0.309017, -2.09, 0.15, -0.68)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle08"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle08" unique_id=4803710]
 mesh = SubResource("PrismMesh_triangle_star")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle08"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle08" unique_id=1144000381]
 shape = SubResource("BoxShape3D_triangle_star")
 
-[node name="Triangle09" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar"]
+[node name="Triangle09" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar" unique_id=917677085]
 transform = Transform3D(0.309017, 0, 0.95105654, 0, 1, 0, -0.95105654, 0, 0.309017, -3.61, 0.15, 1.17)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle09"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle09" unique_id=1428103740]
 mesh = SubResource("PrismMesh_triangle_star")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle09"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle09" unique_id=894878948]
 shape = SubResource("BoxShape3D_triangle_star")
 
-[node name="Triangle10" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar"]
+[node name="Triangle10" type="StaticBody3D" parent="Geometry/StairTests/TriangleCircleStar" unique_id=91931991]
 transform = Transform3D(0.809017, 0, 0.58778524, 0, 1, 0, -0.58778524, 0, 0.809017, -1.29, 0.15, 1.78)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle10"]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle10" unique_id=298266818]
 mesh = SubResource("PrismMesh_triangle_star")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle10"]
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle10" unique_id=1392241856]
 shape = SubResource("BoxShape3D_triangle_star")
 
 [node name="PlayerController" parent="." unique_id=2112493427 instance=ExtResource("1_ycx7s")]

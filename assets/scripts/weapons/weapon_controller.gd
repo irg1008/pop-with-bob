@@ -13,11 +13,20 @@ class_name WeaponController extends Node
 var current_weapon_model: Node3D
 var current_ammo: int
 
+var can_fire_next: bool = true
+var fire_rate_timer: float = 0.0
+
 
 func _ready() -> void:
 	if current_weapon:
 		spawn_weapon_model()
 		current_ammo = current_weapon.max_ammo
+
+
+func _process(delta: float) -> void:
+	if fire_rate_timer > 0:
+		fire_rate_timer -= delta
+		can_fire_next = fire_rate_timer <= 0
 
 
 func spawn_weapon_model() -> void:
@@ -31,18 +40,24 @@ func spawn_weapon_model() -> void:
 
 
 func can_fire() -> bool:
-	return current_ammo > 0
+	return current_ammo > 0 and can_fire_next
 
 
 func fire_weapon() -> void:
-	if can_fire():
-		current_ammo -= 1
-		print("Fired weapon! Remaining ammo: %d" % current_ammo)
+	if not can_fire():
+		return
 
-		if current_weapon.is_hitscan:
-			_perform_hitscan()
-		else:
-			_spawn_projectile()
+	current_ammo -= 1
+	print("Fired weapon! Remaining ammo: %d" % current_ammo)
+
+	# Start fire rate cooldown
+	can_fire_next = false
+	fire_rate_timer = 1.0 / current_weapon.fire_rate
+
+	if current_weapon.is_hitscan:
+		_perform_hitscan()
+	else:
+		_spawn_projectile()
 
 
 func _perform_hitscan() -> void:
@@ -51,22 +66,27 @@ func _perform_hitscan() -> void:
 		return
 
 	var space_state: PhysicsDirectSpaceState3D = camera.get_world_3d().direct_space_state
+	var from: Vector3 = camera.global_position
 	var forward: Vector3 = - camera.global_transform.basis.z
 
-	var from: Vector3 = camera.global_position
-	var to: Vector3 = from + forward * current_weapon.hitscan_range
+	for i: int in current_weapon.pellet_count:
+		var accuracy_spread: Vector3 = WeaponHelpers.get_random_accuracy_spread(current_weapon)
+		var spread_angle: Vector3 = WeaponHelpers.get_random_spread_angle(current_weapon)
 
-	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(from, to)
-	var result: Dictionary = space_state.intersect_ray(query)
+		var direction: Vector3 = forward + spread_angle + (accuracy_spread * camera.global_transform.basis)
+		var to: Vector3 = from + direction * current_weapon.hitscan_range
 
-	if not result:
-		return
+		var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(from, to)
+		var result: Dictionary = space_state.intersect_ray(query)
 
-	var hit_object: Object = result.collider
-	var hit_position: Vector3 = result.position
+		if not result:
+			return
 
-	print("Hit: ", hit_object.name, " at position: ", result.position)
-	ImpactMarker.spawn_impact_marker(get_tree(), hit_position)
+		var hit_object: Object = result.collider
+		var hit_position: Vector3 = result.position
+
+		print("Hit: ", hit_object.name, " at position: ", result.position)
+		WeaponHelpers.spawn_impact_marker(get_tree(), hit_position)
 
 
 func _spawn_projectile() -> void:
@@ -83,6 +103,8 @@ func _spawn_projectile() -> void:
 	projectile.global_transform = camera.global_transform
 
 	var forward: Vector3 = - camera.global_transform.basis.z
-	var velocity: Vector3 = forward * current_weapon.projectile_speed
+	var spread_direction: Vector3 = WeaponHelpers.get_random_accuracy_spread(current_weapon)
+	var direction: Vector3 = forward + spread_direction * camera.global_transform.basis
 
+	var velocity: Vector3 = direction * current_weapon.projectile_speed
 	projectile.setup(velocity, current_weapon.damage)
