@@ -1,23 +1,36 @@
 [gd_scene format=3 uid="uid://dm5x3qkicfjgm"]
 
-[ext_resource type="PackedScene" uid="uid://cddkm166mcxg4" path="res://scenes/environment/world_environment.tscn" id="1_1ykrc"]
-[ext_resource type="PackedScene" uid="uid://dqbkvpkvpfxws" path="res://scenes/player/player_controller.tscn" id="1_ycx7s"]
-
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_floor"]
-frequency = 0.4302
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_floor"]
+width = 2048
+height = 2048
 noise = SubResource("FastNoiseLite_floor")
+seamless = true
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_floor"]
 albedo_color = Color(0.5259835, 0.2532278, 0.0866332, 1)
 albedo_texture = SubResource("NoiseTexture2D_floor")
+uv1_scale = Vector3(16, 16, 1)
+texture_filter = 5
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_floor"]
 material = SubResource("StandardMaterial3D_floor")
 size = Vector2(60, 60)
 
 [sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_floor"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_floor_wall_ns"]
+size = Vector3(60.6, 5, 0.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor_wall_ns"]
+size = Vector3(60.6, 5, 0.6)
+
+[sub_resource type="BoxMesh" id="BoxMesh_floor_wall_ew"]
+size = Vector3(0.6, 5, 60.6)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_floor_wall_ew"]
+size = Vector3(0.6, 5, 60.6)
 
 [sub_resource type="BoxMesh" id="BoxMesh_typical_step"]
 size = Vector3(2.6, 0.18, 0.28)
@@ -124,17 +137,46 @@ mesh = SubResource("PlaneMesh_floor")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/Floor" unique_id=1792666202]
 shape = SubResource("WorldBoundaryShape3D_floor")
 
+[node name="PerimeterWalls" type="Node3D" parent="Geometry" unique_id=2061138509]
+
+[node name="NorthWall" type="StaticBody3D" parent="Geometry/PerimeterWalls" unique_id=1455020520]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, -30.3)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/PerimeterWalls/NorthWall" unique_id=1170375684]
+mesh = SubResource("BoxMesh_floor_wall_ns")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/PerimeterWalls/NorthWall" unique_id=768556007]
+shape = SubResource("BoxShape3D_floor_wall_ns")
+
+[node name="SouthWall" type="StaticBody3D" parent="Geometry/PerimeterWalls" unique_id=1103236009]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.5, 30.3)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/PerimeterWalls/SouthWall" unique_id=1528076546]
+mesh = SubResource("BoxMesh_floor_wall_ns")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/PerimeterWalls/SouthWall" unique_id=1845928725]
+shape = SubResource("BoxShape3D_floor_wall_ns")
+
+[node name="WestWall" type="StaticBody3D" parent="Geometry/PerimeterWalls" unique_id=1620502237]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -30.3, 2.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/PerimeterWalls/WestWall" unique_id=2796791]
+mesh = SubResource("BoxMesh_floor_wall_ew")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/PerimeterWalls/WestWall" unique_id=1818743936]
+shape = SubResource("BoxShape3D_floor_wall_ew")
+
+[node name="EastWall" type="StaticBody3D" parent="Geometry/PerimeterWalls" unique_id=1838822816]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 30.3, 2.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/PerimeterWalls/EastWall" unique_id=2056900440]
+mesh = SubResource("BoxMesh_floor_wall_ew")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/PerimeterWalls/EastWall" unique_id=105215034]
+shape = SubResource("BoxShape3D_floor_wall_ew")
+
 [node name="StairTests" type="Node3D" parent="Geometry" unique_id=389840647]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 14, 0, 0)
-
-[node name="ShootingWall" type="StaticBody3D" parent="Geometry"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, -22)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/ShootingWall"]
-mesh = SubResource("BoxMesh_shooting_wall")
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/ShootingWall"]
-shape = SubResource("BoxShape3D_shooting_wall")
 
 [node name="TypicalStairs" type="Node3D" parent="Geometry/StairTests" unique_id=78300833]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.5, 0, 9.5)
@@ -1033,7 +1075,11 @@ mesh = SubResource("PrismMesh_triangle_star")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/StairTests/TriangleCircleStar/Triangle10" unique_id=1392241856]
 shape = SubResource("BoxShape3D_triangle_star")
 
-[node name="PlayerController" parent="." unique_id=2112493427 instance=ExtResource("1_ycx7s")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, 0)
+[node name="ShootingWall" type="StaticBody3D" parent="Geometry" unique_id=45321064]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 7.5, -22)
 
-[node name="WorldEnvironment" parent="." unique_id=316226573 instance=ExtResource("1_1ykrc")]
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Geometry/ShootingWall" unique_id=918237338]
+mesh = SubResource("BoxMesh_shooting_wall")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/ShootingWall" unique_id=1833932592]
+shape = SubResource("BoxShape3D_shooting_wall")

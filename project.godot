@@ -22,7 +22,7 @@ config/icon="res://assets/icon.webp"
 
 [autoload]
 
-MusicPlayer="*uid://dwgxgvhij3gfx"
+Managers="*uid://1dixcc107ukd"
 
 [debug]
 

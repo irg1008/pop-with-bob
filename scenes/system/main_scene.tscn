@@ -3,6 +3,12 @@
 [ext_resource type="PackedScene" uid="uid://dm5x3qkicfjgm" path="res://levels/prototype_level.tscn" id="1_mgb3u"]
 [ext_resource type="Script" uid="uid://eiu4wtueqyog" path="res://assets/scripts/system/game_manager.gd" id="1_qoi2i"]
 [ext_resource type="PackedScene" uid="uid://cgb15jkhf02vj" path="res://scenes/system/user_interface.tscn" id="1_rtgv3"]
+[ext_resource type="Script" uid="uid://28sv1b06d4cx" path="res://assets/scripts/system/weapon_manager.gd" id="2_bvk2m"]
+[ext_resource type="Script" uid="uid://clpntl0qos535" path="res://assets/scripts/weapons/weapon_data.gd" id="3_6aore"]
+[ext_resource type="Resource" uid="uid://dpl8smtsgoidd" path="res://assets/resources/weapons/pistol_data.tres" id="4_i0w0i"]
+[ext_resource type="Resource" uid="uid://dlymwl6wv41ir" path="res://assets/resources/weapons/shotgun_data.tres" id="5_i0w0i"]
+[ext_resource type="PackedScene" uid="uid://dqbkvpkvpfxws" path="res://scenes/player/player_controller.tscn" id="7_rc0n7"]
+[ext_resource type="PackedScene" uid="uid://cddkm166mcxg4" path="res://scenes/environment/world_environment.tscn" id="9_tpgha"]
 
 [node name="MainScene" type="Node" unique_id=1076180471]
 
@@ -11,8 +17,25 @@
 [node name="GameManager" type="Node" parent="Managers" unique_id=1758947230]
 script = ExtResource("1_qoi2i")
 
+[node name="WeaponManager" type="Node" parent="Managers" unique_id=75217681]
+script = ExtResource("2_bvk2m")
+weapons = Dictionary[int, ExtResource("3_6aore")]({
+0: ExtResource("4_i0w0i"),
+1: ExtResource("5_i0w0i")
+})
+
 [node name="CurrentLevel" type="Node3D" parent="." unique_id=384735742]
 
 [node name="PrototypeLevel" parent="CurrentLevel" unique_id=2034229489 instance=ExtResource("1_mgb3u")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.006412506, -0.0371027, 0.01640606)
+
+[node name="PlayerController" parent="CurrentLevel" unique_id=1674594320 instance=ExtResource("7_rc0n7")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, 0)
 
 [node name="UserInterface" parent="." unique_id=1216850335 instance=ExtResource("1_rtgv3")]
+
+[node name="WorldEnvironment" parent="." unique_id=669383791 instance=ExtResource("9_tpgha")]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=1261902345]
+transform = Transform3D(1, 0, 0, 0, -0.50000006, 0.8660254, 0, -0.8660254, -0.50000006, 0, 0, 0)
+shadow_enabled = true

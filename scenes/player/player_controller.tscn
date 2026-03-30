@@ -62,7 +62,7 @@ offset_bottom = 263.0
 grow_horizontal = 1
 grow_vertical = 1
 theme = SubResource("Theme_rgtnl")
-initial_node_to_watch = NodePath("../Components/StateChart")
+initial_node_to_watch = NodePath("../WeaponComponents/WeaponStateChart")
 
 [node name="PlaceholderMesh" type="MeshInstance3D" parent="." unique_id=886531546]
 visible = false
