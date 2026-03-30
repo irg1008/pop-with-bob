@@ -25,6 +25,7 @@ class_name PlayerController extends StairsCharacter3D
 
 
 const MIN_STEP_HEIGHT: float = 0.01
+const STEP_HEIGHT_MARGIN: float = 0.001
 
 
 var _input_dir: Vector2 = Vector2.ZERO
@@ -69,7 +70,7 @@ func smooth_move_and_start_step() -> void:
 	move_and_stair_step()
 
 	var height_delta: float = position.y - previous_height
-	var rounded_height_delta: float = snapped(absf(height_delta), 0.001)
+	var rounded_height_delta: float = snapped(absf(height_delta), STEP_HEIGHT_MARGIN)
 
 	var step_height: float = step_height_up if height_delta > 0 else step_height_down
 	var is_step: bool = rounded_height_delta > MIN_STEP_HEIGHT and rounded_height_delta <= step_height
