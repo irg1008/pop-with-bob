@@ -46,15 +46,17 @@ func handle_step_down() -> void:
 	
 	var result: Dictionary = space_state.intersect_ray(query)
 	
-	if result:
-		var drop_distance: float = player_feet.y - result.position.y
-		var is_drop = drop_distance > MIN_STEP_HEIGHT and drop_distance <= step_height
-		
-		# Snap the player down if the floor is within the step_height limit
-		if is_drop:
-			player_controller.global_position.y -= drop_distance
-			player_controller.velocity = player_controller.previous_velocity
-			player_controller.camera.smooth_step(drop_distance)
+	if not result:
+		return
+	
+	var drop_distance: float = player_feet.y - result.position.y
+	var is_drop = drop_distance > MIN_STEP_HEIGHT and drop_distance <= step_height
+	
+	# Snap the player down if the floor is within the step_height limit
+	if is_drop:
+		player_controller.global_position.y -= drop_distance
+		player_controller.velocity = player_controller.previous_velocity
+		player_controller.camera.smooth_step(drop_distance)
 
 
 func _is_vertical_surface(collision: KinematicCollision3D) -> bool:
