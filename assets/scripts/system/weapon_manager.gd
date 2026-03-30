@@ -57,7 +57,7 @@ func initialize_starting_weapon() -> void:
 func switch_to_slot(slot: int) -> void:
 		if slot in weapons:
 			current_slot = slot
-			player.weapon_controller.spawn_weapon_model()
+			player.weapon_controller.switch_weapon(weapons[slot])
 
 
 func get_current_weapon() -> WeaponData:
