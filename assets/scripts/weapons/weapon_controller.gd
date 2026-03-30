@@ -6,8 +6,7 @@ class_name WeaponController extends Node
 @export var weapon_mode_parent: Node3D
 @export var weapon_state_chart: StateChart
 
-# TODO: Weapon handling with weapon_manager can be hightly improved. Right now it uses weapon + weapon_data resources
-# It's not clear and we break SOLID everywhere. We use manager here, then manager uses us there... Its a fucking mess
+
 var weapon_data: WeaponData
 var weapon: Weapon
 var weapon_model: Node3D
