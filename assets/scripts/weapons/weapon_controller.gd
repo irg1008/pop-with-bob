@@ -16,11 +16,6 @@ var can_fire_next: bool = true
 var fire_rate_timer: float = 0.0
 
 
-func _ready() -> void:
-	var switch_method: Callable = _on_weapon_switched.bind(self)
-	Managers.weapon_manager.weapon_switched.connect(switch_method)
-
-
 func _process(delta: float) -> void:
 	if fire_rate_timer > 0:
 		fire_rate_timer -= delta
@@ -37,7 +32,7 @@ func spawn_weapon_model() -> void:
 		weapon_model.position = weapon.weapon_position
 
 
-func _on_weapon_switched(new_weapon_data: WeaponData) -> void:
+func switch_weapon(new_weapon_data: WeaponData) -> void:
 	weapon_data = new_weapon_data
 	weapon = weapon_data.weapon
 	spawn_weapon_model()
@@ -48,7 +43,7 @@ func has_ammo() -> bool:
 
 
 func use_ammo(amount: int) -> void:
-	Managers.weapon_manager.use_ammo(amount)
+	weapon_data.ammo = max(weapon_data.ammo - amount, 0)
 
 
 func can_fire() -> bool:

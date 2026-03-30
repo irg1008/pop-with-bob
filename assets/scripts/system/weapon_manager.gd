@@ -1,11 +1,11 @@
 class_name WeaponManager extends Node
 
 
+@export_category("References")
+@export var player: PlayerController
+
 @export_category("Weapon Manager")
 @export var weapons: Dictionary[int, WeaponData] = {}
-
-
-signal weapon_switched(new_weapon_data: WeaponData)
 
 
 const WEAPON_MANAGER_GROUP: String = "weapon_manager"
@@ -57,7 +57,7 @@ func initialize_starting_weapon() -> void:
 func switch_to_slot(slot: int) -> void:
 		if slot in weapons:
 			current_slot = slot
-			weapon_switched.emit(weapons[slot])
+			player.weapon_controller.switch_weapon(weapons[slot])
 
 
 func get_current_weapon() -> WeaponData:
