@@ -39,11 +39,12 @@ func switch_weapon(new_weapon_data: WeaponData) -> void:
 
 
 func has_ammo() -> bool:
-	return weapon_data.ammo > 0
+	return weapon_data and weapon_data.ammo > 0
 
 
 func use_ammo(amount: int) -> void:
-	weapon_data.ammo = max(weapon_data.ammo - amount, 0)
+	if weapon_data:
+		weapon_data.ammo = max(weapon_data.ammo - amount, 0)
 
 
 func can_fire() -> bool:

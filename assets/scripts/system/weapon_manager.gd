@@ -58,12 +58,3 @@ func switch_to_slot(slot: int) -> void:
 		if slot in weapons:
 			current_slot = slot
 			player.weapon_controller.switch_weapon(weapons[slot])
-
-
-func get_current_weapon() -> WeaponData:
-	return weapons[current_slot]
-
-
-func use_ammo(amount: int) -> void:
-	var current_weapon_data: WeaponData = get_current_weapon()
-	current_weapon_data.ammo = max(current_weapon_data.ammo - amount, 0)
