@@ -6,6 +6,8 @@ class_name WeaponController extends Node
 @export var weapon_mode_parent: Node3D
 @export var weapon_state_chart: StateChart
 
+# TODO: Weapon handling with weapon_manager can be hightly improved. Right now it uses weapon + weapon_data resources
+# It's not clear and we break SOLID everywhere
 var weapon_data: WeaponData
 var weapon: Weapon
 var weapon_model: Node3D
@@ -40,6 +42,10 @@ func has_ammo() -> bool:
 	return weapon_data.ammo > 0
 
 
+func use_ammo(amount: int) -> void:
+	weapon_data.ammo = max(weapon_data.ammo - amount, 0)
+
+
 func can_fire() -> bool:
 	return has_ammo() and can_fire_next
 
@@ -48,7 +54,7 @@ func fire_weapon() -> void:
 	if not can_fire():
 		return
 
-	weapon_data.ammo -= 1
+	use_ammo(1)
 
 	# Start fire rate cooldown
 	can_fire_next = false
