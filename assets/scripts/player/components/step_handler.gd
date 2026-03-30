@@ -29,6 +29,34 @@ func handle_step_climbing() -> void:
 				player_controller.camera.smooth_step(measured_height)
 
 
+func handle_step_down() -> void:
+	# Ignore if the player is jumping or moving upward
+	if player_controller.velocity.y > 0.0:
+		return
+
+	var space_state: PhysicsDirectSpaceState3D = player_controller.get_world_3d().direct_space_state
+	var player_feet: Vector3 = _get_player_feet_position()
+	
+	var ray_start: Vector3 = player_feet
+	var ray_end: Vector3 = player_feet - Vector3(0, step_height, 0)
+	
+	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(ray_start, ray_end)
+	query.collision_mask = player_controller.collision_mask
+	query.exclude = [player_controller.get_rid()]
+	
+	var result: Dictionary = space_state.intersect_ray(query)
+	
+	if result:
+		var drop_distance: float = player_feet.y - result.position.y
+		var is_drop = drop_distance > MIN_STEP_HEIGHT and drop_distance <= step_height
+		
+		# Snap the player down if the floor is within the step_height limit
+		if is_drop:
+			player_controller.global_position.y -= drop_distance
+			player_controller.velocity = player_controller.previous_velocity
+			player_controller.camera.smooth_step(drop_distance)
+
+
 func _is_vertical_surface(collision: KinematicCollision3D) -> bool:
 	var normal: Vector3 = collision.get_normal()
 	var is_vertical: bool = abs(normal.y) <= surface_threshold
