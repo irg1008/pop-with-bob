@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://coplwpkalhisn" path="res://scenes/environment/pickups/weapon_pickup.tscn" id="1_1ykrc"]
 [ext_resource type="Resource" uid="uid://dnak72xsbbur3" path="res://assets/resources/weapons/shotgun.tres" id="2_htrvu"]
+[ext_resource type="PackedScene" uid="uid://4iqsa6om0lj3" path="res://scenes/environment/pickups/ammo_pickup.tscn" id="3_htrvu"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_floor"]
 
@@ -1093,4 +1094,18 @@ weapon = ExtResource("2_htrvu")
 
 [node name="WeaponPickup2" parent="." unique_id=1726965207 instance=ExtResource("1_1ykrc")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.810582, 0.55816495, -10.137854)
+weapon = ExtResource("2_htrvu")
+
+[node name="AmmoPickup" parent="." unique_id=2135275386 instance=ExtResource("3_htrvu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.93250513, 0.7174207, -6.4912534)
+weapon = ExtResource("2_htrvu")
+ammo_amount = 2
+
+[node name="AmmoPickup2" parent="." unique_id=1437184330 instance=ExtResource("3_htrvu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1996484, 0.7174207, -3.8588948)
+weapon = ExtResource("2_htrvu")
+ammo_amount = 6
+
+[node name="AmmoPickup3" parent="." unique_id=161831915 instance=ExtResource("3_htrvu")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1996484, 0.7174207, -1.8263106)
 weapon = ExtResource("2_htrvu")

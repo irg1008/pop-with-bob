@@ -52,7 +52,7 @@ func initialize_starting_weapon() -> void:
 	for weapon_data: WeaponData in weapons:
 		if weapon_data.unlocked:
 			switch_weapon(weapon_data)
-			refill_max_ammo(weapon_data)
+			refill_ammo(weapon_data)
 			return
 
 
@@ -64,8 +64,12 @@ func switch_weapon(weapon_data: WeaponData) -> void:
 	player.weapon_controller.switch_weapon(weapon_data)
 
 
-func refill_max_ammo(weapon_data: WeaponData) -> void:
-	weapon_data.ammo = weapon_data.weapon.max_ammo
+func refill_ammo(weapon_data: WeaponData) -> void:
+	add_ammo(weapon_data, weapon_data.weapon.max_ammo)
+
+
+func add_ammo(weapon_data: WeaponData, amount: int) -> void:
+	weapon_data.ammo += amount
 
 	if weapon_data == current_weapon:
 		player.weapon_controller.set_ammo(weapon_data.ammo)
