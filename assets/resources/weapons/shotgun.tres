@@ -8,6 +8,7 @@ script = ExtResource("1_4qt2s")
 weapon_name = "Shotgun"
 weapon_model = ExtResource("2_xtxnc")
 weapon_position = Vector3(0.1, -0.2, -0.3)
+damage = 8.0
 max_ammo = 8
 pellet_count = 8
 spread_angle = 0.1
