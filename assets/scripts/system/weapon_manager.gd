@@ -87,6 +87,6 @@ func get_data_for_weapon(weapon: Weapon) -> WeaponData:
 	return null
 
 
-func _on_weapon_controller_ammo_changed(new_ammo: int) -> void:
+func _on_weapon_controller_ammo_changed(ammo: int) -> void:
 	if current_weapon:
-		current_weapon.ammo = new_ammo
+		current_weapon.ammo = ammo

@@ -61,7 +61,7 @@ func fire_weapon() -> void:
 
 	# Start fire rate cooldown
 	can_fire_next = false
-	fire_rate_timer = 1.0 / max(weapon.fire_rate, Weapon.MIN_FIRE_RATE)
+	fire_rate_timer = 1.0 / weapon.fire_rate
 
 	if weapon.is_hitscan:
 		_perform_hitscan()

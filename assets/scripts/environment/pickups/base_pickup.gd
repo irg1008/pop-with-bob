@@ -1,3 +1,4 @@
+@abstract
 class_name BasePickup extends Area3D
 
 
@@ -7,6 +8,9 @@ class_name BasePickup extends Area3D
 @export var float_speed: float = 2.0
 @export_group("Rotation")
 @export var rotation_speed: float = 60.0
+
+
+@abstract func apply_pickup(body: Node3D) -> void
 
 
 var start_y: float
@@ -36,7 +40,3 @@ func _on_pickup(body: Node3D) -> void:
 
 func can_pickup(_body: Node3D) -> bool:
 	return true
-
-
-func apply_pickup(_body: Node3D) -> void:
-	pass

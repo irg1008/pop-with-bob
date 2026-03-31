@@ -13,9 +13,9 @@ func _process(_delta: float) -> void:
 	if player_controller:
 		player_controller.state_chart.set_expression_property("Player health", player_controller.health_component.current_health)
 		player_controller.state_chart.set_expression_property("Player velocity", player_controller.velocity)
-		player_controller.state_chart.set_expression_property("Player Hitting Head", player_controller.crouch_check.is_colliding())
+		player_controller.state_chart.set_expression_property("Player hitting head", player_controller.crouch_check.is_colliding())
 
-		var looking_at: Object = player_controller.interaction_raycast.current_object;
+		var looking_at: Object = player_controller.interaction_raycast.get_collider()
 		player_controller.state_chart.set_expression_property("Looking at: ", looking_at)
 
 

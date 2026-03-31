@@ -98,7 +98,6 @@ player_controller = NodePath("../..")
 target_position = Vector3(0, 0, -3)
 debug_shape_custom_color = Color(0.99999994, 0.7096994, 0.32264382, 1)
 script = ExtResource("4_kqh78")
-debug = true
 
 [node name="HealthComponent" type="Node" parent="." unique_id=100040121]
 script = ExtResource("6_ii78e")

@@ -1,7 +1,5 @@
 [gd_scene format=3 uid="uid://bky6cx3d57bx4"]
 
-[ext_resource type="Script" uid="uid://bmlso2jfi8qbf" path="res://assets/scripts/environment/pickups/base_pickup.gd" id="1_2r3l6"]
-
 [sub_resource type="SphereShape3D" id="SphereShape3D_iptl2"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2r3l6"]
@@ -10,7 +8,6 @@ size = Vector3(0.25, 0.25, 0.25)
 [node name="BasePickup" type="Area3D" unique_id=1001323034]
 collision_layer = 0
 collision_mask = 2
-script = ExtResource("1_2r3l6")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=342868701]
 shape = SubResource("SphereShape3D_iptl2")

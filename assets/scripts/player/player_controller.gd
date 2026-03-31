@@ -123,3 +123,7 @@ func check_fall_speed() -> bool:
 	var is_falling: bool = _current_fall_speed < fall_velocity_threhold
 	_current_fall_speed = 0.0
 	return is_falling
+
+
+static func get_player_node(tree: SceneTree) -> PlayerController:
+	return tree.get_first_node_in_group("player")

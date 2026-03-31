@@ -1,0 +1,103 @@
+[gd_scene format=3 uid="uid://dfck75ha1fol0"]
+
+[ext_resource type="Script" uid="uid://cxj0q7j13bvw" path="res://assets/scripts/enemies/simple_enemy.gd" id="1_2kgy0"]
+[ext_resource type="Script" uid="uid://dsnqb17qqenio" path="res://assets/scripts/components/health_component.gd" id="1_gsiem"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_hm0mn"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="3_2kgy0"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="4_ho7jy"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_fgow6"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o10tv"]
+albedo_color = Color(0.7735059, 0, 0.02797186, 1)
+metallic = 0.2
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_01wx1"]
+material = SubResource("StandardMaterial3D_o10tv")
+top_radius = 0.3
+bottom_radius = 0.4
+
+[sub_resource type="SphereMesh" id="SphereMesh_2kgy0"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hm7hm"]
+radius = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_2kgy0"]
+radius = 10.0
+
+[node name="SimpleEnemy" type="CharacterBody3D" unique_id=1510798613]
+script = ExtResource("1_2kgy0")
+
+[node name="Enemy" type="Node3D" parent="." unique_id=1223516817]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Enemy" unique_id=46204123]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+mesh = SubResource("CylinderMesh_01wx1")
+skeleton = NodePath("../..")
+
+[node name="LeftEye" type="MeshInstance3D" parent="Enemy" unique_id=766445062]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.15168393, 1.6476071, 0.19053054)
+mesh = SubResource("SphereMesh_2kgy0")
+skeleton = NodePath("../..")
+
+[node name="RightEye" type="MeshInstance3D" parent="Enemy" unique_id=610758519]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.15278545, 1.6476071, 0.19053054)
+mesh = SubResource("SphereMesh_2kgy0")
+skeleton = NodePath("../LeftEye")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1013922433]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+shape = SubResource("CapsuleShape3D_hm7hm")
+
+[node name="DetectionArea" type="Area3D" parent="." unique_id=171371952]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=55778411]
+shape = SubResource("SphereShape3D_2kgy0")
+
+[node name="HealthComponent" type="Node" parent="." unique_id=1362849670]
+script = ExtResource("1_gsiem")
+max_health = 50.0
+initial_health = 50.0
+metadata/_custom_type_script = "uid://dsnqb17qqenio"
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=512396291]
+target_desired_distance = 1.5
+avoidance_enabled = true
+radius = 1.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_point_size = 8.0
+
+[node name="StateChart" type="Node" parent="." unique_id=1190875695]
+script = ExtResource("2_hm0mn")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Root" type="Node" parent="StateChart" unique_id=2087625608]
+script = ExtResource("3_2kgy0")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/Root" unique_id=1078993512]
+script = ExtResource("4_ho7jy")
+
+[node name="Following" type="Node" parent="StateChart/Root" unique_id=657499687]
+script = ExtResource("4_ho7jy")
+
+[node name="OnIdle" type="Node" parent="StateChart/Root" unique_id=102571054]
+script = ExtResource("5_fgow6")
+to = NodePath("../Idle")
+event = &"onIdle"
+delay_in_seconds = "0.0"
+
+[node name="OnFollowing" type="Node" parent="StateChart/Root" unique_id=1068906123]
+script = ExtResource("5_fgow6")
+to = NodePath("../Following")
+event = &"onFollowing"
+delay_in_seconds = "0.0"
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="state_physics_processing" from="StateChart/Root/Following" to="." method="_on_following_state_physics_processing"]

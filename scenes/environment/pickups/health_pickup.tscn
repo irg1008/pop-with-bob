@@ -3,7 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://bky6cx3d57bx4" path="res://scenes/environment/pickups/base_pickup.tscn" id="1_bsl7t"]
 [ext_resource type="Script" uid="uid://dhb1e3y77ia5t" path="res://assets/scripts/environment/pickups/health_pickup.gd" id="2_84og2"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bsl7t"]
+albedo_color = Color(0.8995268, 0.17564595, 0.19374257, 1)
+
 [sub_resource type="TorusMesh" id="TorusMesh_bsl7t"]
+material = SubResource("StandardMaterial3D_bsl7t")
 inner_radius = 0.1
 outer_radius = 0.2
 

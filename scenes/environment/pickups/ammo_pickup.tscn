@@ -3,7 +3,11 @@
 [ext_resource type="PackedScene" uid="uid://bky6cx3d57bx4" path="res://scenes/environment/pickups/base_pickup.tscn" id="1_bp42o"]
 [ext_resource type="Script" uid="uid://u63iqex3n82r" path="res://assets/scripts/environment/pickups/ammo_pickup.gd" id="2_rpsyy"]
 
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_bp42o"]
+albedo_color = Color(0.55687314, 0.20499146, 0.041612186, 1)
+
 [sub_resource type="BoxMesh" id="BoxMesh_bp42o"]
+material = SubResource("StandardMaterial3D_bp42o")
 size = Vector3(0.3, 0.1, 0.2)
 
 [node name="AmmoPickup" unique_id=1001323034 instance=ExtResource("1_bp42o")]
