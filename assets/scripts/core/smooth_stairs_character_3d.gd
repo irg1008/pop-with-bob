@@ -1,7 +1,7 @@
 class_name SmoothStairsCharacter3D extends StairsCharacter3D
 
 
-const MIN_STEP_HEIGHT: float = 0.01
+const MIN_STEP_HEIGHT: float = 0.05
 const STEP_HEIGHT_MARGIN: float = 0.001
 
 
@@ -17,6 +17,7 @@ func smooth_move_and_stair_step() -> void:
 	var is_step: bool = rounded_height_delta > MIN_STEP_HEIGHT and rounded_height_delta <= step_height
 
 	if is_on_floor() and is_step:
+		print("Smooth step detected: ", height_delta)
 		_on_smooth_step(previous_height, height_delta)
 
 
