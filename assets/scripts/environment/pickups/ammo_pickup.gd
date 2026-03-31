@@ -10,7 +10,7 @@ func can_pickup(_body: Node3D) -> bool:
 	if not weapon_data:
 		return false
 
-	return not weapon_data.unlocked or weapon_data.ammo < weapon.max_ammo
+	return weapon_data.unlocked and weapon_data.ammo < weapon.max_ammo
 
 
 func apply_pickup(_body: Node3D) -> void:
