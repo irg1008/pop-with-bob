@@ -10,6 +10,7 @@ class_name PlayerController extends StairsCharacter3D
 @export var crouch_check: ShapeCast3D
 @export var interaction_raycast: RayCast3D
 @export var weapon_controller: WeaponController
+@export var health_component: HealthComponent
 
 @export_category("Movement Settings")
 @export_group("Easing")

@@ -11,6 +11,7 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if player_controller:
+		player_controller.state_chart.set_expression_property("Player health", player_controller.health_component.current_health)
 		player_controller.state_chart.set_expression_property("Player velocity", player_controller.velocity)
 		player_controller.state_chart.set_expression_property("Player Hitting Head", player_controller.crouch_check.is_colliding())
 

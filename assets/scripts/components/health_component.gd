@@ -9,7 +9,7 @@ signal died()
 
 
 @export var max_health: float = 100.0
-@export var start_at_max: bool = true
+@export var initial_health: float = 100.0
 
 
 var current_health: float = 0.0
@@ -17,8 +17,7 @@ var is_alive: bool = true
 
 
 func _ready() -> void:
-	if start_at_max:
-		current_health = max_health
+	current_health = clamp(initial_health, 0.0, max_health)
 
 
 func take_damage(amount: float, source: Node3D) -> void:
@@ -30,8 +29,6 @@ func take_damage(amount: float, source: Node3D) -> void:
 
 	damage_taken.emit(actual_damage, source)
 	health_changed.emit(current_health, max_health)
-
-	print("Took damage: %f, current health: %f" % [actual_damage, current_health])
 
 	if current_health <= 0.0:
 		_handle_death()
@@ -45,6 +42,10 @@ func heal(amount: float) -> void:
 	current_health = min(max_health, current_health + actual_heal)
 
 	health_changed.emit(current_health, max_health)
+
+
+func is_full_health() -> bool:
+	return current_health >= max_health
 
 
 func _handle_death() -> void:

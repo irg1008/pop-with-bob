@@ -10,6 +10,7 @@
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_m7hbg"]
 [ext_resource type="Script" uid="uid://c1vp0ojjvaby1" path="res://addons/godot_state_charts/parallel_state.gd" id="5_2k8ub"]
 [ext_resource type="Script" uid="uid://dmdecm6dgylmy" path="res://assets/scripts/player/states/grounded_state.gd" id="6_ggkdx"]
+[ext_resource type="Script" uid="uid://dsnqb17qqenio" path="res://assets/scripts/components/health_component.gd" id="6_ii78e"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="6_rkuj1"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="7_ers80"]
 [ext_resource type="Script" uid="uid://hvrdobdtlagg" path="res://assets/scripts/player/states/moving_state.gd" id="7_y4pjd"]
@@ -40,7 +41,7 @@ height = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ggkdx"]
 
-[node name="PlayerController" type="StairsCharacter3D" unique_id=1674594320 node_paths=PackedStringArray("camera", "camera_effects", "state_chart", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "weapon_controller") groups=["player"]]
+[node name="PlayerController" type="StairsCharacter3D" unique_id=1674594320 node_paths=PackedStringArray("camera", "camera_effects", "state_chart", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "weapon_controller", "health_component") groups=["player"]]
 collider = NodePath("StandingCollision")
 collision_layer = 2
 script = ExtResource("1_0cfoe")
@@ -52,6 +53,7 @@ crouching_collision = NodePath("CrouchingCollision")
 crouch_check = NodePath("CrouchCheck")
 interaction_raycast = NodePath("CameraController/Camera3D/InteractionRayCast")
 weapon_controller = NodePath("WeaponController")
+health_component = NodePath("HealthComponent")
 
 [node name="StateChartDebugger" parent="." unique_id=1134529071 instance=ExtResource("2_nwn0c")]
 anchors_preset = 0
@@ -62,7 +64,7 @@ offset_bottom = 263.0
 grow_horizontal = 1
 grow_vertical = 1
 theme = SubResource("Theme_rgtnl")
-initial_node_to_watch = NodePath("../WeaponComponents/WeaponStateChart")
+initial_node_to_watch = NodePath("../Components/StateChart")
 
 [node name="PlaceholderMesh" type="MeshInstance3D" parent="." unique_id=886531546]
 visible = false
@@ -97,6 +99,10 @@ target_position = Vector3(0, 0, -3)
 debug_shape_custom_color = Color(0.99999994, 0.7096994, 0.32264382, 1)
 script = ExtResource("4_kqh78")
 debug = true
+
+[node name="HealthComponent" type="Node" parent="." unique_id=100040121]
+script = ExtResource("6_ii78e")
+metadata/_custom_type_script = "uid://dsnqb17qqenio"
 
 [node name="Components" type="Node" parent="." unique_id=1253687695]
 
