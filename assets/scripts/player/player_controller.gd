@@ -1,4 +1,4 @@
-class_name PlayerController extends StairsCharacter3D
+class_name PlayerController extends SmoothStairsCharacter3D
 
 
 @export_category("References")
@@ -24,10 +24,6 @@ class_name PlayerController extends StairsCharacter3D
 @export_category("Jump Settings")
 @export var jump_velocity: float = 5.0
 @export var fall_velocity_threhold: float = -5.0
-
-
-const MIN_STEP_HEIGHT: float = 0.01
-const STEP_HEIGHT_MARGIN: float = 0.001
 
 
 var _input_dir: Vector2 = Vector2.ZERO
@@ -63,22 +59,11 @@ func _physics_process(delta: float) -> void:
 	_movement_velocity = Vector3(current_velocity.x, velocity.y, current_velocity.y)
 	velocity = _movement_velocity
 
-	smooth_move_and_start_step()
+	smooth_move_and_stair_step()
 
 
-func smooth_move_and_start_step() -> void:
-	var previous_height: float = position.y
-
-	move_and_stair_step()
-
-	var height_delta: float = position.y - previous_height
-	var rounded_height_delta: float = snapped(absf(height_delta), STEP_HEIGHT_MARGIN)
-
-	var step_height: float = step_height_up if height_delta > 0 else step_height_down
-	var is_step: bool = rounded_height_delta > MIN_STEP_HEIGHT and rounded_height_delta <= step_height
-
-	if is_on_floor() and is_step:
-		camera.smooth_step(height_delta)
+func _on_smooth_step(_previous_height: float, height_delta: float) -> void:
+	camera.smooth_step(height_delta)
 
 
 func get_input_direction() -> Vector2:

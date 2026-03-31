@@ -41,7 +41,7 @@ height = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ggkdx"]
 
-[node name="PlayerController" type="StairsCharacter3D" unique_id=1674594320 node_paths=PackedStringArray("camera", "camera_effects", "state_chart", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "weapon_controller", "health_component") groups=["player"]]
+[node name="PlayerController" type="StairsCharacter3D" unique_id=2076778556 node_paths=PackedStringArray("camera", "camera_effects", "state_chart", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "weapon_controller", "health_component") groups=["player"]]
 collider = NodePath("StandingCollision")
 collision_layer = 2
 script = ExtResource("1_0cfoe")
@@ -54,6 +54,7 @@ crouch_check = NodePath("CrouchCheck")
 interaction_raycast = NodePath("CameraController/Camera3D/InteractionRayCast")
 weapon_controller = NodePath("WeaponController")
 health_component = NodePath("HealthComponent")
+metadata/_custom_type_script = "uid://dgcufyvakuq3s"
 
 [node name="StateChartDebugger" parent="." unique_id=1134529071 instance=ExtResource("2_nwn0c")]
 anchors_preset = 0

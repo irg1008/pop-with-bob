@@ -20,14 +20,16 @@ bottom_radius = 0.4
 radius = 0.1
 height = 0.2
 
-[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_hm7hm"]
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2kgy0"]
 radius = 0.4
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_2kgy0"]
 radius = 10.0
 
-[node name="SimpleEnemy" type="CharacterBody3D" unique_id=1510798613]
+[node name="SimpleEnemy" type="StairsCharacter3D" unique_id=459413143]
+collider = NodePath("CollisionShape3D")
 script = ExtResource("1_2kgy0")
+metadata/_custom_type_script = "uid://dgcufyvakuq3s"
 
 [node name="Enemy" type="Node3D" parent="." unique_id=1223516817]
 
@@ -48,7 +50,7 @@ skeleton = NodePath("../LeftEye")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1013922433]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
-shape = SubResource("CapsuleShape3D_hm7hm")
+shape = SubResource("CylinderShape3D_2kgy0")
 
 [node name="DetectionArea" type="Area3D" parent="." unique_id=171371952]
 collision_layer = 0

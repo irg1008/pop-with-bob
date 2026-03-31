@@ -20,13 +20,6 @@ func _ready() -> void:
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 
 
-func _physics_process(delta: float) -> void:
-	if not is_on_floor():
-		velocity += get_gravity() * delta
-
-	move_and_slide()
-
-
 func _on_triggered() -> void:
 	state_chart.send_event("onFollowing")
 
@@ -45,10 +38,6 @@ func _on_following_state_physics_processing(delta: float) -> void:
 		return
 
 	nav_agent.target_position = target.global_position
-
-	if nav_agent.is_navigation_finished():
-		nav_agent.velocity = Vector3.ZERO
-		return
 
 	var next_pos: Vector3 = nav_agent.get_next_path_position()
 	var direction: Vector3 = (next_pos - global_position).normalized()
