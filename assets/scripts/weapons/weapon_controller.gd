@@ -1,13 +1,13 @@
 class_name WeaponController extends Node
 
 
+signal ammo_changed(new_ammo: int)
+
+
 @export_category("References")
 @export var camera: Camera3D
 @export var weapon_mode_parent: Node3D
 @export var weapon_state_chart: StateChart
-
-
-signal ammo_changed(new_ammo: int)
 
 
 var current_ammo: int = 0
@@ -90,7 +90,9 @@ func _perform_hitscan() -> void:
 
 		if result:
 			var hit_position: Vector3 = result.position
+			var hit_target: Node3D = result.collider
 			WeaponHelpers.spawn_impact_marker(get_tree(), hit_position)
+			WeaponHelpers.apply_damage_to_target(weapon.damage, hit_target, owner)
 
 
 func _spawn_projectile() -> void:
@@ -112,3 +114,5 @@ func _spawn_projectile() -> void:
 
 	var velocity: Vector3 = direction * weapon.projectile_speed
 	projectile.setup(velocity, weapon.damage)
+
+

@@ -25,8 +25,9 @@ func _physics_process(delta: float) -> void:
 	_on_body_entered(collider)
 
 
-func _on_body_entered(_body: Node3D) -> void:
+func _on_body_entered(body: Node3D) -> void:
 	WeaponHelpers.spawn_impact_marker(get_tree(), global_position)
+	WeaponHelpers.apply_damage_to_target(damage, body, self)
 	queue_free()
 
 

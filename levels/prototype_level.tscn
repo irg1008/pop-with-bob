@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://coplwpkalhisn" path="res://scenes/environment/pickups/weapon_pickup.tscn" id="1_1ykrc"]
 [ext_resource type="Resource" uid="uid://dnak72xsbbur3" path="res://assets/resources/weapons/shotgun.tres" id="2_htrvu"]
 [ext_resource type="PackedScene" uid="uid://4iqsa6om0lj3" path="res://scenes/environment/pickups/ammo_pickup.tscn" id="3_htrvu"]
+[ext_resource type="PackedScene" uid="uid://dm5j8brxcsucx" path="res://scenes/props/destructive_box.tscn" id="4_6lfjr"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_floor"]
 
@@ -1109,3 +1110,9 @@ ammo_amount = 6
 [node name="AmmoPickup3" parent="." unique_id=161831915 instance=ExtResource("3_htrvu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1996484, 0.7174207, -1.8263106)
 weapon = ExtResource("2_htrvu")
+
+[node name="DestructiveBox" parent="." unique_id=932201194 instance=ExtResource("4_6lfjr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.8547945, 0.49999905, -0.49525642)
+
+[node name="DestructiveBox2" parent="." unique_id=18380285 instance=ExtResource("4_6lfjr")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.005371, 0.5, 2.9409676)

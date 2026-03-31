@@ -40,3 +40,14 @@ static func get_random_spread_angle(weapon: Weapon) -> Vector3:
 	var spread_x: float = randf_range(-weapon.spread_angle, weapon.spread_angle)
 	var spread_y: float = randf_range(-weapon.spread_angle, weapon.spread_angle)
 	return Vector3(spread_x, spread_y, 0)
+
+
+static func apply_damage_to_target(damage: float, target: Node3D, source: Node) -> void:
+	if not source is Node3D:
+		return
+
+	# Check if target has reusable health component
+	var health_component: Node = target.get_node_or_null("HealthComponent")
+
+	if health_component is HealthComponent:
+		health_component.take_damage(damage, source)
