@@ -16,9 +16,9 @@ class_name Weapon extends Resource
 @export_group("Fire Rate")
 @export_range(0.1, 200.0, 0.1) var fire_rate: float = 2.0
 @export var is_automatic: bool = false
-@export_group("Hitscan")
-@export var is_hitscan: bool = true
-@export var hitscan_range: float = 25.0
 @export_group("Projectile")
 @export var projectile_speed: float = 50.0
 @export var projectile_scene: PackedScene
+@export_group("Hitscan")
+@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var is_hitscan: bool = false
+@export var hitscan_range: float = 25.0

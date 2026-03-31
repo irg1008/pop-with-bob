@@ -13,4 +13,5 @@ max_ammo = 8
 pellet_count = 8
 spread_angle = 0.1
 fire_rate = 1.0
+is_hitscan = true
 metadata/_custom_type_script = "uid://darmdhh6skn2o"
