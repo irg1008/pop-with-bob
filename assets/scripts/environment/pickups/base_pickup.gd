@@ -1,9 +1,12 @@
 class_name BasePickup extends Area3D
 
 
-@export var rotation_speed: float = 60.0
+@export_category("Pickup Settings")
+@export_group("Floating")
 @export var float_height: float = 0.1
 @export var float_speed: float = 2.0
+@export_group("Rotation")
+@export var rotation_speed: float = 60.0
 
 
 var start_y: float
@@ -16,7 +19,10 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	pass
+	time += delta
+	position.y = start_y + sin(time * float_speed) * float_height
+
+	rotate_y(deg_to_rad(rotation_speed * delta))
 
 
 func _on_pickup(body: Node3D) -> void:

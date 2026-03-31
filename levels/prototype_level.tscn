@@ -1,5 +1,8 @@
 [gd_scene format=3 uid="uid://dm5x3qkicfjgm"]
 
+[ext_resource type="PackedScene" uid="uid://coplwpkalhisn" path="res://scenes/environment/pickups/weapon_pickup.tscn" id="1_1ykrc"]
+[ext_resource type="Resource" uid="uid://dnak72xsbbur3" path="res://assets/resources/weapons/shotgun.tres" id="2_htrvu"]
+
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_floor"]
 
 [sub_resource type="NoiseTexture2D" id="NoiseTexture2D_floor"]
@@ -1083,3 +1086,11 @@ mesh = SubResource("BoxMesh_shooting_wall")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Geometry/ShootingWall" unique_id=1833932592]
 shape = SubResource("BoxShape3D_shooting_wall")
+
+[node name="WeaponPickup" parent="." unique_id=1001323034 instance=ExtResource("1_1ykrc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.927457, 0.55816495, -4.816185)
+weapon = ExtResource("2_htrvu")
+
+[node name="WeaponPickup2" parent="." unique_id=1726965207 instance=ExtResource("1_1ykrc")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.810582, 0.55816495, -10.137854)
+weapon = ExtResource("2_htrvu")

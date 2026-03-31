@@ -6,3 +6,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		get_tree().quit()
 	if event.is_action_pressed("dev_reload"):
 		get_tree().reload_current_scene()
+
+
+func _ready() -> void:
+	Managers.find_managers.call_deferred()

@@ -7,7 +7,10 @@ class_name WeaponController extends Node
 @export var weapon_state_chart: StateChart
 
 
-var weapon_data: WeaponData
+signal ammo_changed(new_ammo: int)
+
+
+var current_ammo: int = 0
 var weapon: Weapon
 var weapon_model: Node3D
 
@@ -31,19 +34,19 @@ func spawn_weapon_model() -> void:
 		weapon_model.position = weapon.weapon_position
 
 
-func switch_weapon(new_weapon_data: WeaponData) -> void:
-	weapon_data = new_weapon_data
-	weapon = weapon_data.weapon
+func switch_weapon(weapoin_data: WeaponData) -> void:
+	weapon = weapoin_data.weapon
+	current_ammo = weapoin_data.ammo
 	spawn_weapon_model()
 
 
 func has_ammo() -> bool:
-	return weapon_data and weapon_data.ammo > 0
+	return current_ammo > 0
 
 
-func use_ammo(amount: int) -> void:
-	if weapon_data:
-		weapon_data.ammo = max(weapon_data.ammo - amount, 0)
+func set_ammo(ammo: int) -> void:
+	current_ammo = ammo
+	ammo_changed.emit(current_ammo)
 
 
 func can_fire() -> bool:
@@ -54,7 +57,7 @@ func fire_weapon() -> void:
 	if not can_fire():
 		return
 
-	use_ammo(1)
+	set_ammo(current_ammo - 1)
 
 	# Start fire rate cooldown
 	can_fire_next = false

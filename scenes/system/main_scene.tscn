@@ -20,10 +20,7 @@ script = ExtResource("1_qoi2i")
 [node name="WeaponManager" type="Node" parent="Managers" unique_id=75217681 node_paths=PackedStringArray("player")]
 script = ExtResource("2_bvk2m")
 player = NodePath("../../CurrentLevel/PlayerController")
-weapons = Dictionary[int, ExtResource("3_6aore")]({
-1: ExtResource("4_i0w0i"),
-2: ExtResource("5_i0w0i")
-})
+weapons = Array[ExtResource("3_6aore")]([ExtResource("4_i0w0i"), ExtResource("5_i0w0i")])
 
 [node name="CurrentLevel" type="Node3D" parent="." unique_id=384735742]
 
