@@ -1,6 +1,9 @@
 class_name BaseBubble extends Node3D
 
 
+signal popped()
+
+
 @export_category("References")
 @export var animation_player: AnimationPlayer
 @export var rigid_body: RigidBody3D
@@ -60,6 +63,7 @@ func _on_health_component_died() -> void:
 func pop() -> void:
 	pop_effect.global_position = rigid_body.global_position
 	pop_effect.restart()
+	popped.emit()
 	rigid_body.queue_free()
 
 
