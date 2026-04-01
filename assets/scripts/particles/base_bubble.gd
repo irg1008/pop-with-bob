@@ -4,6 +4,8 @@ class_name BaseBubble extends Node3D
 signal popped()
 
 
+@export var debug : bool = false
+
 @export_category("References")
 @export var animation_player: AnimationPlayer
 @export var rigid_body: RigidBody3D
@@ -11,8 +13,6 @@ signal popped()
 
 @export_category("Bubble Properties")
 @export var max_lifetime: float = 10.0
-@export_group("Wobble")
-@export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var wobble_enabled: bool = true
 @export var wobble_strength: float = 0.5
 
 
@@ -32,27 +32,26 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	time_alive += delta
+	if not rigid_body:
+		return
 
+	time_alive += delta
 	if time_alive >= max_lifetime:
 		pop()
 		return
 
-	if not rigid_body or rigid_body.freeze:
-		return
-
-	var random_direction: Vector3 = Vector3(randf_range(-1, 1), 0, randf_range(-1, 1)).normalized()
-	rigid_body.apply_central_force(random_direction * wobble_strength)
+	if not rigid_body.freeze:
+		var random_direction: Vector3 = Vector3(randf_range(-1, 1), 0, randf_range(-1, 1)).normalized()
+		rigid_body.apply_central_force(random_direction * wobble_strength)
 
 
 func _on_inflate_animation_finished(_animation_name: String) -> void:
-	if not wobble_enabled:
-		return
-
-	rigid_body.freeze = false
-	rigid_body.sleeping = false
 	rigid_body.contact_monitor = true
 	rigid_body.max_contacts_reported = 1
+	rigid_body.sleeping = false
+
+	if not debug:
+		rigid_body.freeze = false
 
 	rigid_body.apply_central_impulse(Vector3.FORWARD * 0.01)
 

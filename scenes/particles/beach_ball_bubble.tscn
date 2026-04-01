@@ -1,0 +1,95 @@
+[gd_scene format=3 uid="uid://bpq23xvskbuqx"]
+
+[ext_resource type="PackedScene" uid="uid://d3qcjd07kedb2" path="res://scenes/particles/base_bubble.tscn" id="1_lmees"]
+[ext_resource type="Texture2D" uid="uid://c3g3k135aambs" path="res://assets/textures/beach_ball_texture.jpg" id="2_55276"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xolsk"]
+albedo_texture = ExtResource("2_55276")
+
+[sub_resource type="SphereMesh" id="SphereMesh_54xcg"]
+material = SubResource("StandardMaterial3D_xolsk")
+
+[sub_resource type="Curve" id="Curve_pop_alpha"]
+_data = [Vector2(0, 1), 0.0, -0.5, 0, 0, Vector2(0.3, 0.78), -0.9, -0.9, 0, 0, Vector2(0.65, 0.32), -1.0, -1.0, 0, 0, Vector2(1, 0), -1.1, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_pop_alpha"]
+curve = SubResource("Curve_pop_alpha")
+
+[sub_resource type="Gradient" id="Gradient_confetti_colors"]
+offsets = PackedFloat32Array(0, 0.165, 0.166, 0.332, 0.333, 0.499, 0.5, 0.666, 0.667, 0.833, 0.834, 1)
+colors = PackedColorArray(1, 0.12, 0.12, 1, 1, 0.12, 0.12, 1, 1, 0.95, 0.12, 1, 1, 0.95, 0.12, 1, 0.15, 0.45, 1, 1, 0.15, 0.45, 1, 1, 0.2, 0.9, 0.35, 1, 0.2, 0.9, 0.35, 1, 0.92549, 0.56863, 0.1451, 1, 0.92549, 0.56863, 0.1451, 1, 1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_confetti_colors"]
+gradient = SubResource("Gradient_confetti_colors")
+
+[sub_resource type="Gradient" id="Gradient_trail_over_life"]
+offsets = PackedFloat32Array(0, 0.18, 0.42, 0.72, 1)
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 0.72, 1, 1, 1, 0.34, 1, 1, 1, 0.1, 1, 1, 1, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_trail_over_life"]
+gradient = SubResource("Gradient_trail_over_life")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pop_rubber"]
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 20.0
+initial_velocity_max = 20.0
+angular_velocity_min = -8.0
+angular_velocity_max = 8.0
+gravity = Vector3(0, 0, 0)
+radial_accel_min = -2.2351742e-06
+radial_accel_max = -2.2351742e-06
+damping_min = 72.01
+damping_max = 72.01
+scale_min = 0.0
+scale_max = 0.0
+scale_over_velocity_min = 0.15
+scale_over_velocity_max = 0.45
+color_ramp = SubResource("GradientTexture1D_trail_over_life")
+color_initial_ramp = SubResource("GradientTexture1D_confetti_colors")
+alpha_curve = SubResource("CurveTexture_pop_alpha")
+hue_variation_min = -0.02
+hue_variation_max = 0.02
+
+[sub_resource type="Curve" id="Curve_55276"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_55276"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 1
+use_particle_trails = true
+
+[sub_resource type="RibbonTrailMesh" id="RibbonTrailMesh_confetti"]
+material = SubResource("StandardMaterial3D_55276")
+size = 0.22
+sections = 8
+section_length = 0.02
+section_segments = 2
+curve = SubResource("Curve_55276")
+
+[node name="BeachBallBubble" unique_id=676973399 instance=ExtResource("1_lmees")]
+max_lifetime = 15.0
+wobble_strength = 0.0
+
+[node name="RigidBody3D" parent="." index="0" unique_id=27141494]
+mass = 0.1
+gravity_scale = 0.05
+
+[node name="MeshInstance3D" parent="RigidBody3D" index="1" unique_id=1670452469]
+mesh = SubResource("SphereMesh_54xcg")
+
+[node name="PopEffect" parent="." index="2" unique_id=1254866317]
+amount = 15
+lifetime = 0.75
+preprocess = 0.02
+explosiveness = 1.0
+randomness = 0.4
+fixed_fps = 60
+trail_enabled = true
+trail_lifetime = 0.22
+process_material = SubResource("ParticleProcessMaterial_pop_rubber")
+draw_pass_1 = SubResource("RibbonTrailMesh_confetti")
