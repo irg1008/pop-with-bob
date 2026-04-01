@@ -9,6 +9,7 @@
 [ext_resource type="Resource" uid="uid://dlymwl6wv41ir" path="res://assets/resources/weapons/shotgun_data.tres" id="5_i0w0i"]
 [ext_resource type="PackedScene" uid="uid://dqbkvpkvpfxws" path="res://scenes/player/player_controller.tscn" id="7_rc0n7"]
 [ext_resource type="PackedScene" uid="uid://cddkm166mcxg4" path="res://scenes/environment/world_environment.tscn" id="9_tpgha"]
+[ext_resource type="PackedScene" uid="uid://d3qcjd07kedb2" path="res://scenes/particles/bubble.tscn" id="10_tpgha"]
 
 [node name="MainScene" type="Node" unique_id=1076180471]
 
@@ -37,3 +38,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, 0)
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="WorldEnvironment" unique_id=1261902345]
 transform = Transform3D(0.8660254, 0.4330127, 0.25000003, 0, -0.50000006, 0.8660254, 0.5, -0.75, -0.43301275, 0, 0, 0)
 shadow_enabled = true
+
+[node name="Bubble" parent="." unique_id=676973399 instance=ExtResource("10_tpgha")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.2433803, 1.9341981, -3.5172987)

@@ -1,0 +1,123 @@
+[gd_scene format=3 uid="uid://d3qcjd07kedb2"]
+
+[ext_resource type="Script" uid="uid://dsnqb17qqenio" path="res://assets/scripts/components/health_component.gd" id="1_10lyx"]
+[ext_resource type="Script" uid="uid://djephdw0c1b7f" path="res://assets/scripts/particles/bubble.gd" id="1_ksa8n"]
+
+[sub_resource type="Shader" id="Shader_iridescent"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+void fragment() {
+    float fresnel = pow(1.0 - dot(NORMAL, VIEW), 2.0);
+    ALBEDO = vec3(0.8, 0.9, 1.0);
+    ALPHA = fresnel * 0.4;
+    ROUGHNESS = 0.01;
+    METALLIC = 0.1;
+    vec3 rainbow = 0.5 + 0.5 * cos(6.28318 * (vec3(0.0, 0.33, 0.67) + fresnel));
+    EMISSION = rainbow * fresnel * 0.6;
+}"
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_bubble"]
+render_priority = 0
+shader = SubResource("Shader_iridescent")
+
+[sub_resource type="SphereMesh" id="SphereMesh_ly0rj"]
+material = SubResource("ShaderMaterial_bubble")
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_ch7dl"]
+
+[sub_resource type="Animation" id="Animation_ksa8n"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RigidBody3D/MeshInstance3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_10lyx"]
+resource_name = "inflate"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("RigidBody3D/MeshInstance3D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.5, 1),
+"transitions": PackedFloat32Array(1, 0.36602142, 4.4382796, 1),
+"update": 0,
+"values": [Vector3(0, 0, 0), Vector3(0.2, 0.2, 0.2), Vector3(0.2, 0.2, 0.2), Vector3(1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fb3n0"]
+_data = {
+&"RESET": SubResource("Animation_ksa8n"),
+&"inflate": SubResource("Animation_10lyx")
+}
+
+[sub_resource type="Curve" id="Curve_fb3n0"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_ksa8n"]
+curve = SubResource("Curve_fb3n0")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_g25kj"]
+direction = Vector3(0, 0, 0)
+spread = 180.0
+initial_velocity_min = 3.0
+initial_velocity_max = 5.0
+gravity = Vector3(0, -1, 0)
+scale_min = 0.1
+scale_max = 0.3
+alpha_curve = SubResource("CurveTexture_ksa8n")
+
+[sub_resource type="SphereMesh" id="SphereMesh_bubble_shape"]
+material = SubResource("ShaderMaterial_bubble")
+radius = 0.1
+height = 0.2
+
+[node name="Bubble" type="Node3D" unique_id=676973399]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=27141494 node_paths=PackedStringArray("animation_player", "pop_effect")]
+mass = 0.05
+gravity_scale = -0.01
+script = ExtResource("1_ksa8n")
+animation_player = NodePath("../AnimationPlayer")
+pop_effect = NodePath("../PopEffect")
+
+[node name="HealthComponent" type="Node" parent="RigidBody3D" unique_id=1430932555]
+script = ExtResource("1_10lyx")
+max_health = 1.0
+initial_health = 1.0
+metadata/_custom_type_script = "uid://dsnqb17qqenio"
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=1670452469]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+mesh = SubResource("SphereMesh_ly0rj")
+skeleton = NodePath("")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=804360001]
+transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shape = SubResource("SphereShape3D_ch7dl")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=154642980]
+libraries/ = SubResource("AnimationLibrary_fb3n0")
+
+[node name="PopEffect" type="GPUParticles3D" parent="." unique_id=1254866317]
+emitting = false
+amount = 40
+lifetime = 0.6
+one_shot = true
+explosiveness = 0.95
+process_material = SubResource("ParticleProcessMaterial_g25kj")
+draw_pass_1 = SubResource("SphereMesh_bubble_shape")
+
+[connection signal="died" from="RigidBody3D/HealthComponent" to="RigidBody3D" method="_on_health_component_died"]
