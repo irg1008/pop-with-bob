@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://eiu4wtueqyog" path="res://assets/scripts/system/game_manager.gd" id="2_knkad"]
 [ext_resource type="Script" uid="uid://28sv1b06d4cx" path="res://assets/scripts/system/weapon_manager.gd" id="3_igsgb"]
-[ext_resource type="Script" uid="uid://clpntl0qos535" path="res://assets/scripts/weapons/weapon_data.gd" id="4_t0gow"]
+[ext_resource type="Script" uid="uid://clpntl0qos535" path="res://assets/scripts/weapons/resources/weapon_data.gd" id="4_t0gow"]
 [ext_resource type="Resource" uid="uid://dpl8smtsgoidd" path="res://assets/resources/weapons/pistol_data.tres" id="5_dad3f"]
 [ext_resource type="Resource" uid="uid://dlymwl6wv41ir" path="res://assets/resources/weapons/shotgun_data.tres" id="6_qaniw"]
 

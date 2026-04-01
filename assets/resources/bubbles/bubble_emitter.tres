@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="BubbleEmitterData" format=3 uid="uid://c7g87lyjwdqnm"]
+
+[ext_resource type="Resource" uid="uid://crcsirnyq50pi" path="res://assets/resources/bubbles/bubble.tres" id="1_4n51t"]
+[ext_resource type="Script" uid="uid://dbsfmxrbpjs4d" path="res://assets/scripts/bubbles/resources/bubble_emitter_data.gd" id="2_b7csj"]
+
+[resource]
+script = ExtResource("2_b7csj")
+bubble = ExtResource("1_4n51t")
+emit_rate = 1.0
+metadata/_custom_type_script = "uid://chbmu7283cdba"

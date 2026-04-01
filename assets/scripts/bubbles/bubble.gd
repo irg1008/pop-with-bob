@@ -1,4 +1,4 @@
-class_name BaseBubble extends Node3D
+class_name Bubble extends Node3D
 
 
 signal popped()

@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://eiu4wtueqyog" path="res://assets/scripts/system/game_manager.gd" id="1_qoi2i"]
 [ext_resource type="PackedScene" uid="uid://cgb15jkhf02vj" path="res://scenes/system/user_interface.tscn" id="1_rtgv3"]
 [ext_resource type="Script" uid="uid://28sv1b06d4cx" path="res://assets/scripts/system/weapon_manager.gd" id="2_bvk2m"]
-[ext_resource type="Script" uid="uid://clpntl0qos535" path="res://assets/scripts/weapons/weapon_data.gd" id="3_6aore"]
+[ext_resource type="Script" uid="uid://clpntl0qos535" path="res://assets/scripts/weapons/resources/weapon_data.gd" id="3_6aore"]
 [ext_resource type="Resource" uid="uid://dpl8smtsgoidd" path="res://assets/resources/weapons/pistol_data.tres" id="4_i0w0i"]
 [ext_resource type="Resource" uid="uid://dlymwl6wv41ir" path="res://assets/resources/weapons/shotgun_data.tres" id="5_i0w0i"]
 [ext_resource type="PackedScene" uid="uid://dqbkvpkvpfxws" path="res://scenes/player/player_controller.tscn" id="7_rc0n7"]

@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bpq23xvskbuqx"]
 
-[ext_resource type="PackedScene" uid="uid://d3qcjd07kedb2" path="res://scenes/bubbles/base_bubble.tscn" id="1_lmees"]
+[ext_resource type="PackedScene" uid="uid://d3qcjd07kedb2" path="res://scenes/bubbles/bubble.tscn" id="1_lmees"]
 [ext_resource type="Texture2D" uid="uid://c3g3k135aambs" path="res://assets/textures/beach_ball_texture.jpg" id="2_55276"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_xolsk"]

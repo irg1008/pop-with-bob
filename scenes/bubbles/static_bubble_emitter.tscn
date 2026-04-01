@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://oueccijguii8"]
 
 [ext_resource type="Script" uid="uid://cj3tui8jn3cxm" path="res://assets/scripts/bubbles/bubble_emitter.gd" id="1_nte5j"]
-[ext_resource type="Resource" uid="uid://crcsirnyq50pi" path="res://assets/resources/bubbles/base_bubble_data.tres" id="2_we7ov"]
+[ext_resource type="Resource" uid="uid://c7g87lyjwdqnm" path="res://assets/resources/bubbles/bubble_emitter.tres" id="2_6yeuk"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_nte5j"]
 height = 1.0
@@ -9,10 +9,10 @@ height = 1.0
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_nte5j"]
 height = 1.0
 
-[node name="SimpleBubbleEmitter" type="StaticBody3D" unique_id=2133249008 node_paths=PackedStringArray("emit_timer")]
+[node name="StaticBubbleEmitter" type="StaticBody3D" unique_id=2133249008 node_paths=PackedStringArray("emit_timer")]
 script = ExtResource("1_nte5j")
 emit_timer = NodePath("BubbleEmitTimer")
-bubble_data = ExtResource("2_we7ov")
+bubble_emitter = ExtResource("2_6yeuk")
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=591857109]
 mesh = SubResource("CylinderMesh_nte5j")

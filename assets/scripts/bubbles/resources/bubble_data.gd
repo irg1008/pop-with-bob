@@ -8,6 +8,3 @@ class_name BubbleData extends Resource
 @export var gold_scene: PackedScene
 @export var gold_reward: int = 20
 @export_range(0, 100, 1, "suffix:%") var gold_probability: int = 5
-@export_group("Emitter Settings")
-@export var max_current: int = 5
-@export var emit_rate: float = 0.2

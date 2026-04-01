@@ -1,12 +1,11 @@
-class_name BubbleEmitter extends StaticBody3D
+class_name BubbleEmitter extends Node3D
 
 
 @export_category("References")
 @export var emit_timer: Timer
 
 @export_category("Bubble Emitter Settings")
-@export var bubble_data: BubbleData
-
+@export var bubble_emitter: BubbleEmitterData
 
 var current_bubbles: int = 0
 
@@ -16,8 +15,8 @@ func _ready() -> void:
 
 
 func start_emit_timer() -> void:
-		if bubble_data and emit_timer:
-			emit_timer.wait_time = 1.0 / bubble_data.emit_rate
+		if bubble_emitter and emit_timer:
+			emit_timer.wait_time = 1.0 / bubble_emitter.emit_rate
 			emit_timer.start()
 
 			emit_bubble()
@@ -25,20 +24,20 @@ func start_emit_timer() -> void:
 
 
 func emit_bubble() -> void:
-		if not can_emit() or not bubble_data or not bubble_data.scene:
+		if not can_emit() or not bubble_emitter.bubble or not bubble_emitter.bubble.scene:
 			return
 
-		var bubble_scene: PackedScene = bubble_data.scene
-		var bubble_reward: int = bubble_data.reward
+		var bubble_scene: PackedScene = bubble_emitter.bubble.scene
+		var bubble_reward: int = bubble_emitter.bubble.reward
 
 		# Check for gold bubble
-		if bubble_data.gold_scene:
-			var gold_prob: float = bubble_data.gold_probability / 100.0
+		if bubble_emitter.bubble.gold_scene:
+			var gold_prob: float = bubble_emitter.bubble.gold_probability / 100.0
 			if randf() < gold_prob:
-				bubble_scene = bubble_data.gold_scene
-				bubble_reward = bubble_data.gold_reward
+				bubble_scene = bubble_emitter.bubble.gold_scene
+				bubble_reward = bubble_emitter.bubble.gold_reward
 
-		var bubble_instance: BaseBubble = bubble_scene.instantiate()
+		var bubble_instance: Bubble = bubble_scene.instantiate()
 		add_child(bubble_instance)
 		current_bubbles += 1
 
@@ -50,7 +49,7 @@ func emit_bubble() -> void:
 
 
 func can_emit() -> bool:
-	return current_bubbles < bubble_data.max_current
+	return current_bubbles < bubble_emitter.max_current
 
 
 func _on_bubble_popped(_reward: float) -> void:

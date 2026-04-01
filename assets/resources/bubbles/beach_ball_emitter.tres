@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BubbleEmitterData" format=3 uid="uid://b23ejpka3efwa"]
+
+[ext_resource type="Resource" uid="uid://7r0k12l0ahvy" path="res://assets/resources/bubbles/beach_ball.tres" id="1_ns06f"]
+[ext_resource type="Script" uid="uid://dbsfmxrbpjs4d" path="res://assets/scripts/bubbles/resources/bubble_emitter_data.gd" id="2_vmhl3"]
+
+[resource]
+script = ExtResource("2_vmhl3")
+bubble = ExtResource("1_ns06f")
+metadata/_custom_type_script = "uid://chbmu7283cdba"

@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="BubbleData" format=3 uid="uid://7r0k12l0ahvy"]
 
-[ext_resource type="PackedScene" uid="uid://bpq23xvskbuqx" path="res://scenes/bubbles/beach_ball_bubble.tscn" id="1_svplt"]
-[ext_resource type="Script" uid="uid://chbmu7283cdba" path="res://assets/scripts/bubbles/bubble_data.gd" id="2_otetv"]
+[ext_resource type="PackedScene" uid="uid://bpq23xvskbuqx" path="res://scenes/bubbles/beach_ball.tscn" id="1_svplt"]
+[ext_resource type="Script" uid="uid://chbmu7283cdba" path="res://assets/scripts/bubbles/resources/bubble_data.gd" id="2_otetv"]
 
 [resource]
 script = ExtResource("2_otetv")

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WeaponData" format=3 uid="uid://dpl8smtsgoidd"]
 
-[ext_resource type="Script" uid="uid://clpntl0qos535" path="res://assets/scripts/weapons/weapon_data.gd" id="1_lt1bo"]
+[ext_resource type="Script" uid="uid://clpntl0qos535" path="res://assets/scripts/weapons/resources/weapon_data.gd" id="1_lt1bo"]
 [ext_resource type="Resource" uid="uid://ixyv763l85hl" path="res://assets/resources/weapons/pistol.tres" id="2_1583y"]
 
 [resource]

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BubbleData" format=3 uid="uid://crcsirnyq50pi"]
+
+[ext_resource type="PackedScene" uid="uid://d3qcjd07kedb2" path="res://scenes/bubbles/bubble.tscn" id="1_giuwj"]
+[ext_resource type="Script" uid="uid://chbmu7283cdba" path="res://assets/scripts/bubbles/resources/bubble_data.gd" id="2_0rcc1"]
+
+[resource]
+script = ExtResource("2_0rcc1")
+scene = ExtResource("1_giuwj")
+metadata/_custom_type_script = "uid://chbmu7283cdba"
