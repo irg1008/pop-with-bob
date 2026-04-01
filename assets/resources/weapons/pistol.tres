@@ -6,6 +6,6 @@
 
 [resource]
 script = ExtResource("2_8loab")
-weapon_model = ExtResource("3_r76jm")
+weapon_scene = ExtResource("3_r76jm")
 damage = 20.0
 projectile_scene = ExtResource("1_4nee8")

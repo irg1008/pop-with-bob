@@ -4,7 +4,7 @@ class_name BaseBubble extends Node3D
 signal popped()
 
 
-@export var debug : bool = false
+@export var debug: bool = false
 
 @export_category("References")
 @export var animation_player: AnimationPlayer
@@ -12,7 +12,7 @@ signal popped()
 @export var pop_effect: GPUParticles3D
 
 @export_category("Bubble Properties")
-@export var max_lifetime: float = 10.0
+@export var max_lifetime: float
 @export var wobble_strength: float = 0.5
 
 
@@ -36,7 +36,7 @@ func _physics_process(delta: float) -> void:
 		return
 
 	time_alive += delta
-	if time_alive >= max_lifetime:
+	if max_lifetime > 0.0 and time_alive >= max_lifetime:
 		pop()
 		return
 
@@ -48,9 +48,9 @@ func _physics_process(delta: float) -> void:
 func _on_inflate_animation_finished(_animation_name: String) -> void:
 	rigid_body.contact_monitor = true
 	rigid_body.max_contacts_reported = 1
-	rigid_body.sleeping = false
 
 	if not debug:
+		rigid_body.sleeping = false
 		rigid_body.freeze = false
 
 	rigid_body.apply_central_impulse(Vector3.FORWARD * 0.01)

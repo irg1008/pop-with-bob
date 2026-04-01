@@ -28,8 +28,8 @@ func spawn_weapon_model() -> void:
 	if weapon_model:
 		weapon_model.queue_free()
 
-	if weapon.weapon_model:
-		weapon_model = weapon.weapon_model.instantiate()
+	if weapon.weapon_scene:
+		weapon_model = weapon.weapon_scene.instantiate()
 		weapon_mode_parent.add_child(weapon_model)
 		weapon_model.position = weapon.weapon_position
 
