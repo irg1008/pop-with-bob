@@ -11,5 +11,3 @@ class_name BubbleData extends Resource
 @export_group("Emitter Settings")
 @export var max_current: int = 5
 @export var emit_rate: float = 0.2
-## Use this to replace bubble emitter model. Consider creating a new emitter for more complex scenarios.
-@export var emitter_scene: PackedScene
