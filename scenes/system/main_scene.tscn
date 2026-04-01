@@ -41,3 +41,5 @@ shadow_enabled = true
 
 [node name="BaseBubble" parent="." unique_id=676973399 instance=ExtResource("10_tpgha")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5529797, 1.4961125, -4.2615647)
+max_lifetime = 50.0
+wobble_roaming = false

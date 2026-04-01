@@ -60,6 +60,7 @@ script = ExtResource("1_ksa8n")
 animation_player = NodePath("AnimationPlayer")
 rigid_body = NodePath("RigidBody3D")
 pop_effect = NodePath("PopEffect")
+wobble_enabled = false
 
 [node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=27141494]
 mass = 0.05
@@ -72,7 +73,6 @@ initial_health = 1.0
 metadata/_custom_type_script = "uid://dsnqb17qqenio"
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=1670452469]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 mesh = SubResource("SphereMesh_ly0rj")
 skeleton = NodePath("")
 
