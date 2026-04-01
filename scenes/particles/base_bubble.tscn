@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d3qcjd07kedb2"]
 
 [ext_resource type="Script" uid="uid://dsnqb17qqenio" path="res://assets/scripts/components/health_component.gd" id="1_10lyx"]
-[ext_resource type="Script" uid="uid://djephdw0c1b7f" path="res://assets/scripts/particles/bubble.gd" id="1_ksa8n"]
+[ext_resource type="Script" uid="uid://djephdw0c1b7f" path="res://assets/scripts/particles/base_bubble.gd" id="1_ksa8n"]
 
 [sub_resource type="Shader" id="Shader_iridescent"]
 code = "shader_type spatial;
@@ -28,18 +28,6 @@ material = SubResource("ShaderMaterial_bubble")
 
 [sub_resource type="Animation" id="Animation_ksa8n"]
 length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("RigidBody3D/MeshInstance3D:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(0, 0, 0)]
-}
 
 [sub_resource type="Animation" id="Animation_10lyx"]
 resource_name = "inflate"
@@ -84,14 +72,15 @@ material = SubResource("ShaderMaterial_bubble")
 radius = 0.1
 height = 0.2
 
-[node name="Bubble" type="Node3D" unique_id=676973399]
+[node name="BaseBubble" type="Node3D" unique_id=676973399 node_paths=PackedStringArray("animation_player", "rigid_body", "pop_effect")]
+script = ExtResource("1_ksa8n")
+animation_player = NodePath("AnimationPlayer")
+rigid_body = NodePath("RigidBody3D")
+pop_effect = NodePath("PopEffect")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=27141494 node_paths=PackedStringArray("animation_player", "pop_effect")]
+[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=27141494]
 mass = 0.05
 gravity_scale = -0.01
-script = ExtResource("1_ksa8n")
-animation_player = NodePath("../AnimationPlayer")
-pop_effect = NodePath("../PopEffect")
 
 [node name="HealthComponent" type="Node" parent="RigidBody3D" unique_id=1430932555]
 script = ExtResource("1_10lyx")
@@ -120,4 +109,4 @@ explosiveness = 0.95
 process_material = SubResource("ParticleProcessMaterial_g25kj")
 draw_pass_1 = SubResource("SphereMesh_bubble_shape")
 
-[connection signal="died" from="RigidBody3D/HealthComponent" to="RigidBody3D" method="_on_health_component_died"]
+[connection signal="died" from="RigidBody3D/HealthComponent" to="." method="_on_health_component_died"]
