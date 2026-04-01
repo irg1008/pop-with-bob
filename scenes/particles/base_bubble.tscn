@@ -2,27 +2,10 @@
 
 [ext_resource type="Script" uid="uid://dsnqb17qqenio" path="res://assets/scripts/components/health_component.gd" id="1_10lyx"]
 [ext_resource type="Script" uid="uid://djephdw0c1b7f" path="res://assets/scripts/particles/base_bubble.gd" id="1_ksa8n"]
-
-[sub_resource type="Shader" id="Shader_iridescent"]
-code = "shader_type spatial;
-render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
-
-void fragment() {
-    float fresnel = pow(1.0 - dot(NORMAL, VIEW), 2.0);
-    ALBEDO = vec3(0.8, 0.9, 1.0);
-    ALPHA = fresnel * 0.4;
-    ROUGHNESS = 0.01;
-    METALLIC = 0.1;
-    vec3 rainbow = 0.5 + 0.5 * cos(6.28318 * (vec3(0.0, 0.33, 0.67) + fresnel));
-    EMISSION = rainbow * fresnel * 0.6;
-}"
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_bubble"]
-render_priority = 0
-shader = SubResource("Shader_iridescent")
+[ext_resource type="Material" uid="uid://u074yrqx2dqn" path="res://assets/resources/materials/bubble_material.tres" id="3_saq75"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_ly0rj"]
-material = SubResource("ShaderMaterial_bubble")
+material = ExtResource("3_saq75")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ch7dl"]
 
@@ -68,7 +51,7 @@ scale_max = 0.3
 alpha_curve = SubResource("CurveTexture_ksa8n")
 
 [sub_resource type="SphereMesh" id="SphereMesh_bubble_shape"]
-material = SubResource("ShaderMaterial_bubble")
+material = ExtResource("3_saq75")
 radius = 0.1
 height = 0.2
 
