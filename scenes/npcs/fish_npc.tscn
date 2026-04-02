@@ -1,0 +1,17 @@
+[gd_scene format=3 uid="uid://bx3y7178ga5lm"]
+
+[ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/character_bubble_emitter.tscn" id="1_ba2ia"]
+[ext_resource type="Resource" uid="uid://b23ejpka3efwa" path="res://assets/resources/bubbles/beach_ball_emitter.tres" id="2_iaqpo"]
+[ext_resource type="PackedScene" uid="uid://c6pku2cn75fjo" path="res://assets/models/npcs/fish.gltf" id="3_ba2ia"]
+
+[node name="FishNpc" unique_id=582313622 instance=ExtResource("1_ba2ia")]
+
+[node name="BubbleEmitter" parent="." index="0" unique_id=31996967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9314208, -0.22301997)
+bubble_emitter = ExtResource("2_iaqpo")
+
+[node name="fish" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=223338948 instance=ExtResource("3_ba2ia")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="CollisionShape3D" parent="." index="2" unique_id=47495966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3965779, 0)

@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://btrg6djjnpoek"]
+
+[ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/character_bubble_emitter.tscn" id="1_3r3oh"]
+[ext_resource type="PackedScene" uid="uid://iqe7e68r2k52" path="res://assets/models/npcs/orc.gltf" id="2_3r3oh"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_k0t7d"]
+height = 0.70009816
+radius = 0.3881836
+
+[node name="OrcNpc" unique_id=582313622 instance=ExtResource("1_3r3oh")]
+move_speed = 2.0
+walk_animation = "Run"
+
+[node name="orc" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=489107087 instance=ExtResource("2_3r3oh")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="CollisionShape3D" parent="." index="2" unique_id=47495966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3503611, 0)
+shape = SubResource("CylinderShape3D_k0t7d")

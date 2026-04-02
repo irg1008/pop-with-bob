@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://d1p1f5fh7nyjy"
-path="res://.godot/imported/skull.gltf-bb4098d95e8612cacd6dcb3d39f8cdda.scn"
+uid="uid://djruvjwikpwwe"
+path="res://.godot/imported/ninja.gltf-56d19ec4580efea9f9fd6a9b0b24c22b.scn"
 
 [deps]
 
-source_file="res://assets/models/npcs/skull.gltf"
-dest_files=["res://.godot/imported/skull.gltf-bb4098d95e8612cacd6dcb3d39f8cdda.scn"]
+source_file="res://assets/models/npcs/ninja.gltf"
+dest_files=["res://.godot/imported/ninja.gltf-56d19ec4580efea9f9fd6a9b0b24c22b.scn"]
 
 [params]
 
@@ -37,6 +37,14 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"materials": {
+"Atlas": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/resources/materials/monsters_atlas.tres",
+"use_external/path": "uid://b6cpq3pt77wtw"
+}
+}
+}
 gltf/naming_version=2
-gltf/embedded_image_handling=1
+gltf/embedded_image_handling=3

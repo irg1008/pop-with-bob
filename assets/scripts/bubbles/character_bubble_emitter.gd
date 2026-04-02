@@ -3,12 +3,18 @@ class_name CharacterBubbleEmitter extends SmoothStairsCharacter3D
 
 @export_category("Movement Settings")
 @export var move_speed: float = 1.0
+@export var gravity_enabled: bool = true
 @export_group("Roaming")
 @export var roam_radius: float = 20.0
 @export var min_roam_distance: float = 5.0
+@export var max_target_time: float = 45.0 # To prevent getting stuck
 @export_group("Movement Smoothing")
 @export var steering_smoothness: float = 2.5
 @export var turn_smoothness: float = 2.0
+@export_group("Animations")
+@export var walk_animation: String = "Walk"
+@export var idle_animation: String = "Idle"
+@export var idle_enabled: bool = false
 
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
@@ -20,6 +26,7 @@ var animation_player: AnimationPlayer
 
 var home_position: Vector3
 var smoothed_move_direction: Vector3 = Vector3.FORWARD
+var target_time: float = 0.0
 
 
 func _ready() -> void:
@@ -32,7 +39,7 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not is_on_floor():
+	if not is_on_floor() and gravity_enabled:
 		velocity += get_gravity() * delta
 
 	smooth_move_and_stair_step()
@@ -49,10 +56,17 @@ func _on_velocity_computed(safe_velocity: Vector3) -> void:
 
 
 func _on_roaming_state_physics_processing(delta: float) -> void:
-	if nav_agent.is_navigation_finished():
+	if animation_player and idle_enabled and animation_player.current_animation == idle_animation:
+		return
+
+	if nav_agent.is_navigation_finished() or target_time >= max_target_time:
 		_on_idle_state_entered()
+
+		target_time = 0.0
 		_set_new_roam_target()
 		return
+
+	target_time += delta
 
 	var next_pos: Vector3 = nav_agent.get_next_path_position()
 	var desired_direction: Vector3 = (next_pos - global_position).normalized()
@@ -70,14 +84,14 @@ func _on_roaming_state_physics_processing(delta: float) -> void:
 
 
 func _on_roaming_state_entered() -> void:
-	if animation_player and animation_player.current_animation != "Walk":
-		animation_player.play("Walk")
+	if animation_player and animation_player.current_animation != walk_animation:
+		animation_player.play(walk_animation)
 
 
 func _on_idle_state_entered() -> void:
 	nav_agent.velocity = Vector3.ZERO
-	if animation_player and animation_player.current_animation != "Idle":
-		animation_player.play("Idle")
+	if animation_player and animation_player.current_animation != idle_animation:
+		animation_player.play(idle_animation)
 
 
 func _set_new_roam_target() -> void:
@@ -99,9 +113,12 @@ func _set_new_roam_target() -> void:
 func load_character() -> void:
 	var character_animation_player: Node = character_node.find_child("AnimationPlayer", true, false)
 
-	if character_animation_player is AnimationPlayer and character_animation_player.has_animation("Idle") and character_animation_player.has_animation("Walk"):
+	if (character_animation_player is AnimationPlayer
+			and character_animation_player.has_animation(idle_animation)
+			and character_animation_player.has_animation(walk_animation)
+		):
 		animation_player = character_animation_player
 
 	if animation_player:
-		animation_player.play("Idle")
+		animation_player.play(idle_animation)
 		animation_player.seek(randf_range(0.0, animation_player.current_animation_length))

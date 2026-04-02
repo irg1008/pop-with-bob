@@ -17,7 +17,6 @@ func smooth_move_and_stair_step() -> void:
 	var is_step: bool = rounded_height_delta > MIN_STEP_HEIGHT and rounded_height_delta <= step_height
 
 	if is_on_floor() and is_step:
-		print("Smooth step detected: ", height_delta)
 		_on_smooth_step(previous_height, height_delta)
 
 

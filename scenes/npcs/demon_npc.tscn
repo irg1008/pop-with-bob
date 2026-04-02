@@ -1,0 +1,28 @@
+[gd_scene format=3 uid="uid://c2x4stlng1ny"]
+
+[ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/character_bubble_emitter.tscn" id="1_15s1p"]
+[ext_resource type="Resource" uid="uid://b23ejpka3efwa" path="res://assets/resources/bubbles/beach_ball_emitter.tres" id="2_lyh1h"]
+[ext_resource type="PackedScene" uid="uid://dwjo36f5ny4et" path="res://assets/models/npcs/demon.gltf" id="3_15s1p"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_15s1p"]
+height = 1.0824709
+radius = 0.4194336
+
+[node name="DemonNpc" unique_id=582313622 instance=ExtResource("1_15s1p")]
+gravity_enabled = false
+idle_animation = "Flying_Idle"
+walk_animation = "Flying_Idle"
+
+[node name="BubbleEmitter" parent="." index="0" unique_id=31996967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4546012, -0.07298513)
+bubble_emitter = ExtResource("2_lyh1h")
+
+[node name="Character" parent="." index="1" unique_id=1174441357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39731312, 0)
+
+[node name="demon" parent="Character" index="0" unique_id=1382958814 instance=ExtResource("3_15s1p")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="CollisionShape3D" parent="." index="2" unique_id=47495966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59891915, 0)
+shape = SubResource("CylinderShape3D_15s1p")

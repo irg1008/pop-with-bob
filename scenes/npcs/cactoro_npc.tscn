@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://0gj34jwk8rmh"]
+
+[ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/character_bubble_emitter.tscn" id="1_0pro0"]
+[ext_resource type="PackedScene" uid="uid://cxbkit6yjq0wi" path="res://assets/models/npcs/cactoro.gltf" id="3_w23ek"]
+
+[node name="CactoroNpc" unique_id=582313622 instance=ExtResource("1_0pro0")]
+
+[node name="cactoro" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=873660441 instance=ExtResource("3_w23ek")]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="CollisionShape3D" parent="." index="2" unique_id=47495966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3503611, 0)
