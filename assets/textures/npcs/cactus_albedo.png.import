@@ -2,20 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://hnkjw4lhww68"
-path.s3tc="res://.godot/imported/Skull_Skull_Texture.png-353d8f14f379555ef27aa1abdc1fbbfe.s3tc.ctex"
+uid="uid://dr4ih313ra7tl"
+path.s3tc="res://.godot/imported/cactus_albedo.png-2f8195d83e064fe3b3ecdb742b5bdda4.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
 generator_parameters={
-"md5": "44bedef92e7055a6c5a4971b67f5d03d"
+"md5": "12ee20761091e1ee9a4aea536576f2ef"
 }
 
 [deps]
 
-source_file="res://assets/models/npcs/Skull_Skull_Texture.png"
-dest_files=["res://.godot/imported/Skull_Skull_Texture.png-353d8f14f379555ef27aa1abdc1fbbfe.s3tc.ctex"]
+source_file="res://assets/textures/npcs/cactus_albedo.png"
+dest_files=["res://.godot/imported/cactus_albedo.png-2f8195d83e064fe3b3ecdb742b5bdda4.s3tc.ctex"]
 
 [params]
 

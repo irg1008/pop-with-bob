@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://0gj34jwk8rmh"]
 
 [ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/character_bubble_emitter.tscn" id="1_0pro0"]
-[ext_resource type="PackedScene" uid="uid://bqt2c8ckjl55v" path="res://assets/models/npcs/Cactus.gltf" id="2_78xya"]
+[ext_resource type="PackedScene" uid="uid://bqt2c8ckjl55v" path="res://assets/models/npcs/cactus.gltf" id="2_78xya"]
 
 [node name="CactusNpc" unique_id=582313622 instance=ExtResource("1_0pro0")]
 
-[node name="Cactus" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=702098918 instance=ExtResource("2_78xya")]
+[node name="cactus" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=1927367881 instance=ExtResource("2_78xya")]

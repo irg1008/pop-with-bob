@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://bqt2c8ckjl55v"
-path="res://.godot/imported/Cactus.gltf-21f751ba212c07f739527359d8c55227.scn"
+path="res://.godot/imported/cactus.gltf-dd241578bc74102367ba695337c31b56.scn"
 
 [deps]
 
-source_file="res://assets/models/npcs/Cactus.gltf"
-dest_files=["res://.godot/imported/Cactus.gltf-21f751ba212c07f739527359d8c55227.scn"]
+source_file="res://assets/models/npcs/cactus.gltf"
+dest_files=["res://.godot/imported/cactus.gltf-dd241578bc74102367ba695337c31b56.scn"]
 
 [params]
 
@@ -37,6 +37,14 @@ import_script/path=""
 materials/extract=0
 materials/extract_format=0
 materials/extract_path=""
-_subresources={}
+_subresources={
+"materials": {
+"Texture": {
+"use_external/enabled": true,
+"use_external/fallback_path": "res://assets/resources/materials/cactus_material.tres",
+"use_external/path": "uid://hogh8dsectdj"
+}
+}
+}
 gltf/naming_version=2
 gltf/embedded_image_handling=1

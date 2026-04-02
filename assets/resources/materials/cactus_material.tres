@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://hogh8dsectdj"]
+
+[ext_resource type="Texture2D" uid="uid://dr4ih313ra7tl" path="res://assets/textures/npcs/cactus_albedo.png" id="1_wtbsf"]
+
+[resource]
+resource_name = "Texture"
+cull_mode = 2
+shading_mode = 0
+albedo_texture = ExtResource("1_wtbsf")

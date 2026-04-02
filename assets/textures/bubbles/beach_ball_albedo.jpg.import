@@ -2,20 +2,17 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://dr4ih313ra7tl"
-path.s3tc="res://.godot/imported/Cactus_Cactus_Texture.png-3fe42e765f37ed9fa3251e677aed9a4d.s3tc.ctex"
+uid="uid://c3g3k135aambs"
+path.s3tc="res://.godot/imported/beach_ball_albedo.jpg-97649699bc4dbf26749adf1ecb8fcc1c.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "12ee20761091e1ee9a4aea536576f2ef"
-}
 
 [deps]
 
-source_file="res://assets/models/npcs/Cactus_Cactus_Texture.png"
-dest_files=["res://.godot/imported/Cactus_Cactus_Texture.png-3fe42e765f37ed9fa3251e677aed9a4d.s3tc.ctex"]
+source_file="res://assets/textures/bubbles/beach_ball_albedo.jpg"
+dest_files=["res://.godot/imported/beach_ball_albedo.jpg-97649699bc4dbf26749adf1ecb8fcc1c.s3tc.ctex"]
 
 [params]
 

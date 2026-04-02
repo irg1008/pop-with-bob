@@ -2,17 +2,20 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://c3g3k135aambs"
-path.s3tc="res://.godot/imported/beach_ball_texture.jpg-cdea8d9285549b851331023d0696b187.s3tc.ctex"
+uid="uid://hnkjw4lhww68"
+path.s3tc="res://.godot/imported/skull_albedo.png-9824c1a5baa5722e691c5fa0f65c2895.s3tc.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc"],
 "vram_texture": true
 }
+generator_parameters={
+"md5": "44bedef92e7055a6c5a4971b67f5d03d"
+}
 
 [deps]
 
-source_file="res://assets/textures/beach_ball_texture.jpg"
-dest_files=["res://.godot/imported/beach_ball_texture.jpg-cdea8d9285549b851331023d0696b187.s3tc.ctex"]
+source_file="res://assets/textures/npcs/skull_albedo.png"
+dest_files=["res://.godot/imported/skull_albedo.png-9824c1a5baa5722e691c5fa0f65c2895.s3tc.ctex"]
 
 [params]
 

@@ -4,12 +4,12 @@ importer="scene"
 importer_version=1
 type="PackedScene"
 uid="uid://d1p1f5fh7nyjy"
-path="res://.godot/imported/Skull.gltf-8cdcb3254b8dfebc949a293eeba32e5f.scn"
+path="res://.godot/imported/skull.gltf-bb4098d95e8612cacd6dcb3d39f8cdda.scn"
 
 [deps]
 
-source_file="res://assets/models/npcs/Skull.gltf"
-dest_files=["res://.godot/imported/Skull.gltf-8cdcb3254b8dfebc949a293eeba32e5f.scn"]
+source_file="res://assets/models/npcs/skull.gltf"
+dest_files=["res://.godot/imported/skull.gltf-bb4098d95e8612cacd6dcb3d39f8cdda.scn"]
 
 [params]
 
