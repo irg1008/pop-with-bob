@@ -8,7 +8,7 @@ class_name CharacterBubbleEmitter extends SmoothStairsCharacter3D
 @export var min_roam_distance: float = 5.0
 @export_group("Movement Smoothing")
 @export var steering_smoothness: float = 2.0
-@export var turn_smoothness: float = 1.5
+@export var turn_smoothness: float = 4.0
 @export_group("Animations")
 @export var states_enabled: bool = true
 @export var animation_blend: float = 0.2

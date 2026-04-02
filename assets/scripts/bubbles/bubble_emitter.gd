@@ -6,13 +6,16 @@ class_name BubbleEmitter extends Node3D
 
 
 const BUBBLES_ROOT_NODE: String = "BubblesRoot"
-
+const MAX_START_DELAY: float = 2.0
 
 var current_bubbles: int = 0
 var emit_timer: Timer
 
 
 func _ready() -> void:
+		var start_delay: float = randf_range(0, MAX_START_DELAY)
+		await get_tree().create_timer(start_delay).timeout
+
 		emit_bubble()
 		start_emit_timer()
 

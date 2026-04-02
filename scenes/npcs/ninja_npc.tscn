@@ -11,7 +11,9 @@ radius = 0.3881836
 move_speed = 2.0
 walk_animation = "Run"
 idle_animation = "Weapon"
-idle_enabled = true
+
+[node name="BubbleEmitter" parent="." index="0" unique_id=31996967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1813636, -0.42368206)
 
 [node name="ninja" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=1461184110 instance=ExtResource("2_vihsx")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
