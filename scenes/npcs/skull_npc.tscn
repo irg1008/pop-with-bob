@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://dftfq36ealjww"]
+
+[ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/character_bubble_emitter.tscn" id="1_yi2tp"]
+[ext_resource type="Resource" uid="uid://b23ejpka3efwa" path="res://assets/resources/bubbles/beach_ball_emitter.tres" id="2_3refi"]
+[ext_resource type="PackedScene" uid="uid://d1p1f5fh7nyjy" path="res://assets/models/npcs/Skull.gltf" id="2_yi2tp"]
+
+[node name="CactusNpc" unique_id=582313622 instance=ExtResource("1_yi2tp")]
+
+[node name="BubbleEmitter" parent="." index="0" unique_id=31996967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.824955, -0.08400726)
+bubble_emitter = ExtResource("2_3refi")
+
+[node name="Skull" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=1475348249 instance=ExtResource("2_yi2tp")]
+
+[node name="CollisionShape3D" parent="." index="2" unique_id=47495966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.31232116, 0)

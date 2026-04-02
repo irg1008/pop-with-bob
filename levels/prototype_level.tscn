@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dfck75ha1fol0" path="res://scenes/enemies/simple_enemy.tscn" id="6_i5e4g"]
 [ext_resource type="PackedScene" uid="uid://oueccijguii8" path="res://scenes/bubbles/static_bubble_emitter.tscn" id="7_pvbb1"]
 [ext_resource type="Resource" uid="uid://b23ejpka3efwa" path="res://assets/resources/bubbles/beach_ball_emitter.tres" id="8_0bul0"]
+[ext_resource type="PackedScene" uid="uid://dftfq36ealjww" path="res://scenes/npcs/skull_npc.tscn" id="9_3sjje"]
 [ext_resource type="PackedScene" uid="uid://0gj34jwk8rmh" path="res://scenes/npcs/cactus_npc.tscn" id="9_rl8gb"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_qd0o6"]
@@ -1156,16 +1157,13 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.445492, 0, 15.305309)
 [node name="SimpleEnemy5" parent="." unique_id=1682402378 instance=ExtResource("6_i5e4g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.865444, -4.7683716e-07, 8.634035)
 
-[node name="SimpleBubbleEmitter" parent="." unique_id=2133249008 instance=ExtResource("7_pvbb1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.8852556, 0.5, -5.8768764)
-
-[node name="SimpleBubbleEmitter2" parent="." unique_id=2035305720 instance=ExtResource("7_pvbb1")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.782265, 0.5, -3.107956)
-bubble_emitter = ExtResource("8_0bul0")
-
-[node name="CharacterBubbleEmitter" parent="." unique_id=582313622 instance=ExtResource("9_rl8gb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.238588, 0.0667432, -6.4989414)
-
 [node name="StaticBubbleEmitter" parent="." unique_id=677910916 instance=ExtResource("7_pvbb1")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.3935914, 0.9490392, 1.7736158)
+visible = false
 bubble_emitter = ExtResource("8_0bul0")
+
+[node name="CactusNpc" parent="." unique_id=582313622 instance=ExtResource("9_3sjje")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -13.312115, 0.03399324, -8.195729)
+
+[node name="CactusNpc2" parent="." unique_id=1826762018 instance=ExtResource("9_rl8gb")]
+transform = Transform3D(0.6396939, 0, 0.7686297, 0, 1, 0, -0.7686297, 0, 0.6396939, -11.277349, 0.0667432, -9.390114)

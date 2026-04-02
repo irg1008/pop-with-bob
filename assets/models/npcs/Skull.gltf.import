@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bqt2c8ckjl55v"
-path="res://.godot/imported/Cactus.gltf-21f751ba212c07f739527359d8c55227.scn"
+uid="uid://d1p1f5fh7nyjy"
+path="res://.godot/imported/Skull.gltf-8cdcb3254b8dfebc949a293eeba32e5f.scn"
 
 [deps]
 
-source_file="res://assets/models/npcs/Cactus.gltf"
-dest_files=["res://.godot/imported/Cactus.gltf-21f751ba212c07f739527359d8c55227.scn"]
+source_file="res://assets/models/npcs/Skull.gltf"
+dest_files=["res://.godot/imported/Skull.gltf-8cdcb3254b8dfebc949a293eeba32e5f.scn"]
 
 [params]
 
