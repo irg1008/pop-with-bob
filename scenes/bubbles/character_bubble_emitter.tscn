@@ -3,7 +3,6 @@
 [ext_resource type="Script" uid="uid://bkm8khkvdvqe5" path="res://assets/scripts/bubbles/character_bubble_emitter.gd" id="1_4dv0b"]
 [ext_resource type="Script" uid="uid://cj3tui8jn3cxm" path="res://assets/scripts/bubbles/bubble_emitter.gd" id="1_gp703"]
 [ext_resource type="Resource" uid="uid://c7g87lyjwdqnm" path="res://assets/resources/bubbles/bubble_emitter.tres" id="2_2bnqf"]
-[ext_resource type="PackedScene" uid="uid://bqt2c8ckjl55v" path="res://assets/models/npcs/cactus.gltf" id="3_2bnqf"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_ate53"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_14bpf"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="6_p2gyo"]
@@ -18,14 +17,8 @@ collider = NodePath("CollisionShape3D")
 script = ExtResource("1_4dv0b")
 metadata/_custom_type_script = "uid://dgcufyvakuq3s"
 
-[node name="Character" parent="." unique_id=1513635702 instance=ExtResource("3_2bnqf")]
-transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.045858532, 0)
-
-[node name="Skeleton3D" parent="Character/MonsterArmature" parent_id_path=PackedInt32Array(1513635702, 927401896) index="0" unique_id=1162462549]
-bones/2/position = Vector3(0, 0.47287178, 0)
-bones/4/rotation = Quaternion(0, 0, 0, 1)
-bones/5/position = Vector3(-0.5115147, 0.5888456, 0.46087223)
-bones/6/position = Vector3(0.5115147, 0.5888456, 0.46087223)
+[node name="Character" type="Node3D" parent="." unique_id=1174441357]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=47495966]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4077328, 0)
@@ -72,5 +65,3 @@ delay_in_seconds = "0.0"
 [connection signal="state_entered" from="StateChart/Root/Idle" to="." method="_on_idle_state_entered"]
 [connection signal="state_entered" from="StateChart/Root/Roaming" to="." method="_on_roaming_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Roaming" to="." method="_on_roaming_state_physics_processing"]
-
-[editable path="Character"]

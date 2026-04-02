@@ -11,13 +11,25 @@ material = ExtResource("3_saq75")
 
 [sub_resource type="Animation" id="Animation_ksa8n"]
 length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("BubblePivot:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(1, 1, 1)]
+}
 
 [sub_resource type="Animation" id="Animation_10lyx"]
 resource_name = "inflate"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("RigidBody3D/MeshInstance3D:scale")
+tracks/0/path = NodePath("BubblePivot:scale")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
@@ -58,27 +70,28 @@ height = 0.2
 [node name="Bubble" type="Node3D" unique_id=676973399 node_paths=PackedStringArray("animation_player", "rigid_body", "pop_effect")]
 script = ExtResource("1_ksa8n")
 animation_player = NodePath("AnimationPlayer")
-rigid_body = NodePath("RigidBody3D")
+rigid_body = NodePath("BubblePivot/RigidBody3D")
 pop_effect = NodePath("PopEffect")
 
-[node name="RigidBody3D" type="RigidBody3D" parent="." unique_id=27141494]
+[node name="BubblePivot" type="Node3D" parent="." unique_id=950515972]
+
+[node name="RigidBody3D" type="RigidBody3D" parent="BubblePivot" unique_id=27141494]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 collision_mask = 0
 mass = 0.05
 gravity_scale = -0.01
 
-[node name="HealthComponent" type="Node" parent="RigidBody3D" unique_id=1430932555]
+[node name="HealthComponent" type="Node" parent="BubblePivot/RigidBody3D" unique_id=1430932555]
 script = ExtResource("1_10lyx")
 max_health = 1.0
 initial_health = 1.0
 metadata/_custom_type_script = "uid://dsnqb17qqenio"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="RigidBody3D" unique_id=1670452469]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+[node name="MeshInstance3D" type="MeshInstance3D" parent="BubblePivot/RigidBody3D" unique_id=1670452469]
 mesh = SubResource("SphereMesh_ly0rj")
 skeleton = NodePath("")
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="RigidBody3D" unique_id=804360001]
-transform = Transform3D(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="BubblePivot/RigidBody3D" unique_id=804360001]
 shape = SubResource("SphereShape3D_ch7dl")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=154642980]
@@ -93,4 +106,4 @@ explosiveness = 0.95
 process_material = SubResource("ParticleProcessMaterial_g25kj")
 draw_pass_1 = SubResource("SphereMesh_bubble_shape")
 
-[connection signal="died" from="RigidBody3D/HealthComponent" to="." method="_on_health_component_died"]
+[connection signal="died" from="BubblePivot/RigidBody3D/HealthComponent" to="." method="_on_health_component_died"]

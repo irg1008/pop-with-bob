@@ -2,7 +2,7 @@ class_name CharacterBubbleEmitter extends SmoothStairsCharacter3D
 
 
 @export_category("Movement Settings")
-@export var move_speed: float = 1.5
+@export var move_speed: float = 1.0
 @export_group("Roaming")
 @export var roam_radius: float = 20.0
 @export var min_roam_distance: float = 5.0
@@ -13,22 +13,22 @@ class_name CharacterBubbleEmitter extends SmoothStairsCharacter3D
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var state_chart: StateChart = $StateChart
-@onready var animation_player: AnimationPlayer = $Character/AnimationPlayer
+@onready var character_node: Node3D = $Character
 
+
+var animation_player: AnimationPlayer
 
 var home_position: Vector3
 var smoothed_move_direction: Vector3 = Vector3.FORWARD
 
 
 func _ready() -> void:
+	load_character()
+
 	home_position = global_position
 
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	nav_agent.target_position = home_position
-
-	if animation_player:
-		animation_player.play("Idle")
-		animation_player.seek(randf_range(0.0, animation_player.current_animation_length))
 
 
 func _physics_process(delta: float) -> void:
@@ -70,13 +70,11 @@ func _on_roaming_state_physics_processing(delta: float) -> void:
 
 
 func _on_roaming_state_entered() -> void:
-	print("Entered roaming state")
 	if animation_player and animation_player.current_animation != "Walk":
 		animation_player.play("Walk")
 
 
 func _on_idle_state_entered() -> void:
-	print("Entered idle state")
 	nav_agent.velocity = Vector3.ZERO
 	if animation_player and animation_player.current_animation != "Idle":
 		animation_player.play("Idle")
@@ -96,3 +94,14 @@ func _set_new_roam_target() -> void:
 	var nav_map: RID = nav_agent.get_navigation_map()
 	var closest_nav_point: Vector3 = NavigationServer3D.map_get_closest_point(nav_map, desired_point)
 	nav_agent.target_position = closest_nav_point
+
+
+func load_character() -> void:
+	var character_animation_player: Node = character_node.find_child("AnimationPlayer", true, false)
+
+	if character_animation_player is AnimationPlayer and character_animation_player.has_animation("Idle") and character_animation_player.has_animation("Walk"):
+		animation_player = character_animation_player
+
+	if animation_player:
+		animation_player.play("Idle")
+		animation_player.seek(randf_range(0.0, animation_player.current_animation_length))
