@@ -57,7 +57,7 @@ func add_to_root(bubble: Bubble) -> void:
 	if not bubbles_root:
 		bubbles_root = Node3D.new()
 		bubbles_root.name = BUBBLES_ROOT_NODE
-		get_tree().root.add_child(bubbles_root)
+		get_tree().root.add_child.call_deferred(bubbles_root)
 
 	bubbles_root.add_child(bubble)
 

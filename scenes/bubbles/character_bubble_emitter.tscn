@@ -13,9 +13,6 @@
 height = 0.81595457
 radius = 0.4
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_14bpf"]
-radius = 10.0
-
 [node name="CharacterBubbleEmitter" type="StairsCharacter3D" unique_id=582313622]
 collider = NodePath("CollisionShape3D")
 script = ExtResource("1_4dv0b")
@@ -33,14 +30,6 @@ bones/6/position = Vector3(0.5115147, 0.5888456, 0.46087223)
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=47495966]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4077328, 0)
 shape = SubResource("CylinderShape3D_nte5j")
-
-[node name="DetectionArea" type="Area3D" parent="." unique_id=1068782994]
-collision_layer = 0
-collision_mask = 2
-monitorable = false
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=322284870]
-shape = SubResource("SphereShape3D_14bpf")
 
 [node name="BubbleEmitter" type="Node3D" parent="." unique_id=31996967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6221619, 0)
@@ -60,7 +49,7 @@ metadata/_custom_type_script = "uid://couw105c3bde4"
 
 [node name="Root" type="Node" parent="StateChart" unique_id=928137024]
 script = ExtResource("5_14bpf")
-initial_state = NodePath("Idle")
+initial_state = NodePath("Roaming")
 
 [node name="Idle" type="Node" parent="StateChart/Root" unique_id=524748921]
 script = ExtResource("6_p2gyo")
@@ -80,8 +69,6 @@ to = NodePath("../Roaming")
 event = &"onRoaming"
 delay_in_seconds = "0.0"
 
-[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
-[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
 [connection signal="state_entered" from="StateChart/Root/Idle" to="." method="_on_idle_state_entered"]
 [connection signal="state_entered" from="StateChart/Root/Roaming" to="." method="_on_roaming_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Roaming" to="." method="_on_roaming_state_physics_processing"]
