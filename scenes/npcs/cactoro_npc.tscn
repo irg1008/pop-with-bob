@@ -4,6 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://cxbkit6yjq0wi" path="res://assets/models/npcs/cactoro.gltf" id="3_w23ek"]
 
 [node name="CactoroNpc" unique_id=582313622 instance=ExtResource("1_0pro0")]
+idle_animation = "Dance"
 
 [node name="cactoro" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=873660441 instance=ExtResource("3_w23ek")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)

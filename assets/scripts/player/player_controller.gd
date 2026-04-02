@@ -62,7 +62,7 @@ func _physics_process(delta: float) -> void:
 	smooth_move_and_stair_step()
 
 
-func _on_smooth_step(_previous_height: float, height_delta: float) -> void:
+func _on_smooth_step(_delta: float, _previous_height: float, height_delta: float) -> void:
 	camera.smooth_step(height_delta)
 
 

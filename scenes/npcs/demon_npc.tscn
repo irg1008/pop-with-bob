@@ -2,16 +2,17 @@
 
 [ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/character_bubble_emitter.tscn" id="1_15s1p"]
 [ext_resource type="Resource" uid="uid://b23ejpka3efwa" path="res://assets/resources/bubbles/beach_ball_emitter.tres" id="2_lyh1h"]
-[ext_resource type="PackedScene" uid="uid://dwjo36f5ny4et" path="res://assets/models/npcs/demon.gltf" id="3_15s1p"]
+[ext_resource type="PackedScene" uid="uid://cu8uphgkfvna6" path="res://assets/models/npcs/demon.gltf" id="3_15s1p"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_15s1p"]
 height = 1.0824709
 radius = 0.4194336
 
 [node name="DemonNpc" unique_id=582313622 instance=ExtResource("1_15s1p")]
-gravity_enabled = false
-idle_animation = "Flying_Idle"
+step_height_up = 2.0
+step_height_down = 2.0
 walk_animation = "Flying_Idle"
+idle_animation = "Flying_Idle"
 
 [node name="BubbleEmitter" parent="." index="0" unique_id=31996967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4546012, -0.07298513)

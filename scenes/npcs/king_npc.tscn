@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://bhiuytc8vaa3f"]
+
+[ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/character_bubble_emitter.tscn" id="1_asged"]
+[ext_resource type="Resource" uid="uid://b23ejpka3efwa" path="res://assets/resources/bubbles/beach_ball_emitter.tres" id="2_66g6f"]
+[ext_resource type="PackedScene" uid="uid://cglca0wm24n6l" path="res://assets/models/npcs/king.gltf" id="3_asged"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_asged"]
+height = 1.2650881
+radius = 0.34570313
+
+[node name="KingNpc" unique_id=582313622 instance=ExtResource("1_asged")]
+step_height_up = 2.0
+step_height_down = 2.0
+move_speed = 2.0
+walk_animation = "Fast_Flying"
+idle_animation = "Headbutt"
+idle_enabled = true
+
+[node name="BubbleEmitter" parent="." index="0" unique_id=31996967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7699753, -0.07298513)
+bubble_emitter = ExtResource("2_66g6f")
+
+[node name="Character" parent="." index="1" unique_id=1174441357]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.41933656, 0)
+
+[node name="king" parent="Character" index="0" unique_id=1017286498 instance=ExtResource("3_asged")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="CollisionShape3D" parent="." index="2" unique_id=47495966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69022775, 0)
+shape = SubResource("CylinderShape3D_asged")

@@ -20,6 +20,5 @@ func _physics_process(delta: float) -> void:
 	smooth_move_and_stair_step()
 
 
-func _on_smooth_step(previous_height: float, _height_delta: float) -> void:
-	var delta: float = get_physics_process_delta_time()
+func _on_smooth_step(delta: float, previous_height: float, _height_delta: float) -> void:
 	position.y = lerp(previous_height, position.y, 8.0 * delta)

@@ -78,7 +78,6 @@ pop_effect = NodePath("PopEffect")
 
 [node name="RigidBody3D" type="RigidBody3D" parent="BubblePivot" unique_id=27141494]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-collision_mask = 0
 mass = 0.05
 gravity_scale = -0.01
 

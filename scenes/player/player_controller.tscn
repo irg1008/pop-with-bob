@@ -57,6 +57,7 @@ health_component = NodePath("HealthComponent")
 metadata/_custom_type_script = "uid://dgcufyvakuq3s"
 
 [node name="StateChartDebugger" parent="." unique_id=1134529071 instance=ExtResource("2_nwn0c")]
+visible = false
 anchors_preset = 0
 anchor_right = 0.0
 anchor_bottom = 0.0

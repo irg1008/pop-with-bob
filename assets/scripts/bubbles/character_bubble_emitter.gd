@@ -3,18 +3,17 @@ class_name CharacterBubbleEmitter extends SmoothStairsCharacter3D
 
 @export_category("Movement Settings")
 @export var move_speed: float = 1.0
-@export var gravity_enabled: bool = true
 @export_group("Roaming")
 @export var roam_radius: float = 20.0
 @export var min_roam_distance: float = 5.0
-@export var max_target_time: float = 45.0 # To prevent getting stuck
 @export_group("Movement Smoothing")
 @export var steering_smoothness: float = 2.5
 @export var turn_smoothness: float = 2.0
 @export_group("Animations")
+@export var states_enabled: bool = true
 @export var walk_animation: String = "Walk"
-@export var idle_animation: String = "Idle"
-@export var idle_enabled: bool = false
+@export var stuck_animation: String = "No"
+@export var idle_animation: String
 
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
@@ -26,11 +25,15 @@ var animation_player: AnimationPlayer
 
 var home_position: Vector3
 var smoothed_move_direction: Vector3 = Vector3.FORWARD
-var target_time: float = 0.0
+
+var is_stuck: bool = false
+var stuck_check_timer: Timer
+var stuck_check_position: Vector3
 
 
 func _ready() -> void:
 	load_character()
+	create_stuck_check()
 
 	home_position = global_position
 
@@ -39,14 +42,13 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if not is_on_floor() and gravity_enabled:
+	if not is_on_floor():
 		velocity += get_gravity() * delta
 
 	smooth_move_and_stair_step()
 
 
-func _on_smooth_step(previous_height: float, _height_delta: float) -> void:
-	var delta: float = get_physics_process_delta_time()
+func _on_smooth_step(delta: float, previous_height: float, _height_delta: float) -> void:
 	position.y = lerp(previous_height, position.y, 8.0 * delta)
 
 
@@ -56,17 +58,10 @@ func _on_velocity_computed(safe_velocity: Vector3) -> void:
 
 
 func _on_roaming_state_physics_processing(delta: float) -> void:
-	if animation_player and idle_enabled and animation_player.current_animation == idle_animation:
-		return
-
-	if nav_agent.is_navigation_finished() or target_time >= max_target_time:
-		_on_idle_state_entered()
-
-		target_time = 0.0
+	if nav_agent.is_navigation_finished():
+		state_chart.send_event("onIdle")
 		_set_new_roam_target()
 		return
-
-	target_time += delta
 
 	var next_pos: Vector3 = nav_agent.get_next_path_position()
 	var desired_direction: Vector3 = (next_pos - global_position).normalized()
@@ -89,9 +84,21 @@ func _on_roaming_state_entered() -> void:
 
 
 func _on_idle_state_entered() -> void:
-	nav_agent.velocity = Vector3.ZERO
-	if animation_player and animation_player.current_animation != idle_animation:
+	if animation_player and animation_player.has_animation(idle_animation):
+		nav_agent.velocity = Vector3.ZERO
 		animation_player.play(idle_animation)
+		await animation_player.animation_finished
+
+	state_chart.send_event("onRoaming")
+
+
+func _on_stuck_state_entered() -> void:
+	if animation_player and animation_player.has_animation(stuck_animation):
+		nav_agent.velocity = Vector3.ZERO
+		animation_player.play(stuck_animation)
+		await animation_player.animation_finished
+
+	state_chart.send_event("onRoaming")
 
 
 func _set_new_roam_target() -> void:
@@ -113,12 +120,31 @@ func _set_new_roam_target() -> void:
 func load_character() -> void:
 	var character_animation_player: Node = character_node.find_child("AnimationPlayer", true, false)
 
-	if (character_animation_player is AnimationPlayer
-			and character_animation_player.has_animation(idle_animation)
-			and character_animation_player.has_animation(walk_animation)
-		):
+	if character_animation_player is AnimationPlayer and character_animation_player.has_animation(walk_animation):
 		animation_player = character_animation_player
 
 	if animation_player:
-		animation_player.play(idle_animation)
+		animation_player.play(walk_animation)
 		animation_player.seek(randf_range(0.0, animation_player.current_animation_length))
+
+
+func create_stuck_check() -> void:
+	stuck_check_timer = Timer.new()
+	add_child(stuck_check_timer)
+	stuck_check_timer.wait_time = 0.5
+	stuck_check_timer.start()
+	stuck_check_timer.timeout.connect(_on_stuck_check_timeout)
+
+
+func _on_stuck_check_timeout() -> void:
+	if animation_player and animation_player.current_animation == idle_animation:
+		return
+
+	var distance_moved: float = global_position.distance_to(stuck_check_position)
+
+	is_stuck = distance_moved < 0.1
+	stuck_check_position = global_position
+
+	if is_stuck:
+		_set_new_roam_target()
+		state_chart.send_event("onStuck")

@@ -17,8 +17,9 @@ func smooth_move_and_stair_step() -> void:
 	var is_step: bool = rounded_height_delta > MIN_STEP_HEIGHT and rounded_height_delta <= step_height
 
 	if is_on_floor() and is_step:
-		_on_smooth_step(previous_height, height_delta)
+		var delta: float = get_physics_process_delta_time()
+		_on_smooth_step(delta, previous_height, height_delta)
 
 
-func _on_smooth_step(_previous_height: float, _height_delta: float) -> void:
+func _on_smooth_step(_delta: float, _previous_height: float, _height_delta: float) -> void:
 	pass
