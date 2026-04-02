@@ -7,4 +7,5 @@
 script = ExtResource("2_b7csj")
 bubble = ExtResource("1_4n51t")
 max_current = 50
+max_lifetime = 2.0
 metadata/_custom_type_script = "uid://chbmu7283cdba"

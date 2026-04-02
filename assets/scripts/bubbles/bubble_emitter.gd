@@ -45,6 +45,7 @@ func emit_bubble() -> void:
 				bubble_reward = bubble_emitter.bubble.gold_reward
 
 		var bubble_instance: Bubble = bubble_scene.instantiate()
+		bubble_instance.max_lifetime = bubble_emitter.max_lifetime
 		add_child(bubble_instance)
 		bubble_instance.global_transform = global_transform
 

@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://df6xj0vba4rtn" path="res://assets/sounds/bubbles/bubble/bubble_pop_04.mp3" id="5_45puu"]
 [ext_resource type="AudioStream" uid="uid://exjfbfr1yspn" path="res://assets/sounds/bubbles/bubble/bubble_pop_05.mp3" id="6_d05ox"]
 [ext_resource type="AudioStream" uid="uid://hw0dk2bs85y6" path="res://assets/sounds/bubbles/bubble/bubble_pop_06.mp3" id="7_gefpp"]
+[ext_resource type="AudioStream" uid="uid://cobsqhsh3lur4" path="res://assets/sounds/bubbles/bubble/inflate_001.mp3" id="8_taa85"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_ly0rj"]
 material = ExtResource("3_saq75")
@@ -73,14 +74,15 @@ material = ExtResource("3_saq75")
 radius = 0.1
 height = 0.2
 
-[node name="Bubble" type="Node3D" unique_id=676973399 node_paths=PackedStringArray("animation_player", "rigid_body", "bubble_pivot", "pop_effect", "pop_player")]
+[node name="Bubble" type="Node3D" unique_id=676973399 node_paths=PackedStringArray("animation_player", "rigid_body", "bubble_pivot", "audio_player", "pop_effect")]
 script = ExtResource("1_ksa8n")
 animation_player = NodePath("AnimationPlayer")
 rigid_body = NodePath("BubblePivot/RigidBody3D")
 bubble_pivot = NodePath("BubblePivot")
+audio_player = NodePath("AudioPlayer")
 pop_effect = NodePath("PopEffect")
-pop_player = NodePath("PopSound")
 pop_sounds = Array[AudioStream]([ExtResource("2_br2ov"), ExtResource("3_taa85"), ExtResource("4_rihrd"), ExtResource("5_45puu"), ExtResource("6_d05ox"), ExtResource("7_gefpp")])
+inflate_sounds = Array[AudioStream]([ExtResource("8_taa85")])
 
 [node name="BubblePivot" type="Node3D" parent="." unique_id=950515972]
 
@@ -114,6 +116,6 @@ explosiveness = 0.95
 process_material = SubResource("ParticleProcessMaterial_g25kj")
 draw_pass_1 = SubResource("SphereMesh_bubble_shape")
 
-[node name="PopSound" type="AudioStreamPlayer3D" parent="." unique_id=1202376153]
+[node name="AudioPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1202376153]
 
 [connection signal="died" from="BubblePivot/RigidBody3D/HealthComponent" to="." method="_on_health_component_died"]
