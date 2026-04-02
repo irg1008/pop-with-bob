@@ -2,6 +2,7 @@ class_name Bubble extends Node3D
 
 
 signal popped()
+signal inflated()
 
 
 @export var debug: bool = false
@@ -9,6 +10,7 @@ signal popped()
 @export_category("References")
 @export var animation_player: AnimationPlayer
 @export var rigid_body: RigidBody3D
+@export var bubble_pivot: Node3D
 @export var pop_effect: GPUParticles3D
 
 @export_category("Bubble Properties")
@@ -20,6 +22,8 @@ var time_alive: float = 0.0
 
 
 func _ready() -> void:
+	bubble_pivot.scale = Vector3.ZERO
+
 	rigid_body.freeze = true
 	rigid_body.sleeping = true
 	rigid_body.contact_monitor = false
@@ -49,8 +53,11 @@ func _on_inflate_animation_finished(_animation_name: String) -> void:
 	if not rigid_body:
 		return
 
+	inflated.emit()
+
 	rigid_body.contact_monitor = true
 	rigid_body.max_contacts_reported = 1
+	rigid_body.top_level = true
 
 	if not debug:
 		rigid_body.sleeping = false

@@ -67,10 +67,11 @@ material = ExtResource("3_saq75")
 radius = 0.1
 height = 0.2
 
-[node name="Bubble" type="Node3D" unique_id=676973399 node_paths=PackedStringArray("animation_player", "rigid_body", "pop_effect")]
+[node name="Bubble" type="Node3D" unique_id=676973399 node_paths=PackedStringArray("animation_player", "rigid_body", "bubble_pivot", "pop_effect")]
 script = ExtResource("1_ksa8n")
 animation_player = NodePath("AnimationPlayer")
 rigid_body = NodePath("BubblePivot/RigidBody3D")
+bubble_pivot = NodePath("BubblePivot")
 pop_effect = NodePath("PopEffect")
 
 [node name="BubblePivot" type="Node3D" parent="." unique_id=950515972]

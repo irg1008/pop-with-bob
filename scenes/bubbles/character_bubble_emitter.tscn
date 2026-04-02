@@ -17,17 +17,17 @@ collider = NodePath("CollisionShape3D")
 script = ExtResource("1_4dv0b")
 metadata/_custom_type_script = "uid://dgcufyvakuq3s"
 
+[node name="BubbleEmitter" type="Node3D" parent="." unique_id=31996967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+script = ExtResource("1_gp703")
+bubble_emitter = ExtResource("2_2bnqf")
+
 [node name="Character" type="Node3D" parent="." unique_id=1174441357]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=47495966]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4077328, 0)
 shape = SubResource("CylinderShape3D_nte5j")
-
-[node name="BubbleEmitter" type="Node3D" parent="." unique_id=31996967]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6221619, 0)
-script = ExtResource("1_gp703")
-bubble_emitter = ExtResource("2_2bnqf")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1895610180]
 avoidance_enabled = true

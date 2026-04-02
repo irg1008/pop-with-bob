@@ -42,24 +42,13 @@ func emit_bubble() -> void:
 				bubble_reward = bubble_emitter.bubble.gold_reward
 
 		var bubble_instance: Bubble = bubble_scene.instantiate()
-		add_to_root(bubble_instance)
-		current_bubbles += 1
-
+		add_child(bubble_instance)
 		bubble_instance.global_transform = global_transform
+
+		current_bubbles += 1
 
 		var on_bubble_popped: Callable = _on_bubble_popped.bind(bubble_reward)
 		bubble_instance.popped.connect(on_bubble_popped)
-
-
-func add_to_root(bubble: Bubble) -> void:
-	var bubbles_root: Node3D = get_tree().root.get_node_or_null(BUBBLES_ROOT_NODE)
-
-	if not bubbles_root:
-		bubbles_root = Node3D.new()
-		bubbles_root.name = BUBBLES_ROOT_NODE
-		get_tree().root.add_child.call_deferred(bubbles_root)
-
-	bubbles_root.add_child(bubble)
 
 
 func can_emit() -> bool:

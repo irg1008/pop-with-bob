@@ -6,6 +6,3 @@
 [node name="CharacterBubbleEmitter" unique_id=582313622 instance=ExtResource("1_0pro0")]
 
 [node name="cactus" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=1513635702 instance=ExtResource("2_78xya")]
-
-[node name="BubbleEmitter" parent="." index="2" unique_id=31996967]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3823624, 0)
