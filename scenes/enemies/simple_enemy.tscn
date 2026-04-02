@@ -20,9 +20,9 @@ collider = NodePath("CollisionShape3D")
 script = ExtResource("1_2kgy0")
 metadata/_custom_type_script = "uid://dgcufyvakuq3s"
 
-[node name="ExampleEnemy" parent="." unique_id=775237437 instance=ExtResource("2_ho7jy")]
+[node name="SimpleEnemy" parent="." unique_id=775237437 instance=ExtResource("2_ho7jy")]
 
-[node name="Skeleton3D" parent="ExampleEnemy/Skinned Mesh 0" parent_id_path=PackedInt32Array(775237437, 1844012218) index="0" unique_id=1128017297]
+[node name="Skeleton3D" parent="SimpleEnemy/Skinned Mesh 0" parent_id_path=PackedInt32Array(775237437, 1844012218) index="0" unique_id=1128017297]
 bones/1/position = Vector3(-0.00050053885, 0.17280613, 0.74342984)
 bones/1/rotation = Quaternion(0.7870813, 0.06139592, 0.046896223, 0.6119921)
 bones/3/rotation = Quaternion(0.37018442, -0.15018566, 0.0884659, 0.9124591)
@@ -138,4 +138,4 @@ delay_in_seconds = "0.0"
 [connection signal="state_entered" from="StateChart/Root/Following" to="." method="_on_following_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Following" to="." method="_on_following_state_physics_processing"]
 
-[editable path="ExampleEnemy"]
+[editable path="SimpleEnemy"]

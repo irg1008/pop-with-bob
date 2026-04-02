@@ -73,7 +73,7 @@ curve = SubResource("Curve_55276")
 
 [node name="BeachBallBubble" unique_id=676973399 instance=ExtResource("1_lmees")]
 max_lifetime = 15.0
-wobble_strength = 0.0
+wobble_strength = 0.2
 
 [node name="RigidBody3D" parent="." index="0" unique_id=27141494]
 mass = 0.1

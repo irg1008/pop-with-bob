@@ -1,0 +1,89 @@
+[gd_scene format=3 uid="uid://bprw0dajvifv6"]
+
+[ext_resource type="Script" uid="uid://bkm8khkvdvqe5" path="res://assets/scripts/bubbles/character_bubble_emitter.gd" id="1_4dv0b"]
+[ext_resource type="Script" uid="uid://cj3tui8jn3cxm" path="res://assets/scripts/bubbles/bubble_emitter.gd" id="1_gp703"]
+[ext_resource type="Resource" uid="uid://c7g87lyjwdqnm" path="res://assets/resources/bubbles/bubble_emitter.tres" id="2_2bnqf"]
+[ext_resource type="PackedScene" uid="uid://bqt2c8ckjl55v" path="res://assets/models/npcs/cactus.gltf" id="3_2bnqf"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_ate53"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_14bpf"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="6_p2gyo"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="7_vlowj"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_nte5j"]
+height = 0.81595457
+radius = 0.4
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_14bpf"]
+radius = 10.0
+
+[node name="CharacterBubbleEmitter" type="StairsCharacter3D" unique_id=582313622]
+collider = NodePath("CollisionShape3D")
+script = ExtResource("1_4dv0b")
+metadata/_custom_type_script = "uid://dgcufyvakuq3s"
+
+[node name="Character" parent="." unique_id=1513635702 instance=ExtResource("3_2bnqf")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0.045858532, 0)
+
+[node name="Skeleton3D" parent="Character/MonsterArmature" parent_id_path=PackedInt32Array(1513635702, 927401896) index="0" unique_id=1162462549]
+bones/2/position = Vector3(0, 0.47287178, 0)
+bones/4/rotation = Quaternion(0, 0, 0, 1)
+bones/5/position = Vector3(-0.5115147, 0.5888456, 0.46087223)
+bones/6/position = Vector3(0.5115147, 0.5888456, 0.46087223)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=47495966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4077328, 0)
+shape = SubResource("CylinderShape3D_nte5j")
+
+[node name="DetectionArea" type="Area3D" parent="." unique_id=1068782994]
+collision_layer = 0
+collision_mask = 2
+monitorable = false
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="DetectionArea" unique_id=322284870]
+shape = SubResource("SphereShape3D_14bpf")
+
+[node name="BubbleEmitter" type="Node3D" parent="." unique_id=31996967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.6221619, 0)
+script = ExtResource("1_gp703")
+bubble_emitter = ExtResource("2_2bnqf")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1895610180]
+avoidance_enabled = true
+radius = 1.0
+debug_enabled = true
+debug_use_custom = true
+debug_path_custom_point_size = 8.0
+
+[node name="StateChart" type="Node" parent="." unique_id=1760279286]
+script = ExtResource("4_ate53")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="Root" type="Node" parent="StateChart" unique_id=928137024]
+script = ExtResource("5_14bpf")
+initial_state = NodePath("Idle")
+
+[node name="Idle" type="Node" parent="StateChart/Root" unique_id=524748921]
+script = ExtResource("6_p2gyo")
+
+[node name="Roaming" type="Node" parent="StateChart/Root" unique_id=954715744]
+script = ExtResource("6_p2gyo")
+
+[node name="OnIdle" type="Node" parent="StateChart/Root" unique_id=1513245057]
+script = ExtResource("7_vlowj")
+to = NodePath("../Idle")
+event = &"onIdle"
+delay_in_seconds = "0.0"
+
+[node name="OnRoaming" type="Node" parent="StateChart/Root" unique_id=1275673587]
+script = ExtResource("7_vlowj")
+to = NodePath("../Roaming")
+event = &"onRoaming"
+delay_in_seconds = "0.0"
+
+[connection signal="body_entered" from="DetectionArea" to="." method="_on_detection_area_body_entered"]
+[connection signal="body_exited" from="DetectionArea" to="." method="_on_detection_area_body_exited"]
+[connection signal="state_entered" from="StateChart/Root/Idle" to="." method="_on_idle_state_entered"]
+[connection signal="state_entered" from="StateChart/Root/Roaming" to="." method="_on_roaming_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Roaming" to="." method="_on_roaming_state_physics_processing"]
+
+[editable path="Character"]

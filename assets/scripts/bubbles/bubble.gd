@@ -46,6 +46,9 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_inflate_animation_finished(_animation_name: String) -> void:
+	if not rigid_body:
+		return
+
 	rigid_body.contact_monitor = true
 	rigid_body.max_contacts_reported = 1
 
