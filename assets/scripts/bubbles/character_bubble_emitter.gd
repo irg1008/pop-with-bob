@@ -7,10 +7,11 @@ class_name CharacterBubbleEmitter extends SmoothStairsCharacter3D
 @export var roam_radius: float = 20.0
 @export var min_roam_distance: float = 5.0
 @export_group("Movement Smoothing")
-@export var steering_smoothness: float = 2.5
-@export var turn_smoothness: float = 2.0
+@export var steering_smoothness: float = 2.0
+@export var turn_smoothness: float = 1.5
 @export_group("Animations")
 @export var states_enabled: bool = true
+@export var animation_blend: float = 0.2
 @export var walk_animation: String = "Walk"
 @export var stuck_animation: String = "No"
 @export var idle_animation: String
@@ -80,13 +81,13 @@ func _on_roaming_state_physics_processing(delta: float) -> void:
 
 func _on_roaming_state_entered() -> void:
 	if animation_player and animation_player.current_animation != walk_animation:
-		animation_player.play(walk_animation)
+		animation_player.play(walk_animation, animation_blend)
 
 
 func _on_idle_state_entered() -> void:
 	if animation_player and animation_player.has_animation(idle_animation):
 		nav_agent.velocity = Vector3.ZERO
-		animation_player.play(idle_animation)
+		animation_player.play(idle_animation, animation_blend)
 		await animation_player.animation_finished
 
 	state_chart.send_event("onRoaming")
@@ -95,7 +96,7 @@ func _on_idle_state_entered() -> void:
 func _on_stuck_state_entered() -> void:
 	if animation_player and animation_player.has_animation(stuck_animation):
 		nav_agent.velocity = Vector3.ZERO
-		animation_player.play(stuck_animation)
+		animation_player.play(stuck_animation, animation_blend)
 		await animation_player.animation_finished
 
 	state_chart.send_event("onRoaming")
