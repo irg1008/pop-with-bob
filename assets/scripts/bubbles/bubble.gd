@@ -92,6 +92,7 @@ func pop() -> void:
 
 func play_random_audio(audios: Array[AudioStream]) -> void:
 	if audio_player and audios.size() > 0:
+		audio_player.global_position = rigid_body.global_position
 		var random_index: int = randi_range(0, audios.size() - 1)
 		audio_player.stream = audios[random_index]
 		audio_player.play()

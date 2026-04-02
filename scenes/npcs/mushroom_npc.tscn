@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://c0kuerqnqgr5q"]
 
 [ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/emitters/character_bubble_emitter.tscn" id="1_peqfk"]
-[ext_resource type="Resource" uid="uid://b23ejpka3efwa" path="res://assets/resources/bubbles/beach_ball_emitter.tres" id="2_b2pha"]
+[ext_resource type="Resource" uid="uid://8lu46tjv8oy0" path="res://assets/resources/bubbles/poisoned_bubble_emitter.tres" id="2_peqfk"]
 [ext_resource type="PackedScene" uid="uid://bwu6tvav106tp" path="res://assets/models/npcs/mushroom.gltf" id="3_peqfk"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_b2pha"]
@@ -12,7 +12,7 @@ radius = 0.36376953
 
 [node name="BubbleEmitter" parent="." index="0" unique_id=31996967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.137619, -0.08215277)
-bubble_emitter = ExtResource("2_b2pha")
+bubble_emitter = ExtResource("2_peqfk")
 
 [node name="mushroom" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=965232279 instance=ExtResource("3_peqfk")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)

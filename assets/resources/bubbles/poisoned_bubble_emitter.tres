@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BubbleEmitterData" format=3 uid="uid://8lu46tjv8oy0"]
+
+[ext_resource type="Resource" uid="uid://c45uxhdprgokk" path="res://assets/resources/bubbles/poisoned_bubble.tres" id="1_nxj1b"]
+[ext_resource type="Script" uid="uid://dbsfmxrbpjs4d" path="res://assets/scripts/bubbles/resources/bubble_emitter_data.gd" id="2_li0pc"]
+
+[resource]
+script = ExtResource("2_li0pc")
+bubble = ExtResource("1_nxj1b")
+metadata/_custom_type_script = "uid://chbmu7283cdba"
