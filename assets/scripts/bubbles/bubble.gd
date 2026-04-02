@@ -12,6 +12,8 @@ signal inflated()
 @export var rigid_body: RigidBody3D
 @export var bubble_pivot: Node3D
 @export var pop_effect: GPUParticles3D
+@export var pop_player: AudioStreamPlayer3D
+@export var pop_sounds: Array[AudioStream] = []
 
 @export_category("Bubble Properties")
 @export var max_lifetime: float
@@ -77,8 +79,14 @@ func _on_health_component_died() -> void:
 func pop() -> void:
 	pop_effect.global_position = rigid_body.global_position
 	pop_effect.restart()
+
 	popped.emit()
 	rigid_body.queue_free()
+
+	if pop_player and pop_sounds.size() > 0:
+		var random_index: int = randi_range(0, pop_sounds.size() - 1)
+		pop_player.stream = pop_sounds[random_index]
+		pop_player.play()
 
 
 func _on_pop_effect_finished() -> void:

@@ -2,7 +2,13 @@
 
 [ext_resource type="Script" uid="uid://dsnqb17qqenio" path="res://assets/scripts/components/health_component.gd" id="1_10lyx"]
 [ext_resource type="Script" uid="uid://djephdw0c1b7f" path="res://assets/scripts/bubbles/bubble.gd" id="1_ksa8n"]
+[ext_resource type="AudioStream" uid="uid://d3whctgjnegae" path="res://assets/sounds/bubbles/bubble/bubble_pop_01.mp3" id="2_br2ov"]
 [ext_resource type="Material" uid="uid://u074yrqx2dqn" path="res://assets/resources/materials/bubble_material.tres" id="3_saq75"]
+[ext_resource type="AudioStream" uid="uid://cwofhan30ynoi" path="res://assets/sounds/bubbles/bubble/bubble_pop_02.mp3" id="3_taa85"]
+[ext_resource type="AudioStream" uid="uid://bh85ob7114gpa" path="res://assets/sounds/bubbles/bubble/bubble_pop_03.mp3" id="4_rihrd"]
+[ext_resource type="AudioStream" uid="uid://df6xj0vba4rtn" path="res://assets/sounds/bubbles/bubble/bubble_pop_04.mp3" id="5_45puu"]
+[ext_resource type="AudioStream" uid="uid://exjfbfr1yspn" path="res://assets/sounds/bubbles/bubble/bubble_pop_05.mp3" id="6_d05ox"]
+[ext_resource type="AudioStream" uid="uid://hw0dk2bs85y6" path="res://assets/sounds/bubbles/bubble/bubble_pop_06.mp3" id="7_gefpp"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_ly0rj"]
 material = ExtResource("3_saq75")
@@ -67,12 +73,14 @@ material = ExtResource("3_saq75")
 radius = 0.1
 height = 0.2
 
-[node name="Bubble" type="Node3D" unique_id=676973399 node_paths=PackedStringArray("animation_player", "rigid_body", "bubble_pivot", "pop_effect")]
+[node name="Bubble" type="Node3D" unique_id=676973399 node_paths=PackedStringArray("animation_player", "rigid_body", "bubble_pivot", "pop_effect", "pop_player")]
 script = ExtResource("1_ksa8n")
 animation_player = NodePath("AnimationPlayer")
 rigid_body = NodePath("BubblePivot/RigidBody3D")
 bubble_pivot = NodePath("BubblePivot")
 pop_effect = NodePath("PopEffect")
+pop_player = NodePath("PopSound")
+pop_sounds = Array[AudioStream]([ExtResource("2_br2ov"), ExtResource("3_taa85"), ExtResource("4_rihrd"), ExtResource("5_45puu"), ExtResource("6_d05ox"), ExtResource("7_gefpp")])
 
 [node name="BubblePivot" type="Node3D" parent="." unique_id=950515972]
 
@@ -105,5 +113,7 @@ one_shot = true
 explosiveness = 0.95
 process_material = SubResource("ParticleProcessMaterial_g25kj")
 draw_pass_1 = SubResource("SphereMesh_bubble_shape")
+
+[node name="PopSound" type="AudioStreamPlayer3D" parent="." unique_id=1202376153]
 
 [connection signal="died" from="BubblePivot/RigidBody3D/HealthComponent" to="." method="_on_health_component_died"]
