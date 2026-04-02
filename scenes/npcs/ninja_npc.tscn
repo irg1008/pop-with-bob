@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://b3odaek8nenl6"]
 
-[ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/character_bubble_emitter.tscn" id="1_vihsx"]
+[ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/emitters/character_bubble_emitter.tscn" id="1_vihsx"]
 [ext_resource type="PackedScene" uid="uid://djruvjwikpwwe" path="res://assets/models/npcs/ninja.gltf" id="2_vihsx"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_k0t7d"]

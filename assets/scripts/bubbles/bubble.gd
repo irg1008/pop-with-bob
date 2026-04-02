@@ -14,7 +14,6 @@ signal inflated()
 @export var audio_player: AudioStreamPlayer3D
 @export var pop_effect: GPUParticles3D
 @export var pop_sounds: Array[AudioStream] = []
-@export var inflate_sounds: Array[AudioStream] = []
 
 @export_category("Bubble Properties")
 @export var wobble_strength: float = 0.5
@@ -78,7 +77,6 @@ func _on_health_component_died() -> void:
 
 
 func inflate() -> void:
-	play_random_audio(inflate_sounds)
 	if animation_player and animation_player.has_animation("inflate"):
 		animation_player.play("inflate")
 

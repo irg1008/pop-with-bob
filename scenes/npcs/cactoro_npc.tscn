@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://0gj34jwk8rmh"]
 
-[ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/character_bubble_emitter.tscn" id="1_0pro0"]
+[ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/emitters/character_bubble_emitter.tscn" id="1_0pro0"]
 [ext_resource type="PackedScene" uid="uid://cxbkit6yjq0wi" path="res://assets/models/npcs/cactoro.gltf" id="3_w23ek"]
 
 [node name="CactoroNpc" unique_id=582313622 instance=ExtResource("1_0pro0")]

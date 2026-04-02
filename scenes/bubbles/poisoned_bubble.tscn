@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://ch0srlq5dw4bn"]
+
+[ext_resource type="PackedScene" uid="uid://d3qcjd07kedb2" path="res://scenes/bubbles/bubble.tscn" id="1_qwtjn"]
+[ext_resource type="Material" uid="uid://dw262on7dufqb" path="res://assets/resources/materials/poisoned_bubble_material.tres" id="2_liub8"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_2ugqp"]
+material = ExtResource("2_liub8")
+
+[node name="PoisonedBubble" unique_id=676973399 instance=ExtResource("1_qwtjn")]
+
+[node name="MeshInstance3D" parent="BubblePivot/RigidBody3D" parent_id_path=PackedInt32Array(27141494) index="1" unique_id=1670452469]
+mesh = SubResource("SphereMesh_2ugqp")

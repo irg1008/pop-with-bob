@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bx3y7178ga5lm"]
 
-[ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/character_bubble_emitter.tscn" id="1_ba2ia"]
+[ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/emitters/character_bubble_emitter.tscn" id="1_ba2ia"]
 [ext_resource type="Resource" uid="uid://b23ejpka3efwa" path="res://assets/resources/bubbles/beach_ball_emitter.tres" id="2_iaqpo"]
 [ext_resource type="PackedScene" uid="uid://c6pku2cn75fjo" path="res://assets/models/npcs/fish.gltf" id="3_ba2ia"]
 
