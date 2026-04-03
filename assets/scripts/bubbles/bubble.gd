@@ -20,12 +20,15 @@ signal inflated()
 @export var wobble_rotation_strength: float = 0.035
 
 
+const MIN_PHYSICS_SAFE_SCALE: float = 0.001
+
+
 var max_lifetime: float
 var time_alive: float = 0.0
 
 
 func _ready() -> void:
-	bubble_pivot.scale = Vector3.ZERO
+	bubble_pivot.scale = Vector3.ONE * MIN_PHYSICS_SAFE_SCALE
 
 	rigid_body.freeze = true
 	rigid_body.sleeping = true

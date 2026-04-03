@@ -25,11 +25,11 @@ class_name CharacterBubbleEmitter extends SmoothStairsCharacter3D
 var animation_player: AnimationPlayer
 
 var home_position: Vector3
-var smoothed_move_direction: Vector3 = Vector3.FORWARD
+var _smoothed_move_direction: Vector3 = Vector3.FORWARD
 
 var is_stuck: bool = false
-var stuck_check_timer: Timer
-var stuck_check_position: Vector3
+var _stuck_check_timer: Timer
+var _stuck_check_position: Vector3
 
 
 func _ready() -> void:
@@ -68,14 +68,14 @@ func _on_roaming_state_physics_processing(delta: float) -> void:
 	var desired_direction: Vector3 = (next_pos - global_position).normalized()
 
 	if desired_direction.length() > 0.001:
-		smoothed_move_direction = smoothed_move_direction.slerp(desired_direction, steering_smoothness * delta).normalized()
+		_smoothed_move_direction = _smoothed_move_direction.slerp(desired_direction, steering_smoothness * delta).normalized()
 
-	nav_agent.velocity = nav_agent.velocity.move_toward(smoothed_move_direction * move_speed, 10.0 * delta)
+	nav_agent.velocity = nav_agent.velocity.move_toward(_smoothed_move_direction * move_speed, 10.0 * delta)
 	_on_roaming_state_entered()
 
 	# Face movement direction
-	if smoothed_move_direction.length() > 0.01:
-		var target_rotation: float = atan2(smoothed_move_direction.x, smoothed_move_direction.z)
+	if _smoothed_move_direction.length() > 0.01:
+		var target_rotation: float = atan2(_smoothed_move_direction.x, _smoothed_move_direction.z)
 		rotation.y = lerp_angle(rotation.y, target_rotation, turn_smoothness * delta)
 
 
@@ -130,21 +130,21 @@ func load_character() -> void:
 
 
 func create_stuck_check() -> void:
-	stuck_check_timer = Timer.new()
-	add_child(stuck_check_timer)
-	stuck_check_timer.wait_time = 0.5
-	stuck_check_timer.start()
-	stuck_check_timer.timeout.connect(_on_stuck_check_timeout)
+	_stuck_check_timer = Timer.new()
+	add_child(_stuck_check_timer)
+	_stuck_check_timer.wait_time = 0.5
+	_stuck_check_timer.start()
+	_stuck_check_timer.timeout.connect(_on_stuck_check_timeout)
 
 
 func _on_stuck_check_timeout() -> void:
 	if animation_player and animation_player.current_animation == idle_animation:
 		return
 
-	var distance_moved: float = global_position.distance_to(stuck_check_position)
+	var distance_moved: float = global_position.distance_to(_stuck_check_position)
 
 	is_stuck = distance_moved < 0.1
-	stuck_check_position = global_position
+	_stuck_check_position = global_position
 
 	if is_stuck:
 		_set_new_roam_target()
