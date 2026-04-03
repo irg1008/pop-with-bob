@@ -1,6 +1,12 @@
 class_name Bubble extends Node3D
 
 
+const POP_BASE_VOLUME_DB: float = -6.0
+const POP_VOLUME_VARIATION_DB: float = 1.0
+const POP_PITCH_MIN: float = 0.96
+const POP_PITCH_MAX: float = 1.04
+
+
 signal popped()
 signal inflated()
 
@@ -22,6 +28,8 @@ signal inflated()
 
 var max_lifetime: float
 var time_alive: float = 0.0
+
+static var _last_pop_sound_index: int = -1
 
 
 func _ready() -> void:
@@ -95,11 +103,29 @@ func pop() -> void:
 
 
 func play_random_audio(audios: Array[AudioStream]) -> void:
-	if audio_player and audios.size() > 0:
-		audio_player.global_position = rigid_body.global_position
-		var random_index: int = randi_range(0, audios.size() - 1)
-		audio_player.stream = audios[random_index]
-		audio_player.play()
+	if not audio_player or audios.is_empty():
+		return
+
+	audio_player.global_position = rigid_body.global_position
+
+	var random_index: int = _pick_pop_sound_index(audios)
+	audio_player.stream = audios[random_index]
+	audio_player.pitch_scale = randf_range(POP_PITCH_MIN, POP_PITCH_MAX)
+	audio_player.volume_db = POP_BASE_VOLUME_DB + randf_range(-POP_VOLUME_VARIATION_DB, POP_VOLUME_VARIATION_DB)
+	audio_player.play()
+
+
+func _pick_pop_sound_index(audios: Array[AudioStream]) -> int:
+	if audios.size() == 1:
+		_last_pop_sound_index = 0
+		return 0
+
+	var random_index: int = randi_range(0, audios.size() - 1)
+	if random_index == _last_pop_sound_index:
+		random_index = (random_index + 1 + randi_range(0, audios.size() - 2)) % audios.size()
+
+	_last_pop_sound_index = random_index
+	return random_index
 
 
 func _on_pop_effect_finished() -> void:

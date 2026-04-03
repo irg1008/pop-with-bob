@@ -1,9 +1,15 @@
 [gd_scene format=3 uid="uid://qq86cr0irjoo"]
 
 [ext_resource type="PackedScene" uid="uid://d3qcjd07kedb2" path="res://scenes/bubbles/bubble.tscn" id="1_base"]
+[ext_resource type="AudioStream" uid="uid://bnqhv21twsoe5" path="res://assets/sounds/bubbles/shadow_shuriken/shadow_suriken_pop_01.mp3" id="2_igaju"]
 [ext_resource type="Material" uid="uid://dpokent8ecxxn" path="res://assets/resources/materials/shadow_shuriken_material.tres" id="2_mat"]
+[ext_resource type="AudioStream" uid="uid://ba3ta6blxt2rh" path="res://assets/sounds/bubbles/shadow_shuriken/shadow_suriken_pop_02.mp3" id="3_fo104"]
 [ext_resource type="PackedScene" uid="uid://b4pf3ncckbmhw" path="res://assets/models/bubbles/shuriken.glb" id="3_ll5h2"]
 [ext_resource type="Texture2D" uid="uid://dweriamtl4nm0" path="res://assets/textures/bubbles/shadow_shuriken/shuriken_particle.svg" id="3_tex"]
+[ext_resource type="AudioStream" uid="uid://c3r8ncr1prjq3" path="res://assets/sounds/bubbles/shadow_shuriken/shadow_suriken_pop_03.mp3" id="4_ps3ds"]
+[ext_resource type="AudioStream" uid="uid://bkk8gw45vkey" path="res://assets/sounds/bubbles/shadow_shuriken/shadow_suriken_pop_04.mp3" id="5_6cc7i"]
+[ext_resource type="AudioStream" uid="uid://chpbceiubrq7l" path="res://assets/sounds/bubbles/shadow_shuriken/shadow_suriken_pop_05.mp3" id="6_upe3q"]
+[ext_resource type="AudioStream" uid="uid://cyh1m4dpdbio5" path="res://assets/sounds/bubbles/shadow_shuriken/shadow_suriken_pop_06.mp3" id="7_wqmcn"]
 
 [sub_resource type="SphereMesh" id="SphereMesh_shadow_shuriken"]
 material = ExtResource("2_mat")
@@ -53,6 +59,7 @@ material = SubResource("StandardMaterial3D_shadow_shard")
 size = Vector2(0.22, 0.22)
 
 [node name="ShadowShurikenBubble" unique_id=1107750165 instance=ExtResource("1_base")]
+pop_sounds = Array[AudioStream]([ExtResource("2_igaju"), ExtResource("3_fo104"), ExtResource("4_ps3ds"), ExtResource("5_6cc7i"), ExtResource("6_upe3q"), ExtResource("7_wqmcn")])
 wobble_strength = 0.42
 wobble_rotation_strength = 0.05
 
