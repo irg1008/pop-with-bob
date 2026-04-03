@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://btrg6djjnpoek"]
 
 [ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/emitters/character_bubble_emitter.tscn" id="1_3r3oh"]
+[ext_resource type="Resource" path="res://assets/resources/bubbles/power_ring_emitter.tres" id="3_uq2jw"]
 [ext_resource type="PackedScene" uid="uid://iqe7e68r2k52" path="res://assets/models/npcs/orc.gltf" id="2_3r3oh"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_k0t7d"]
@@ -13,6 +14,7 @@ walk_animation = "Run"
 
 [node name="BubbleEmitter" parent="." index="0" unique_id=31996967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1632063, -0.3297786)
+bubble_emitter = ExtResource("3_uq2jw")
 
 [node name="orc" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=489107087 instance=ExtResource("2_3r3oh")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)

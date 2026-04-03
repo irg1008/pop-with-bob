@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BubbleEmitterData" format=3]
+
+[ext_resource type="Resource" path="res://assets/resources/bubbles/power_ring.tres" id="1_bubble"]
+[ext_resource type="Script" uid="uid://dbsfmxrbpjs4d" path="res://assets/scripts/bubbles/resources/bubble_emitter_data.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+bubble = ExtResource("1_bubble")
+metadata/_custom_type_script = "uid://chbmu7283cdba"

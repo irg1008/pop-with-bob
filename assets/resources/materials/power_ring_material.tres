@@ -1,0 +1,74 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bsdto2ox3fw6j"]
+
+[sub_resource type="Shader" id="Shader_power_ring"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform sampler2D screen_texture : hint_screen_texture, repeat_disable, filter_nearest;
+uniform float refraction : hint_range(10000, 100000) = 70000.0;
+uniform float refraction_mix : hint_range(0.0, 1.0) = 0.2;
+
+uniform vec3 gold_dark : source_color = vec3(0.33, 0.25, 0.12);
+uniform vec3 gold_light : source_color = vec3(0.85, 0.68, 0.26);
+uniform vec3 grime_tint : source_color = vec3(0.12, 0.09, 0.05);
+uniform vec3 rune_glow : source_color = vec3(1.0, 0.72, 0.22);
+uniform float rune_intensity : hint_range(0.0, 2.0) = 0.45;
+
+void fragment() {
+    float ndotv = max(dot(NORMAL, VIEW), 0.0);
+    float fresnel = pow(1.0 - ndotv, 2.8);
+
+    float tarnish = 0.5 + 0.5 * sin(UV.x * 20.0 + UV.y * 11.0 + TIME * 0.35);
+    float dents = 0.5 + 0.5 * sin(UV.x * 56.0 - UV.y * 23.0);
+
+    float rune_band = smoothstep(0.36, 0.46, UV.y) * (1.0 - smoothstep(0.54, 0.64, UV.y));
+
+    float glyph_index = floor(UV.x * 16.0);
+    float glyph_u = fract(UV.x * 16.0);
+    float glyph_seed = fract(sin(glyph_index * 47.17) * 43758.5453);
+    float glyph_y = (UV.y - 0.5) * 5.8;
+
+    float curve_a = abs(glyph_y - sin((glyph_u + glyph_seed * 0.32) * 6.28318) * (0.26 + glyph_seed * 0.16));
+    float curve_b = abs(glyph_y - cos((glyph_u * 1.2 + glyph_seed) * 3.14159) * (0.14 + glyph_seed * 0.14) + 0.16);
+    float stem = abs(glyph_u - (0.46 + (glyph_seed - 0.5) * 0.32));
+    float slash = abs(glyph_y + (glyph_u - 0.5) * (1.7 + glyph_seed * 1.0));
+
+    float stroke_a = 1.0 - smoothstep(0.05, 0.11, curve_a);
+    float stroke_b = 1.0 - smoothstep(0.05, 0.11, curve_b);
+    float stroke_c = (1.0 - smoothstep(0.045, 0.10, stem)) * smoothstep(0.1, 0.9, glyph_u);
+    float stroke_d = 1.0 - smoothstep(0.07, 0.15, slash);
+
+    float dot_x = 0.2 + glyph_seed * 0.55;
+    float dot_y = 0.34 - glyph_seed * 0.56;
+    float dot = 1.0 - smoothstep(0.04, 0.09, length(vec2(glyph_u - dot_x, glyph_y - dot_y)));
+
+    float glyph_core = max(max(stroke_a * 0.9, stroke_b * 0.85), max(stroke_c, stroke_d * 0.55));
+    float cell_fade = smoothstep(0.03, 0.09, glyph_u) * (1.0 - smoothstep(0.91, 0.97, glyph_u));
+    float runes = clamp(glyph_core + dot * 0.75, 0.0, 1.0) * rune_band * cell_fade;
+
+    vec3 metal = mix(gold_dark, gold_light, 0.4 + tarnish * 0.4);
+    metal = mix(metal, grime_tint, (1.0 - tarnish) * 0.35 + (1.0 - dents) * 0.22);
+
+    vec2 refraction_offset = vec2(-NORMAL.x * VIEWPORT_SIZE.y, NORMAL.y * VIEWPORT_SIZE.x) / refraction;
+    vec3 refracted_screen = texture(screen_texture, SCREEN_UV + refraction_offset).rgb;
+
+    ALBEDO = mix(metal, metal * refracted_screen, refraction_mix);
+    ROUGHNESS = clamp(0.34 - tarnish * 0.16 + (1.0 - dents) * 0.16, 0.06, 0.65);
+    METALLIC = 0.96;
+    SPECULAR = 0.72;
+
+    vec3 rune_emission = rune_glow * runes * (0.5 + 0.5 * sin(TIME * 1.8 + UV.x * 6.0));
+    vec3 edge_emission = rune_glow * fresnel * 0.14;
+    EMISSION = (rune_emission + edge_emission) * rune_intensity;
+}"
+
+[resource]
+render_priority = 0
+shader = SubResource("Shader_power_ring")
+shader_parameter/refraction = 70000.0
+shader_parameter/refraction_mix = 0.2
+shader_parameter/gold_dark = Color(0.33, 0.25, 0.12, 1)
+shader_parameter/gold_light = Color(0.85, 0.68, 0.26, 1)
+shader_parameter/grime_tint = Color(0.12, 0.09, 0.05, 1)
+shader_parameter/rune_glow = Color(1, 0.72, 0.22, 1)
+shader_parameter/rune_intensity = 0.45
