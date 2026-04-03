@@ -1,0 +1,94 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bhvxbsri46vay"]
+
+[ext_resource type="Texture2D" uid="uid://d015v2bapp85n" path="res://assets/textures/bubbles/crystal_prism/cracked_ice_noise.svg" id="1_crack"]
+
+[sub_resource type="Shader" id="Shader_crystal_prism"]
+code = "shader_type spatial;
+render_mode unshaded, fog_disabled;
+
+// Noise textures for bubble field and haze effect
+group_uniforms noise_textures;
+uniform sampler2D displacement_noise_texture: source_color;
+uniform sampler2D panning_noise_texture: source_color;
+uniform sampler2D haze_noise_texture: source_color;
+uniform sampler2D cracked_ice_texture: source_color;
+// For adding a distortion effect of everything inside of the bubble field (screen space)
+uniform sampler2D SCREENTEXTURE: hint_screen_texture,repeat_disable,filter_linear_mipmap;
+
+// Colours for the bubble field
+group_uniforms colours;
+uniform vec4 base_colour: source_color = vec4(0.14, 0.21, 0.57, 1.0);
+uniform vec4 secondary_colour: source_color = vec4(0.53, 0.68, 1.0, 1.0);
+uniform vec3 frost_white_tint: source_color = vec3(0.96, 0.99, 1.0);
+
+// Adjustments for the distortion and displacement effects
+group_uniforms adjustments;
+// For adding wobble to field
+uniform float displacement_amount: hint_range(0.0, 1.0, 0.05) = 0.15;
+uniform float displacement_speed: hint_range(0.0, 1.0, 0.1) = 0.1;
+uniform float distortion_speed: hint_range(0.0, 1.0, 0.1) = 0.1;
+uniform float reflectivity: hint_range(0.0, 1.0, 0.01) = 0.2;
+uniform float frost_white_amount: hint_range(0.0, 1.0, 0.01) = 0.45;
+uniform float frost_white_softness: hint_range(0.05, 2.0, 0.01) = 1.0;
+uniform float crack_texture_strength: hint_range(0.0, 1.0, 0.01) = 0.55;
+uniform float crack_texture_scale: hint_range(0.5, 8.0, 0.05) = 2.5;
+
+
+// Fresnel function to slightly highlight edges of the field
+float fresnel(float amount, vec3 normal, vec3 view)
+{
+	return pow((1.0 - clamp(dot(normalize(normal), normalize(view)), 0.0, 1.0 )), amount);
+}
+
+
+void vertex() {
+	// This adds a wobble to the bubble/forcefield  
+	float noise_val = texture(displacement_noise_texture, UV +  (TIME * displacement_speed)).r;
+	vec3 displacement = NORMAL * noise_val * displacement_amount;
+	VERTEX += displacement;
+}
+
+void fragment() {
+	// Set up force field colour, using noise texture to mix the two
+	vec2 noise_panning = vec2(-0.1, 0.0) * TIME + UV;  // Vec2 controls panning direction and speed
+	float mix_value = texture(panning_noise_texture, noise_panning).r;  // Mix colours based on noise texture
+	vec3 final_colour = mix(base_colour.rgb, secondary_colour.rgb, mix_value);
+	
+	// Adding haze
+	// Create a distortion offset for the getting screen UV
+	float noise = texture(haze_noise_texture, UV + TIME * distortion_speed).r * 2.0;
+	vec3 distorted_screen = texture(SCREENTEXTURE, SCREEN_UV + noise * 0.01).rgb;
+
+	// Crack texture layer
+	vec2 crack_uv = UV * crack_texture_scale + vec2(TIME * 0.03, -TIME * 0.02);
+	float crack_tex = texture(cracked_ice_texture, crack_uv).r;
+	float crack_mask = smoothstep(0.46, 0.88, crack_tex) * crack_texture_strength;
+	
+	// Add fresnel
+	float fresn = fresnel(5.0, NORMAL, VIEW);
+
+	// Reflections and frosted-white top layer for stronger distance readability
+	vec3 reflection = texture(SCREENTEXTURE, SCREEN_UV + NORMAL.xy * 0.006).rgb * fresn * reflectivity;
+	float frost_mask = pow(clamp(fresn + crack_mask * 0.55, 0.0, 1.0), frost_white_softness) * frost_white_amount;
+	vec3 frost_layer = frost_white_tint * frost_mask;
+	
+	ALBEDO = final_colour + distorted_screen * 0.45 + reflection + frost_layer;
+	ALPHA = 0.28 + frost_mask * 0.22 + crack_mask * 0.1;
+	EMISSION = final_colour * 0.55 + vec3(fresn) * 0.28 + frost_layer * 0.4;
+}"
+
+[resource]
+render_priority = 0
+shader = SubResource("Shader_crystal_prism")
+shader_parameter/cracked_ice_texture = ExtResource("1_crack")
+shader_parameter/base_colour = Color(0.14, 0.21, 0.57, 1)
+shader_parameter/secondary_colour = Color(0.53, 0.68, 1, 1)
+shader_parameter/frost_white_tint = Color(0.96, 0.99, 1, 1)
+shader_parameter/displacement_amount = 0.15
+shader_parameter/displacement_speed = 0.1
+shader_parameter/distortion_speed = 0.1
+shader_parameter/reflectivity = 0.2
+shader_parameter/frost_white_amount = 0.45
+shader_parameter/frost_white_softness = 1.0
+shader_parameter/crack_texture_strength = 0.55
+shader_parameter/crack_texture_scale = 2.5

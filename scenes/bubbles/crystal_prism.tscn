@@ -1,0 +1,79 @@
+[gd_scene format=3 uid="uid://b7fwmfxdncpxq"]
+
+[ext_resource type="PackedScene" uid="uid://d3qcjd07kedb2" path="res://scenes/bubbles/bubble.tscn" id="1_base"]
+[ext_resource type="Material" uid="uid://bhvxbsri46vay" path="res://assets/resources/materials/crystal_prism_material.tres" id="2_mat"]
+[ext_resource type="AudioStream" uid="uid://730iknncjt0u" path="res://assets/sounds/bubbles/crystal_prism/crystal_prism_pop_01.mp3" id="2_wced2"]
+[ext_resource type="AudioStream" uid="uid://m4770k6txhsd" path="res://assets/sounds/bubbles/crystal_prism/crystal_prism_pop_02.mp3" id="3_jt4y3"]
+[ext_resource type="Texture2D" uid="uid://cq6pow05uglnl" path="res://assets/textures/bubbles/crystal_prism/ice_shard_particle.svg" id="3_tex"]
+[ext_resource type="AudioStream" uid="uid://54v3so18yf4m" path="res://assets/sounds/bubbles/crystal_prism/crystal_prism_pop_03.mp3" id="4_7n3b4"]
+[ext_resource type="AudioStream" uid="uid://cfsy0xhg2fyib" path="res://assets/sounds/bubbles/crystal_prism/crystal_prism_pop_04.mp3" id="5_ekbnu"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_crystal"]
+material = ExtResource("2_mat")
+radial_segments = 5
+
+[sub_resource type="Curve" id="Curve_crystal_alpha"]
+_data = [Vector2(0, 1), 0.0, -0.25, 0, 0, Vector2(0.48, 0.82), -0.9, -0.9, 0, 0, Vector2(1, 0), -1.0, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_crystal_alpha"]
+curve = SubResource("Curve_crystal_alpha")
+
+[sub_resource type="Gradient" id="Gradient_crystal_pop"]
+offsets = PackedFloat32Array(0, 0.42, 1)
+colors = PackedColorArray(0.92, 0.99, 1, 1, 0.55, 0.82, 1, 0.72, 0.2, 0.45, 0.75, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_crystal_pop"]
+gradient = SubResource("Gradient_crystal_pop")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_crystal_pop"]
+direction = Vector3(0, 1, 0)
+spread = 58.0
+initial_velocity_min = 4.8
+initial_velocity_max = 8.2
+angular_velocity_min = -14.0
+angular_velocity_max = 14.0
+gravity = Vector3(0, -14, 0)
+damping_min = 0.6
+damping_max = 1.8
+scale_min = 0.08
+scale_max = 0.18
+color_initial_ramp = SubResource("GradientTexture1D_crystal_pop")
+alpha_curve = SubResource("CurveTexture_crystal_alpha")
+hue_variation_min = -0.02
+hue_variation_max = 0.03
+
+[sub_resource type="BoxMesh" id="BoxMesh_crystal_chunk"]
+material = ExtResource("2_mat")
+size = Vector3(0.055, 0.055, 0.04)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ice_sprite"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_color = Color(0.9, 0.97, 1, 0.62)
+albedo_texture = ExtResource("3_tex")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_ice_sprite"]
+material = SubResource("StandardMaterial3D_ice_sprite")
+size = Vector2(0.16, 0.16)
+
+[node name="CrystalPrismBubble" unique_id=2024000350 instance=ExtResource("1_base")]
+pop_sounds = Array[AudioStream]([ExtResource("2_wced2"), ExtResource("3_jt4y3"), ExtResource("4_7n3b4"), ExtResource("5_ekbnu")])
+wobble_strength = 0.2
+wobble_rotation_strength = 0.02
+
+[node name="MeshInstance3D" parent="BubblePivot/RigidBody3D" parent_id_path=PackedInt32Array(27141494) index="1" unique_id=1670452469]
+transform = Transform3D(1, 0, 0, 0, -0.07313372, 0.9973223, 0, -0.9973223, -0.07313372, 0, 0, 0)
+mesh = SubResource("SphereMesh_crystal")
+
+[node name="PopEffect" parent="." index="2" unique_id=1254866317]
+amount = 96
+lifetime = 0.95
+preprocess = 0.02
+randomness = 0.26
+process_material = SubResource("ParticleProcessMaterial_crystal_pop")
+draw_passes = 2
+draw_pass_1 = SubResource("BoxMesh_crystal_chunk")
+draw_pass_2 = SubResource("QuadMesh_ice_sprite")
