@@ -3,15 +3,15 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://f8rpbcuiicd7"
-path="res://.godot/imported/stairs_character.svg-a5662574369b363da9fd0c26bb526be7.ctex"
+path="res://.godot/imported/stairs_character.svg-a9660f3f5b9588e29c90e9a9aaadbbda.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://addons/stairs_character/stairs_character.svg"
-dest_files=["res://.godot/imported/stairs_character.svg-a5662574369b363da9fd0c26bb526be7.ctex"]
+source_file="res://addons/StairsCharacter/stairs_character.svg"
+dest_files=["res://.godot/imported/stairs_character.svg-a9660f3f5b9588e29c90e9a9aaadbbda.ctex"]
 
 [params]
 

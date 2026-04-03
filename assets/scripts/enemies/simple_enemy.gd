@@ -2,15 +2,19 @@ class_name SimpleEnemy extends BaseEnemy
 
 
 @export var move_speed: float = 3.0
+@export var acceleration: float = 5.0
+@export var deceleration: float = 5.0
 
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var state_chart: StateChart = $StateChart
 @onready var health_component: HealthComponent = $HealthComponent
 @onready var animation_player: AnimationPlayer = $SimpleEnemy/AnimationPlayer
+@onready var animation_tree: AnimationTree = $AnimationTree
 
 
 var target: Node3D
+var animation_state: AnimationNodeStateMachinePlayback
 
 
 func _ready() -> void:
@@ -21,9 +25,15 @@ func _ready() -> void:
 	health_component.died.connect(_on_died)
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 
-	if animation_player:
-		animation_player.play("Zombie_Idle")
-		animation_player.seek(randf_range(0.0, animation_player.current_animation_length))
+	animation_state = animation_tree.get("parameters/playback")
+
+	await get_tree().process_frame
+	animation_tree.set("parameters/Idle/TimeSeek/seek_request", randf_range(0.0, 1.0))
+
+
+func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	update_following_blends()
 
 
 func _on_died() -> void:
@@ -50,25 +60,30 @@ func _on_detection_area_body_exited(body: Node3D) -> void:
 
 
 func _on_velocity_computed(safe_velocity: Vector3) -> void:
-	velocity.x = safe_velocity.x
-	velocity.z = safe_velocity.z
+	var target_velocity: Vector3 = Vector3(safe_velocity.x, velocity.y, safe_velocity.z)
+	var accel: float = acceleration if safe_velocity.length() > 0.01 else deceleration
+	velocity = velocity.move_toward(target_velocity, accel * get_physics_process_delta_time())
 
 
 func _on_following_state_physics_processing(delta: float) -> void:
+	_on_following_state_entered()
+
 	if not target:
 		return
 
 	nav_agent.target_position = target.global_position
 
 	if nav_agent.is_navigation_finished():
-		_on_idle_state_entered()
 		return
 
 	var next_pos: Vector3 = nav_agent.get_next_path_position()
 	var direction: Vector3 = (next_pos - global_position).normalized()
 
-	nav_agent.velocity = nav_agent.velocity.move_toward(direction * move_speed, 10.0 * delta)
-	_on_following_state_entered()
+	nav_agent.velocity = direction * move_speed
+
+	if not nav_agent.avoidance_enabled:
+		var target_velocity: Vector3 = Vector3(direction.x * move_speed, velocity.y, direction.z * move_speed)
+		velocity = velocity.move_toward(target_velocity, acceleration * delta)
 
 	# Face the target
 	if direction.length() > 0.01:
@@ -77,10 +92,10 @@ func _on_following_state_physics_processing(delta: float) -> void:
 
 
 func _on_following_state_entered() -> void:
-		if animation_player and animation_player.current_animation != "Zombie_Walk_Fwd":
-			animation_player.play("Zombie_Walk_Fwd")
+		if animation_state.get_current_node() != "Follow":
+			animation_state.travel("Follow")
 
 
-func _on_idle_state_entered() -> void:
-	if animation_player and animation_player.current_animation != "Zombie_Idle":
-		animation_player.play("Zombie_Idle")
+func update_following_blends() -> void:
+	var move_amount: float = remap(velocity.length(), 0.0, move_speed, 0.0, 1.0)
+	animation_tree.set("parameters/Follow/IdleFollowBlend/blend_position", move_amount)
