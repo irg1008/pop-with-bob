@@ -1,0 +1,53 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://dpokent8ecxxn"]
+
+[sub_resource type="Shader" id="Shader_shadow_shuriken"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+uniform vec3 base_tint : source_color = vec3(0.09, 0.11, 0.14);
+uniform vec3 edge_tint : source_color = vec3(0.45, 0.86, 0.92);
+uniform float pulse_speed : hint_range(0.0, 8.0) = 2.4;
+uniform float emissive_strength : hint_range(0.0, 3.0) = 0.85;
+
+varying vec3 local_pos;
+
+void vertex() {
+    local_pos = VERTEX;
+}
+
+void fragment() {
+    vec3 n = normalize(NORMAL);
+    float ndotv = max(dot(n, normalize(VIEW)), 0.0);
+    float fresnel = pow(1.0 - ndotv, 3.0);
+    float pulse = 0.5 + 0.5 * sin(TIME * pulse_speed);
+
+    float radial = length(local_pos);
+    float core = 1.0 - smoothstep(0.0, 0.18, radial);
+    float mid_ring = smoothstep(0.14, 0.38, radial) * (1.0 - smoothstep(0.38, 0.62, radial));
+    float edge = smoothstep(0.50, 0.92, radial);
+
+    float brushed = 0.5 + 0.5 * sin((local_pos.x * 22.0 + local_pos.y * 17.0 + local_pos.z * 11.0) - TIME * 1.6);
+    vec3 steel = base_tint + vec3(0.06, 0.07, 0.08) * brushed;
+
+    vec3 albedo = steel;
+    albedo = mix(albedo, vec3(0.16, 0.18, 0.22), mid_ring * 0.45);
+    albedo += edge_tint * edge * 0.10;
+    albedo *= (1.0 - core * 0.35);
+
+    ALBEDO = albedo;
+    ROUGHNESS = 0.24 - edge * 0.08;
+    METALLIC = 0.85;
+    SPECULAR = 0.85;
+    ALPHA = 1.0;
+
+    vec3 emission = edge_tint * (fresnel * 0.85 + mid_ring * 0.30) * (0.7 + pulse * 0.3);
+    EMISSION = emission * emissive_strength;
+}"
+
+[resource]
+render_priority = 0
+shader = SubResource("Shader_shadow_shuriken")
+shader_parameter/base_tint = Color(0.09, 0.11, 0.14, 1)
+shader_parameter/edge_tint = Color(0.45, 0.86, 0.92, 1)
+shader_parameter/pulse_speed = 2.4
+shader_parameter/emissive_strength = 0.85

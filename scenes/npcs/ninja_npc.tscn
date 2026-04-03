@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://b3odaek8nenl6"]
 
 [ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/emitters/character_bubble_emitter.tscn" id="1_vihsx"]
+[ext_resource type="Resource" path="res://assets/resources/bubbles/shadow_shuriken_emitter.tres" id="2_6qu3m"]
 [ext_resource type="PackedScene" uid="uid://djruvjwikpwwe" path="res://assets/models/npcs/ninja.gltf" id="2_vihsx"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_k0t7d"]
@@ -14,6 +15,7 @@ idle_animation = "Weapon"
 
 [node name="BubbleEmitter" parent="." index="0" unique_id=31996967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1813636, -0.42368206)
+bubble_emitter = ExtResource("2_6qu3m")
 
 [node name="ninja" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=1461184110 instance=ExtResource("2_vihsx")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)

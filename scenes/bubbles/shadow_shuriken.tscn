@@ -1,0 +1,72 @@
+[gd_scene format=3 uid="uid://qq86cr0irjoo"]
+
+[ext_resource type="PackedScene" uid="uid://d3qcjd07kedb2" path="res://scenes/bubbles/bubble.tscn" id="1_base"]
+[ext_resource type="Material" uid="uid://dpokent8ecxxn" path="res://assets/resources/materials/shadow_shuriken_material.tres" id="2_mat"]
+[ext_resource type="PackedScene" uid="uid://b4pf3ncckbmhw" path="res://assets/models/bubbles/shuriken.glb" id="3_ll5h2"]
+[ext_resource type="Texture2D" uid="uid://dweriamtl4nm0" path="res://assets/textures/bubbles/shadow_shuriken/shuriken_particle.svg" id="3_tex"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_shadow_shuriken"]
+material = ExtResource("2_mat")
+radial_segments = 16
+rings = 14
+
+[sub_resource type="Curve" id="Curve_shadow_alpha"]
+_data = [Vector2(0, 1), 0.0, -0.6, 0, 0, Vector2(0.35, 0.82), -0.9, -0.9, 0, 0, Vector2(1, 0), -1.2, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_shadow_alpha"]
+curve = SubResource("Curve_shadow_alpha")
+
+[sub_resource type="Gradient" id="Gradient_shadow_pop"]
+offsets = PackedFloat32Array(0, 0.45, 1)
+colors = PackedColorArray(0.85, 0.95, 1, 1, 0.39, 0.68, 0.74, 0.65, 0.1, 0.13, 0.16, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_shadow_pop"]
+gradient = SubResource("Gradient_shadow_pop")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_shadow_pop"]
+direction = Vector3(0, 0, -1)
+spread = 32.0
+initial_velocity_min = 16.0
+initial_velocity_max = 22.0
+angular_velocity_min = -12.0
+angular_velocity_max = 12.0
+gravity = Vector3(0, 0, 0)
+damping_min = 48.0
+damping_max = 62.0
+scale_min = 0.18
+scale_max = 0.34
+color_initial_ramp = SubResource("GradientTexture1D_shadow_pop")
+alpha_curve = SubResource("CurveTexture_shadow_alpha")
+hue_variation_min = -0.02
+hue_variation_max = 0.02
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_shadow_shard"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_tex")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_shadow_shard"]
+material = SubResource("StandardMaterial3D_shadow_shard")
+size = Vector2(0.22, 0.22)
+
+[node name="ShadowShurikenBubble" unique_id=1107750165 instance=ExtResource("1_base")]
+wobble_strength = 0.42
+wobble_rotation_strength = 0.05
+
+[node name="MeshInstance3D" parent="BubblePivot/RigidBody3D" parent_id_path=PackedInt32Array(27141494) index="1" unique_id=1670452469]
+visible = false
+mesh = SubResource("SphereMesh_shadow_shuriken")
+
+[node name="Shuriken" parent="BubblePivot/RigidBody3D" parent_id_path=PackedInt32Array(27141494) index="2" unique_id=113639550 instance=ExtResource("3_ll5h2")]
+transform = Transform3D(0.12990381, -0.075, 0, 0.075, 0.12990381, 0, 0, 0, 0.15, 0, 0, 0)
+
+[node name="PopEffect" parent="." index="2" unique_id=1254866317]
+amount = 34
+lifetime = 0.7
+preprocess = 0.015
+randomness = 0.34
+process_material = SubResource("ParticleProcessMaterial_shadow_pop")
+draw_pass_1 = SubResource("QuadMesh_shadow_shard")
