@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://xoi82ad840gc"]
 
 [ext_resource type="PackedScene" uid="uid://d3qcjd07kedb2" path="res://scenes/bubbles/bubble.tscn" id="1_base"]
+[ext_resource type="AudioStream" uid="uid://oagu615oho1" path="res://assets/sounds/bubbles/love_bomb/love_bomb_pop_01.mp3" id="2_guc60"]
 [ext_resource type="Material" uid="uid://bdo4rpg030rjw" path="res://assets/resources/materials/love_bomb_material.tres" id="2_rctih"]
 [ext_resource type="PackedScene" uid="uid://3a3sj52ga2sg" path="res://assets/models/bubbles/heart.glb" id="3_nglt1"]
 [ext_resource type="Texture2D" uid="uid://dba6f51myh7ko" path="res://assets/textures/bubbles/love_bomb/heart_particle.svg" id="4_heart"]
@@ -47,6 +48,7 @@ material = SubResource("StandardMaterial3D_love_petal")
 size = Vector2(0.09, 0.14)
 
 [node name="LoveBombBubble" unique_id=1327547328 instance=ExtResource("1_base")]
+pop_sounds = Array[AudioStream]([ExtResource("2_guc60")])
 wobble_strength = 0.35
 
 [node name="MeshInstance3D" parent="BubblePivot/RigidBody3D" parent_id_path=PackedInt32Array(27141494) index="1" unique_id=1670452469]
