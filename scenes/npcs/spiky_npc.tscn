@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://dftfq36ealjww"]
 
 [ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/emitters/character_bubble_emitter.tscn" id="1_yi2tp"]
-[ext_resource type="Resource" uid="uid://b23ejpka3efwa" path="res://assets/resources/bubbles/beach_ball_emitter.tres" id="2_3refi"]
+[ext_resource type="Resource" path="res://assets/resources/bubbles/goo_spore_emitter.tres" id="2_3refi"]
 [ext_resource type="PackedScene" uid="uid://qu3osm7jr242" path="res://assets/models/npcs/spiky.gltf" id="3_eagcy"]
 
 [node name="SpikyNpc" unique_id=582313622 instance=ExtResource("1_yi2tp")]

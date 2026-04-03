@@ -67,7 +67,7 @@ wobble_rotation_strength = 0.05
 visible = false
 mesh = SubResource("SphereMesh_shadow_shuriken")
 
-[node name="Shuriken" parent="BubblePivot/RigidBody3D" parent_id_path=PackedInt32Array(27141494) index="2" unique_id=113639550 instance=ExtResource("3_ll5h2")]
+[node name="Shuriken" parent="BubblePivot/RigidBody3D" parent_id_path=PackedInt32Array(27141494) index="3" unique_id=113639550 instance=ExtResource("3_ll5h2")]
 transform = Transform3D(0.12990381, -0.075, 0, 0.075, 0.12990381, 0, 0, 0, 0.15, 0, 0, 0)
 
 [node name="PopEffect" parent="." index="2" unique_id=1254866317]

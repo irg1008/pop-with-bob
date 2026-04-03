@@ -1,0 +1,105 @@
+[gd_scene format=3 uid="uid://dhn8kslfcoj22"]
+
+[ext_resource type="PackedScene" uid="uid://d3qcjd07kedb2" path="res://scenes/bubbles/bubble.tscn" id="1_base"]
+[ext_resource type="Material" uid="uid://c2yr00fxce1jb" path="res://assets/resources/materials/goo_spore_material.tres" id="2_mat"]
+[ext_resource type="AudioStream" uid="uid://by15sj2pnm2nd" path="res://assets/sounds/bubbles/goo_spore/goo_spore_pop_01.mp3" id="2_rmkak"]
+[ext_resource type="Texture2D" uid="uid://bdt2ujpm540oc" path="res://assets/textures/bubbles/goo_spore/goo_drop_particle.svg" id="3_tex"]
+[ext_resource type="AudioStream" uid="uid://d1f17kb2nnbhy" path="res://assets/sounds/bubbles/goo_spore/goo_spore_pop_02.mp3" id="3_thb3c"]
+[ext_resource type="AudioStream" uid="uid://cbtsmakaotrb0" path="res://assets/sounds/bubbles/goo_spore/goo_spore_pop_03.mp3" id="4_pqj55"]
+[ext_resource type="AudioStream" uid="uid://pte6532t73i1" path="res://assets/sounds/bubbles/goo_spore/goo_spore_pop_04.mp3" id="5_l7d2q"]
+[ext_resource type="AudioStream" uid="uid://bnvy52hh4ahh5" path="res://assets/sounds/bubbles/goo_spore/goo_spore_pop_05.mp3" id="6_uo8po"]
+
+[sub_resource type="SphereMesh" id="SphereMesh_8h6g7"]
+material = ExtResource("2_mat")
+
+[sub_resource type="Curve" id="Curve_pop_alpha"]
+_data = [Vector2(0, 1), 0.0, -0.5, 0, 0, Vector2(0.28, 0.86), -0.9, -0.9, 0, 0, Vector2(1, 0), -1.1, 0.0, 0, 0]
+point_count = 3
+
+[sub_resource type="CurveTexture" id="CurveTexture_pop_alpha"]
+curve = SubResource("Curve_pop_alpha")
+
+[sub_resource type="Gradient" id="Gradient_pop_goo"]
+offsets = PackedFloat32Array(0, 0.4, 1)
+colors = PackedColorArray(0.84, 0.94, 0.56, 1, 0.49, 0.62, 0.29, 0.72, 0.19, 0.25, 0.15, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_pop_goo"]
+gradient = SubResource("Gradient_pop_goo")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_drip_goo"]
+emission_shape = 3
+emission_box_extents = Vector3(0.14, 0.015, 0.14)
+direction = Vector3(0, -1, 0)
+spread = 10.0
+initial_velocity_min = 0.22
+initial_velocity_max = 0.6
+gravity = Vector3(0, -6.5, 0)
+damping_min = 2.4
+damping_max = 4.2
+scale_min = 0.03
+scale_max = 0.06
+color_initial_ramp = SubResource("GradientTexture1D_pop_goo")
+alpha_curve = SubResource("CurveTexture_pop_alpha")
+hue_variation_min = -0.03
+hue_variation_max = 0.03
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_goo_drop"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+albedo_texture = ExtResource("3_tex")
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_goo_drop"]
+material = SubResource("StandardMaterial3D_goo_drop")
+size = Vector2(0.045, 0.07)
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_pop_goo"]
+emission_shape = 1
+emission_sphere_radius = 0.5
+direction = Vector3(0, -1, 0)
+spread = 12.0
+initial_velocity_min = 1.8
+initial_velocity_max = 3.2
+damping_min = 0.2
+damping_max = 0.5
+scale_min = 0.04
+scale_max = 0.085
+color_initial_ramp = SubResource("GradientTexture1D_pop_goo")
+alpha_curve = SubResource("CurveTexture_pop_alpha")
+hue_variation_min = -0.03
+hue_variation_max = 0.03
+
+[sub_resource type="SphereMesh" id="SphereMesh_goo_pop_chunk"]
+material = ExtResource("2_mat")
+radius = 0.08
+height = 0.16
+
+[node name="GooSporeBubble" unique_id=1931472895 instance=ExtResource("1_base")]
+pop_sounds = Array[AudioStream]([ExtResource("2_rmkak"), ExtResource("3_thb3c"), ExtResource("4_pqj55"), ExtResource("5_l7d2q"), ExtResource("6_uo8po")])
+wobble_strength = 0.34
+wobble_rotation_strength = 0.03
+
+[node name="MeshInstance3D" parent="BubblePivot/RigidBody3D" parent_id_path=PackedInt32Array(27141494) index="1" unique_id=1670452469]
+mesh = SubResource("SphereMesh_8h6g7")
+
+[node name="GooDripEffect" type="GPUParticles3D" parent="BubblePivot/RigidBody3D" parent_id_path=PackedInt32Array(27141494) index="3" unique_id=209185778]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.25, 0)
+amount = 26
+lifetime = 4.0
+preprocess = 1.0
+randomness = 0.18
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_drip_goo")
+draw_pass_1 = SubResource("QuadMesh_goo_drop")
+
+[node name="PopEffect" parent="." index="2" unique_id=1254866317]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5137154, 0)
+amount = 320
+lifetime = 2.0
+preprocess = 0.02
+randomness = 0.28
+process_material = SubResource("ParticleProcessMaterial_pop_goo")
+draw_passes = 2
+draw_pass_1 = SubResource("SphereMesh_goo_pop_chunk")
+draw_pass_2 = SubResource("QuadMesh_goo_drop")
