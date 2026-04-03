@@ -17,6 +17,7 @@ signal inflated()
 
 @export_category("Bubble Properties")
 @export var wobble_strength: float = 0.5
+@export var wobble_rotation_strength: float = 0.035
 
 
 var max_lifetime: float
@@ -49,6 +50,9 @@ func _physics_process(delta: float) -> void:
 	if not rigid_body.freeze:
 		var random_direction: Vector3 = Vector3(randf_range(-1, 1), 0, randf_range(-1, 1)).normalized()
 		rigid_body.apply_central_force(random_direction * wobble_strength)
+
+		var yaw_torque: float = randf_range(-1.0, 1.0) * wobble_rotation_strength
+		rigid_body.apply_torque(Vector3.UP * yaw_torque)
 
 
 func _on_inflate_animation_finished(_animation_name: String) -> void:

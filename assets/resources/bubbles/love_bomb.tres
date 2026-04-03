@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="BubbleData" format=3 uid="uid://bldsiivyp1aqm"]
+
+[ext_resource type="PackedScene" uid="uid://xoi82ad840gc" path="res://scenes/bubbles/love_bomb.tscn" id="1_hy7tu"]
+[ext_resource type="Script" uid="uid://chbmu7283cdba" path="res://assets/scripts/bubbles/resources/bubble_data.gd" id="2_script"]
+
+[resource]
+script = ExtResource("2_script")
+scene = ExtResource("1_hy7tu")
+metadata/_custom_type_script = "uid://chbmu7283cdba"

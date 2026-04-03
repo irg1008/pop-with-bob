@@ -1,0 +1,47 @@
+[gd_resource type="ShaderMaterial" format=3 uid="uid://bdo4rpg030rjw"]
+
+[sub_resource type="Shader" id="Shader_demon_love_bomb"]
+code = "shader_type spatial;
+render_mode blend_mix, depth_draw_opaque, cull_back, diffuse_burley, specular_schlick_ggx;
+
+void fragment() {
+    vec2 uv = UV * 2.0 - 1.0;
+    float ndotv = max(dot(NORMAL, VIEW), 0.0);
+    float fresnel = pow(1.0 - ndotv, 2.2);
+    float pulse = 0.5 + 0.5 * sin(TIME * 2.6);
+
+    vec2 charm_uv = uv;
+    charm_uv.y -= 0.02;
+    float rounded_core = 1.0 - smoothstep(0.28, 0.98, length(charm_uv * vec2(0.95, 1.12)));
+    float top_blush = exp(-pow((charm_uv.x) * 2.8, 2.0) - pow((charm_uv.y - 0.36) * 4.4, 2.0)) * 0.4;
+    float heart_mask = clamp(rounded_core + top_blush, 0.0, 1.0);
+
+    float ring = smoothstep(0.38, 0.48, length(uv)) * (1.0 - smoothstep(0.48, 0.58, length(uv)));
+    float chain_stripes = smoothstep(0.75, 0.98, abs(sin((uv.x - uv.y + TIME * 0.9) * 24.0)));
+    float chain_mask = ring * chain_stripes;
+
+    vec3 dark_pink = vec3(0.18, 0.02, 0.10);
+    vec3 hot_pink = vec3(1.0, 0.18, 0.62);
+    vec3 charm_pink = vec3(1.0, 0.44, 0.82);
+
+    vec3 core_color = mix(dark_pink, hot_pink, heart_mask * (0.65 + pulse * 0.35));
+    vec3 base_color = mix(dark_pink, core_color, 0.75);
+    float core_fill = smoothstep(0.25, 1.0, heart_mask) * (0.08 + pulse * 0.05);
+    base_color += vec3(0.22, 0.06, 0.14) * core_fill;
+    vec3 min_fill_color = vec3(0.30, 0.08, 0.20) * (0.86 + pulse * 0.14);
+    base_color = max(base_color, min_fill_color);
+
+    ALBEDO = base_color + chain_mask * vec3(0.26, 0.05, 0.24);
+    ALPHA = clamp(0.34 + fresnel * 0.42 + heart_mask * 0.10, 0.0, 0.92);
+    ROUGHNESS = 0.03;
+    METALLIC = 0.05;
+
+    vec3 rim_light = mix(vec3(0.86, 0.28, 0.74), charm_pink, pulse);
+    vec3 heart_glow = hot_pink * heart_mask * (0.6 + pulse * 0.5);
+    vec3 chain_glow = charm_pink * chain_mask * 0.75;
+    EMISSION = rim_light * fresnel * 1.1 + heart_glow + chain_glow;
+}"
+
+[resource]
+render_priority = 0
+shader = SubResource("Shader_demon_love_bomb")

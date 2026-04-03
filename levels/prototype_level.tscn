@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dfck75ha1fol0" path="res://scenes/enemies/simple_enemy.tscn" id="6_i5e4g"]
 [ext_resource type="PackedScene" uid="uid://0gj34jwk8rmh" path="res://scenes/npcs/cactoro_npc.tscn" id="9_rl8gb"]
 [ext_resource type="PackedScene" uid="uid://bx3y7178ga5lm" path="res://scenes/npcs/fish_npc.tscn" id="11_1wlit"]
+[ext_resource type="PackedScene" uid="uid://c2x4stlng1ny" path="res://scenes/npcs/demon_npc.tscn" id="12_mfg5r"]
 [ext_resource type="PackedScene" uid="uid://c0kuerqnqgr5q" path="res://scenes/npcs/mushroom_npc.tscn" id="13_r7pgf"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_qd0o6"]
@@ -1164,3 +1165,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.821421, 0, -7.7503085)
 
 [node name="MushroomNpc" parent="." unique_id=1773047625 instance=ExtResource("13_r7pgf")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -11.449858, 0.012285347, -12.970475)
+
+[node name="DemonNpc" parent="." unique_id=1190320434 instance=ExtResource("12_mfg5r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.83151627, 0, -14.1443)
