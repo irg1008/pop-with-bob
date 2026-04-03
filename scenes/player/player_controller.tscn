@@ -235,10 +235,10 @@ to = NodePath("../Crouching")
 event = &"onCrouching"
 delay_in_seconds = "0.0"
 
-[node name="WeaponController" type="Node" parent="." unique_id=1154290142 node_paths=PackedStringArray("camera", "weapon_mode_parent", "weapon_state_chart")]
+[node name="WeaponController" type="Node" parent="." unique_id=1154290142 node_paths=PackedStringArray("camera", "weapon_model_parent", "weapon_state_chart")]
 script = ExtResource("8_3nb03")
 camera = NodePath("../CameraController/Camera3D")
-weapon_mode_parent = NodePath("../CameraController/Camera3D")
+weapon_model_parent = NodePath("../CameraController/Camera3D")
 weapon_state_chart = NodePath("../WeaponComponents/WeaponStateChart")
 
 [node name="WeaponComponents" type="Node" parent="." unique_id=282010181]

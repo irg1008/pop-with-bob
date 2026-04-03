@@ -6,7 +6,7 @@ signal ammo_changed(new_ammo: int)
 
 @export_category("References")
 @export var camera: Camera3D
-@export var weapon_mode_parent: Node3D
+@export var weapon_model_parent: Node3D
 @export var weapon_state_chart: StateChart
 
 
@@ -30,7 +30,7 @@ func spawn_weapon_model() -> void:
 
 	if weapon.weapon_scene:
 		weapon_model = weapon.weapon_scene.instantiate()
-		weapon_mode_parent.add_child(weapon_model)
+		weapon_model_parent.add_child(weapon_model)
 		weapon_model.position = weapon.weapon_position
 
 
@@ -106,6 +106,7 @@ func _spawn_projectile() -> void:
 
 	var projectile: Projectile = weapon.projectile_scene.instantiate()
 	get_tree().current_scene.add_child(projectile)
+
 	projectile.global_transform = camera.global_transform
 
 	var forward: Vector3 = - camera.global_transform.basis.z
@@ -114,5 +115,3 @@ func _spawn_projectile() -> void:
 
 	var velocity: Vector3 = direction * weapon.projectile_speed
 	projectile.setup(velocity, weapon.damage)
-
-

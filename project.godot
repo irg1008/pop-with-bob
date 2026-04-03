@@ -23,6 +23,7 @@ config/icon="res://assets/icon.webp"
 [autoload]
 
 Managers="*uid://1dixcc107ukd"
+Signal_Debugger="*uid://bcex0g7rq17vd"
 
 [debug]
 

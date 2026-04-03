@@ -1,7 +1,10 @@
 [gd_scene format=3 uid="uid://b1ul6ch7n1wie"]
 
-[sub_resource type="BoxMesh" id="BoxMesh_j8sg3"]
-size = Vector3(0.08, 0.115, 0.7)
+[ext_resource type="PackedScene" uid="uid://cambyc5g4c84p" path="res://assets/models/weapons/revolver.glb" id="1_t6hi4"]
 
-[node name="PistolWeapon" type="MeshInstance3D" unique_id=1934595672]
-mesh = SubResource("BoxMesh_j8sg3")
+[node name="PistolWeapon" type="Node3D" unique_id=1739763821]
+
+[node name="Revolver" parent="." unique_id=820288814 instance=ExtResource("1_t6hi4")]
+transform = Transform3D(0.02, 0, 0, 0, 0.019999998, 0, 0, 0, 0.020000001, 0, 0, 0)
+
+[editable path="Revolver"]

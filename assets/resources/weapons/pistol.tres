@@ -7,5 +7,6 @@
 [resource]
 script = ExtResource("2_8loab")
 weapon_scene = ExtResource("3_r76jm")
+weapon_position = Vector3(0.13769722, -0.068216324, -0.2083602)
 damage = 20.0
 projectile_scene = ExtResource("1_4nee8")
