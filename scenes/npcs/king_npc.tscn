@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/emitters/character_bubble_emitter.tscn" id="1_asged"]
 [ext_resource type="Resource" path="res://assets/resources/bubbles/crystal_prism_emitter.tres" id="2_66g6f"]
 [ext_resource type="PackedScene" uid="uid://cglca0wm24n6l" path="res://assets/models/npcs/king.gltf" id="3_asged"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://dmybsyukwbysh" path="res://assets/resources/animations/fly_npc_animation.tres" id="4_66g6f"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_asged"]
 height = 1.2650881
@@ -12,8 +13,6 @@ radius = 0.34570313
 step_height_up = 2.0
 step_height_down = 2.0
 move_speed = 2.0
-walk_animation = "Fast_Flying"
-idle_animation = "Headbutt"
 
 [node name="BubbleEmitter" parent="." index="0" unique_id=31996967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7699753, -0.07298513)
@@ -22,9 +21,26 @@ bubble_emitter = ExtResource("2_66g6f")
 [node name="Character" parent="." index="1" unique_id=1174441357]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3326378, 0)
 
-[node name="king" parent="Character" index="0" unique_id=1017286498 instance=ExtResource("3_asged")]
+[node name="King" parent="Character" index="0" unique_id=1017286498 instance=ExtResource("3_asged")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Character/King/CharacterArmature" parent_id_path=PackedInt32Array(1017286498, 1744795930) index="0" unique_id=1444699817]
+bones/1/rotation = Quaternion(-0.014627182, -0.0009377924, 0.003287558, 0.99988717)
+bones/2/rotation = Quaternion(0.23638542, 0.00018450998, -0.0034135177, 0.97165334)
+bones/3/rotation = Quaternion(0.57166564, -0.0002264342, -0.00015693657, 0.82048666)
+bones/5/rotation = Quaternion(0.09973213, -0.69557804, -0.12116174, 0.7011024)
+bones/6/rotation = Quaternion(0.07574269, -0.0022282444, 0.03657321, 0.99645394)
+bones/8/rotation = Quaternion(-0.26326, -0.18861085, 0.54724306, 0.77178055)
+bones/10/rotation = Quaternion(0.075742625, 0.002228259, -0.03657327, 0.996454)
+bones/12/rotation = Quaternion(0.9996196, -0.012443872, -0.008295722, -0.02317337)
 
 [node name="CollisionShape3D" parent="." index="2" unique_id=47495966]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.69022775, 0)
 shape = SubResource("CylinderShape3D_asged")
+
+[node name="AnimationTree" parent="." index="5" unique_id=231973671]
+root_node = NodePath("../Character/King")
+tree_root = ExtResource("4_66g6f")
+anim_player = NodePath("../Character/King/AnimationPlayer")
+
+[editable path="Character/King"]

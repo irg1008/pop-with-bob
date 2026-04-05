@@ -1161,9 +1161,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.445492, 0, 15.305309)
 [node name="SimpleEnemy5" parent="." unique_id=1819234122 instance=ExtResource("6_i5e4g")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -17.865444, -4.7683716e-07, 8.634035)
 
-[node name="CactoroNpc" parent="." unique_id=582313622 instance=ExtResource("9_rl8gb")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.433368, 1.3653572e-07, -5.7903175)
-
 [node name="FishNpc" parent="." unique_id=100955388 instance=ExtResource("11_1wlit")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.821421, 0, -7.7503085)
 
@@ -1184,3 +1181,9 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.4063861, 0.0040139775, -1.
 
 [node name="KingNpc" parent="." unique_id=235631607 instance=ExtResource("16_021uu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.621625, 0, -22.13596)
+
+[node name="CactoroNpc" parent="." unique_id=582313622 instance=ExtResource("9_rl8gb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -14.433368, 1.3653572e-07, -5.7903175)
+
+[node name="NinjaNpc2" parent="." unique_id=514176225 instance=ExtResource("14_m3w54")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.620844, 1.4442672, 12.657398)

@@ -21,4 +21,4 @@ func _physics_process(delta: float) -> void:
 
 
 func _on_smooth_step(delta: float, previous_height: float, _height_delta: float) -> void:
-	position.y = lerp(previous_height, position.y, 8.0 * delta)
+	position.y = lerp(previous_height, position.y, 4.0 * delta)

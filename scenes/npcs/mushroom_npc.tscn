@@ -14,9 +14,21 @@ radius = 0.36376953
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.137619, -0.08215277)
 bubble_emitter = ExtResource("2_peqfk")
 
-[node name="mushroom" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=965232279 instance=ExtResource("3_peqfk")]
+[node name="Mushroom" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=965232279 instance=ExtResource("3_peqfk")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Character/Mushroom/CharacterArmature" parent_id_path=PackedInt32Array(965232279, 1674724894) index="0" unique_id=1510921744]
+bones/1/position = Vector3(0, 1.0876756, 0)
+bones/1/rotation = Quaternion(0, 0, 0, 1)
+bones/2/rotation = Quaternion(0, 0, 0, 1)
+bones/3/rotation = Quaternion(4.5238165e-36, 3.5471487e-10, -0.0026400527, 0.9999966)
 
 [node name="CollisionShape3D" parent="." index="2" unique_id=47495966]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3502792, 0)
 shape = SubResource("CylinderShape3D_b2pha")
+
+[node name="AnimationTree" parent="." index="5" unique_id=231973671]
+root_node = NodePath("../Character/Mushroom")
+anim_player = NodePath("../Character/Mushroom/AnimationPlayer")
+
+[editable path="Character/Mushroom"]

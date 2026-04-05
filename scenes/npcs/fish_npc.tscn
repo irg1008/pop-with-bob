@@ -10,8 +10,20 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9314208, -0.22301997)
 bubble_emitter = ExtResource("2_iaqpo")
 
-[node name="fish" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=223338948 instance=ExtResource("3_ba2ia")]
+[node name="Fish" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=223338948 instance=ExtResource("3_ba2ia")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Character/Fish/CharacterArmature" parent_id_path=PackedInt32Array(223338948, 191882738) index="0" unique_id=1392742159]
+bones/1/position = Vector3(0, 0.62070996, 0)
+bones/1/rotation = Quaternion(0, 0, 0, 1)
+bones/2/rotation = Quaternion(0, 0, 0, 1)
+bones/3/rotation = Quaternion(4.5239084e-36, 3.5471498e-10, -0.0026400534, 0.9999966)
 
 [node name="CollisionShape3D" parent="." index="2" unique_id=47495966]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3965779, 0)
+
+[node name="AnimationTree" parent="." index="5" unique_id=231973671]
+root_node = NodePath("../Character/Fish")
+anim_player = NodePath("../Character/Fish/AnimationPlayer")
+
+[editable path="Character/Fish"]

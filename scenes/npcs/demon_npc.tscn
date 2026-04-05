@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/emitters/character_bubble_emitter.tscn" id="1_15s1p"]
 [ext_resource type="Resource" path="res://assets/resources/bubbles/love_bomb_emitter.tres" id="2_15s1p"]
 [ext_resource type="PackedScene" uid="uid://cu8uphgkfvna6" path="res://assets/models/npcs/demon.gltf" id="3_15s1p"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://dmybsyukwbysh" path="res://assets/resources/animations/fly_npc_animation.tres" id="4_lyh1h"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_15s1p"]
 height = 1.0824709
@@ -11,8 +12,6 @@ radius = 0.4194336
 [node name="DemonNpc" unique_id=582313622 instance=ExtResource("1_15s1p")]
 step_height_up = 2.0
 step_height_down = 2.0
-walk_animation = "Flying_Idle"
-idle_animation = "Flying_Idle"
 
 [node name="BubbleEmitter" parent="." index="0" unique_id=31996967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.4546012, -0.07298513)
@@ -21,9 +20,48 @@ bubble_emitter = ExtResource("2_15s1p")
 [node name="Character" parent="." index="1" unique_id=1174441357]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.39731312, 0)
 
-[node name="demon" parent="Character" index="0" unique_id=1382958814 instance=ExtResource("3_15s1p")]
+[node name="Demon" parent="Character" index="0" unique_id=1382958814 instance=ExtResource("3_15s1p")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Character/Demon/CharacterArmature" parent_id_path=PackedInt32Array(1382958814, 1746483273) index="0" unique_id=533308857]
+bones/1/rotation = Quaternion(-0.014627182, -0.0009377924, 0.003287558, 0.99988717)
+bones/2/rotation = Quaternion(0.23638542, 0.00018450998, -0.0034135177, 0.97165334)
+bones/3/rotation = Quaternion(0.57166564, -0.0002264342, -0.00015693657, 0.82048666)
+bones/5/rotation = Quaternion(-0.36154452, -0.4774207, -0.5206834, 0.6084767)
+bones/6/rotation = Quaternion(0.04405484, -0.115107454, -0.6625981, 0.7387647)
+bones/8/rotation = Quaternion(-0.14271106, -0.020009968, -0.056670338, 0.9879381)
+bones/9/rotation = Quaternion(-0.0042426623, -0.00039808085, 0.0032198345, 0.99998575)
+bones/11/rotation = Quaternion(-0.0055165384, -0.00095530204, -0.17064503, 0.98531675)
+bones/12/rotation = Quaternion(-0.037357915, 0.00043711648, -0.011690861, 0.9992335)
+bones/14/rotation = Quaternion(-0.07964682, 0.01655706, 0.20285511, 0.9758239)
+bones/15/rotation = Quaternion(1.8549628e-09, -3.1820762e-09, -0.0024158468, 0.9999971)
+bones/17/rotation = Quaternion(-7.316903e-08, -1.0869168e-07, 0.3209657, 0.9470908)
+bones/18/rotation = Quaternion(7.244941e-09, 2.0892028e-09, 0.12612228, 0.9920147)
+bones/20/rotation = Quaternion(0.09973215, -0.69557804, -0.12116174, 0.7011024)
+bones/21/rotation = Quaternion(0.0757427, -0.0022282405, 0.036573216, 0.99645394)
+bones/24/rotation = Quaternion(-0.36154452, 0.4774206, 0.52068335, 0.6084768)
+bones/25/rotation = Quaternion(0.044054896, 0.11510745, 0.6625981, 0.7387647)
+bones/27/rotation = Quaternion(-0.14271112, 0.020009995, 0.05667035, 0.9879381)
+bones/28/rotation = Quaternion(-0.0042426083, 0.00039808347, -0.0032198401, 0.99998575)
+bones/30/rotation = Quaternion(-0.0055165244, 0.00095529313, 0.17064503, 0.98531675)
+bones/31/rotation = Quaternion(-0.03735787, -0.00043710455, 0.011690894, 0.9992335)
+bones/33/rotation = Quaternion(-0.07964676, -0.016557088, -0.20285521, 0.97582376)
+bones/34/rotation = Quaternion(-3.286702e-08, 2.269608e-08, 0.002415865, 0.9999971)
+bones/36/rotation = Quaternion(-7.703737e-08, 1.073331e-07, -0.3209655, 0.947091)
+bones/37/rotation = Quaternion(2.6154433e-08, -7.868851e-09, -0.12612228, 0.9920147)
+bones/38/rotation = Quaternion(-0.26326, -0.18861085, 0.54724306, 0.77178055)
+bones/39/rotation = Quaternion(0.09973218, 0.69557804, 0.1211617, 0.7011024)
+bones/40/rotation = Quaternion(0.07574261, 0.0022282642, -0.036573272, 0.996454)
+bones/42/rotation = Quaternion(0.9996196, -0.012443872, -0.008295722, -0.02317337)
 
 [node name="CollisionShape3D" parent="." index="2" unique_id=47495966]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.59891915, 0)
 shape = SubResource("CylinderShape3D_15s1p")
+
+[node name="AnimationTree" parent="." index="5" unique_id=231973671]
+root_node = NodePath("../Character/Demon")
+tree_root = ExtResource("4_lyh1h")
+anim_player = NodePath("../Character/Demon/AnimationPlayer")
+parameters/Roaming/IdleRoamingBlend/blend_position = 0.94244146
+
+[editable path="Character/Demon"]

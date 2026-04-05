@@ -10,8 +10,20 @@
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9314208, -0.22301997)
 bubble_emitter = ExtResource("2_3refi")
 
-[node name="spiky" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=904318937 instance=ExtResource("3_eagcy")]
+[node name="Spiky" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=904318937 instance=ExtResource("3_eagcy")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Character/Spiky/CharacterArmature" parent_id_path=PackedInt32Array(904318937, 1006288113) index="0" unique_id=564171254]
+bones/1/position = Vector3(0, 0.7555755, 0)
+bones/1/rotation = Quaternion(0, 0, 0, 1)
+bones/2/rotation = Quaternion(0, 0, 0, 1)
+bones/3/rotation = Quaternion(4.5239313e-36, 3.5471498e-10, -0.0026400534, 0.9999966)
 
 [node name="CollisionShape3D" parent="." index="2" unique_id=47495966]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3965779, 0)
+
+[node name="AnimationTree" parent="." index="5" unique_id=231973671]
+root_node = NodePath("../Character/Spiky")
+anim_player = NodePath("../Character/Spiky/AnimationPlayer")
+
+[editable path="Character/Spiky"]

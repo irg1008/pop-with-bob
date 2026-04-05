@@ -3,6 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bprw0dajvifv6" path="res://scenes/bubbles/emitters/character_bubble_emitter.tscn" id="1_vihsx"]
 [ext_resource type="Resource" path="res://assets/resources/bubbles/shadow_shuriken_emitter.tres" id="2_6qu3m"]
 [ext_resource type="PackedScene" uid="uid://djruvjwikpwwe" path="res://assets/models/npcs/ninja.gltf" id="2_vihsx"]
+[ext_resource type="AnimationNodeStateMachine" uid="uid://b5jn5xkfs2cs" path="res://assets/resources/animations/run_npc_animation.tres" id="4_h48f6"]
 
 [sub_resource type="CylinderShape3D" id="CylinderShape3D_k0t7d"]
 height = 0.70009816
@@ -10,16 +11,59 @@ radius = 0.3881836
 
 [node name="NinjaNpc" unique_id=582313622 instance=ExtResource("1_vihsx")]
 move_speed = 2.0
-walk_animation = "Run"
-idle_animation = "Weapon"
 
 [node name="BubbleEmitter" parent="." index="0" unique_id=31996967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1813636, -0.42368206)
 bubble_emitter = ExtResource("2_6qu3m")
 
-[node name="ninja" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=1461184110 instance=ExtResource("2_vihsx")]
+[node name="Ninja" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=1461184110 instance=ExtResource("2_vihsx")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="Skeleton3D" parent="Character/Ninja/CharacterArmature" parent_id_path=PackedInt32Array(1461184110, 189267992) index="0" unique_id=512620246]
+bones/1/position = Vector3(0.35192725, 0.6812284, -0.5233986)
+bones/1/rotation = Quaternion(9.583434e-06, 0.017783374, 0.99984187, 7.5978405e-06)
+bones/2/position = Vector3(0.0023132458, 0.9868192, 0.1806301)
+bones/2/rotation = Quaternion(0.121443994, 0.00028747073, -3.2444783e-05, 0.9925983)
+bones/4/rotation = Quaternion(0.04349651, 4.4148533e-07, 2.321314e-08, 0.99905366)
+bones/5/rotation = Quaternion(0.09887537, -0.07939459, 0.04162284, 0.9910539)
+bones/6/rotation = Quaternion(0.35323137, -3.0843537e-05, 0.00013831584, 0.93553597)
+bones/7/rotation = Quaternion(-0.35778922, -0.0007212959, -0.0005663788, 0.9338019)
+bones/8/position = Vector3(0.17888507, 0.25425223, -0.01974215)
+bones/8/rotation = Quaternion(-0.12417865, -0.055804368, -0.40609172, 0.9036344)
+bones/9/rotation = Quaternion(0.46204495, 0.5267347, 0.68528324, -0.19862488)
+bones/10/rotation = Quaternion(-0.052157648, 0.09085028, -0.4064218, 0.90766025)
+bones/22/position = Vector3(-0.17881379, 0.2541555, -0.019783394)
+bones/22/rotation = Quaternion(-0.124178395, 0.055804927, 0.40609175, 0.9036343)
+bones/23/rotation = Quaternion(-0.5514951, 0.067851156, 0.42924413, 0.7120386)
+bones/24/rotation = Quaternion(0.17099372, -0.3683573, 0.27871692, 0.8702821)
+bones/26/rotation = Quaternion(-0.069192484, 0.009263734, 0.18041399, 0.9811103)
+bones/27/rotation = Quaternion(-0.1759488, -0.0072506024, -0.015567916, 0.98424953)
+bones/29/rotation = Quaternion(-0.16441877, -0.003241024, -0.0018961902, 0.98638356)
+bones/30/rotation = Quaternion(-0.050300602, -0.0036613843, 0.010419361, 0.9986731)
+bones/32/rotation = Quaternion(-0.010100365, -0.024462698, -0.22340287, 0.9743668)
+bones/33/rotation = Quaternion(-0.15201546, -0.002182945, 0.038881976, 0.9876107)
+bones/35/rotation = Quaternion(-0.1040787, -0.025339946, -0.22776999, 0.96780497)
+bones/36/position = Vector3(0.3395234, 0.0010382026, -0.15171431)
+bones/36/rotation = Quaternion(0.99889016, 0.006169527, 0.0037251795, 0.046545923)
+bones/37/rotation = Quaternion(0.7018325, 0.0081242295, 0.0068038707, 0.7122632)
+bones/38/position = Vector3(-0.3412083, 2.1011917e-06, -0.15170184)
+bones/38/rotation = Quaternion(0.76882756, -0.008722682, -0.0028364696, 0.63939047)
+bones/39/rotation = Quaternion(0.57792646, -0.0069220783, -0.008023795, 0.8160201)
+bones/40/position = Vector3(0.34848857, -0.15428996, 1.62747)
+bones/40/rotation = Quaternion(0.28702387, 1.1419344e-07, 1.7107956e-07, 0.95792353)
+bones/41/position = Vector3(-0.34930027, 0.34320897, 0.36807472)
+bones/41/rotation = Quaternion(-1.3290393e-05, 0.80155075, 0.5979268, -8.305113e-06)
+bones/42/position = Vector3(-0.34586737, 0.9091206, 2.019789)
+bones/42/rotation = Quaternion(0.003727177, -5.960424e-07, -4.4431417e-10, 0.99999315)
 
 [node name="CollisionShape3D" parent="." index="2" unique_id=47495966]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3503611, 0)
 shape = SubResource("CylinderShape3D_k0t7d")
+
+[node name="AnimationTree" parent="." index="5" unique_id=231973671]
+root_node = NodePath("../Character/Ninja")
+tree_root = ExtResource("4_h48f6")
+anim_player = NodePath("../Character/Ninja/AnimationPlayer")
+parameters/Roaming/IdleRoamingBlend/blend_position = 0.91392404
+
+[editable path="Character/Ninja"]
