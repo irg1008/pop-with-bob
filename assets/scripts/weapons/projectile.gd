@@ -8,6 +8,8 @@ var damage: float
 # This solution might be improved using a Raycast3D or a ShapeCast3D.
 # Current solution might fail to detect collision on high speed projectiles
 func _physics_process(delta: float) -> void:
+	velocity.y -= get_gravity() * delta
+
 	var space_state: PhysicsDirectSpaceState3D = get_world_3d().direct_space_state
 	var start_pos: Vector3 = global_position
 	var end_pos: Vector3 = global_position + velocity * delta

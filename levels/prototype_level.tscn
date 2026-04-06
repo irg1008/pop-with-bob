@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://4iqsa6om0lj3" path="res://scenes/environment/pickups/ammo_pickup.tscn" id="3_htrvu"]
 [ext_resource type="PackedScene" uid="uid://dm5j8brxcsucx" path="res://scenes/props/destructive_box.tscn" id="4_6lfjr"]
 [ext_resource type="PackedScene" uid="uid://cjeh6ve21p4lb" path="res://scenes/environment/pickups/health_pickup.tscn" id="5_qd0o6"]
+[ext_resource type="Resource" uid="uid://bc482gd4ufhbv" path="res://assets/resources/weapons/rifle.tres" id="6_fb634"]
 [ext_resource type="PackedScene" uid="uid://dfck75ha1fol0" path="res://scenes/enemies/simple_enemy.tscn" id="6_i5e4g"]
 [ext_resource type="PackedScene" uid="uid://dftfq36ealjww" path="res://scenes/npcs/spiky_npc.tscn" id="9_3sjje"]
 [ext_resource type="PackedScene" uid="uid://0gj34jwk8rmh" path="res://scenes/npcs/cactoro_npc.tscn" id="9_rl8gb"]
@@ -1138,7 +1139,7 @@ ammo_amount = 6
 
 [node name="AmmoPickup3" parent="PickUps" unique_id=161831915 instance=ExtResource("3_htrvu")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1996484, 0.7174207, -1.8263106)
-weapon = ExtResource("2_htrvu")
+weapon = ExtResource("6_fb634")
 
 [node name="HealthPickup" parent="PickUps" unique_id=1285778521 instance=ExtResource("5_qd0o6")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.8042572, 1.2315166, 5.7909803)

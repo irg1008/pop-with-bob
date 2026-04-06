@@ -10,9 +10,6 @@ class_name Weapon extends Resource
 @export_range(0, 100, 1, "suffix:%") var accuracy: int = 100
 @export var damage: float = 25.0
 @export var max_ammo: int = 12
-@export_group("Spread Settings")
-@export var pellet_count: int = 1
-@export var spread_angle: float = 0.0
 @export_group("Fire Rate")
 @export_range(0.1, 200.0, 0.1) var fire_rate: float = 2.0
 @export var is_automatic: bool = false
@@ -22,3 +19,6 @@ class_name Weapon extends Resource
 @export_group("Hitscan")
 @export_custom(PROPERTY_HINT_GROUP_ENABLE, "") var is_hitscan: bool = false
 @export var hitscan_range: float = 25.0
+@export_subgroup("Spread Settings")
+@export var pellet_count: int = 1
+@export var spread_angle: float = 0.0
