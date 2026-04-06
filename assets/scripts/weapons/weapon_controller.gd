@@ -10,7 +10,7 @@ signal ammo_changed(new_ammo: int)
 @export var weapon_state_chart: StateChart
 
 
-const MAX_PROJECTILE_DISTANCE = 1000.0
+const MAX_PROJECTILE_DISTANCE: float = 1000.0
 
 
 var current_ammo: int = 0
