@@ -10,6 +10,9 @@ signal ammo_changed(new_ammo: int)
 @export var weapon_state_chart: StateChart
 
 
+const MAX_PROJECTILE_DISTANCE = 1000.0
+
+
 var current_ammo: int = 0
 var weapon: Weapon
 var weapon_model: Node3D
@@ -96,22 +99,33 @@ func _perform_hitscan() -> void:
 
 
 func _spawn_projectile() -> void:
-	if not camera:
-		push_error("Missing camera for projectile firing.")
-		return
-
 	if not weapon.projectile_scene:
 		push_error("Missing projectile scene assigned.")
 		return
 
+	if not camera:
+		push_error("Missing camera for projectile firing.")
+		return
+
 	var projectile: Projectile = weapon.projectile_scene.instantiate()
-	get_tree().current_scene.add_child(projectile)
+	weapon_model.add_child(projectile)
 
-	projectile.global_transform = camera.global_transform
+	# Offset for weapon muzzle position
+	projectile.position.z = weapon.weapon_position.z
 
-	var forward: Vector3 = - camera.global_transform.basis.z
-	var spread_direction: Vector3 = WeaponHelpers.get_random_accuracy_spread(weapon)
-	var direction: Vector3 = forward + spread_direction * camera.global_transform.basis
+	# Intersect the target position
+	var viewport_center: Vector2 = get_viewport().get_visible_rect().size * 0.5
+	var ray_origin: Vector3 = camera.project_ray_origin(viewport_center)
+	var ray_normal: Vector3 = camera.project_ray_normal(viewport_center)
+	var ray_end: Vector3 = ray_origin + ray_normal * MAX_PROJECTILE_DISTANCE
+
+	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+	var result: Dictionary = camera.get_world_3d().direct_space_state.intersect_ray(query)
+	var target_position: Vector3 = result.position if result else ray_end
+	projectile.look_at(target_position)
+
+	var accuracy_spread: Vector3 = WeaponHelpers.get_random_accuracy_spread(weapon)
+	var direction: Vector3 = (target_position - projectile.global_position).normalized() + accuracy_spread
 
 	var velocity: Vector3 = direction * weapon.projectile_speed
 	projectile.setup(velocity, weapon.damage)
