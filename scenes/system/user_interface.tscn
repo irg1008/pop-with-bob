@@ -151,7 +151,6 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ThemeExamplePanel" type="Control" parent="." unique_id=1415255223]
-visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -170,11 +169,12 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="ThemeExampleRoot" type="CenterContainer" parent="ThemeExamplePanel" unique_id=1659094423]
-layout_mode = 0
-offset_left = 32.0
-offset_top = 32.0
-offset_right = 1888.0
-offset_bottom = 1048.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="SettingsFrame" type="PanelContainer" parent="ThemeExamplePanel/ThemeExampleRoot" unique_id=697153232]
 custom_minimum_size = Vector2(980, 620)
