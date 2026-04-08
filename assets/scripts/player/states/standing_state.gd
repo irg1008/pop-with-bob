@@ -2,6 +2,9 @@ extends PlayerState
 
 
 func _on_standing_state_physics_processing(delta: float) -> void:
+	if Managers.is_input_locked():
+		return
+
 	player_controller.camera.update_camera_height(delta, CameraController.CameraDirection.UP)
 
 	if Input.is_action_pressed("crouch") and player_controller.is_on_floor():

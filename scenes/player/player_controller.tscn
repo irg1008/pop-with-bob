@@ -41,7 +41,9 @@ height = 1.0
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ggkdx"]
 
-[node name="PlayerController" type="StairsCharacter3D" unique_id=2076778556 node_paths=PackedStringArray("camera", "camera_effects", "state_chart", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "weapon_controller", "health_component") groups=["player"]]
+[sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ii78e"]
+
+[node name="PlayerController" type="StairsCharacter3D" unique_id=2076778556 node_paths=PackedStringArray("camera", "camera_effects", "state_chart", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "weapon_controller", "health_component")]
 collider = NodePath("StandingCollision")
 collision_layer = 2
 script = ExtResource("1_0cfoe")
@@ -65,7 +67,6 @@ offset_bottom = 263.0
 grow_horizontal = 1
 grow_vertical = 1
 theme = SubResource("Theme_rgtnl")
-enabled = false
 initial_node_to_watch = NodePath("../Components/StateChart")
 
 [node name="PlaceholderMesh" type="MeshInstance3D" parent="." unique_id=886531546]
@@ -92,6 +93,7 @@ player_controller = NodePath("..")
 mouse_capture_component = NodePath("../Components/MouseCapture")
 
 [node name="Camera3D" type="Camera3D" parent="CameraController" unique_id=821594060 node_paths=PackedStringArray("player_controller")]
+attributes = SubResource("CameraAttributesPractical_ii78e")
 current = true
 script = ExtResource("4_cv1cy")
 player_controller = NodePath("../..")

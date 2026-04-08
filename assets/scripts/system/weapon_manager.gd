@@ -4,7 +4,6 @@ class_name WeaponManager extends Node
 @export_category("References")
 @export var player: PlayerController
 
-
 @export_category("Weapon Manager")
 @export var weapons: Array[WeaponData] = []
 

@@ -1,0 +1,18 @@
+[gd_resource type="Theme" format=3 uid="uid://b4ym0ixwh6tmg"]
+
+[ext_resource type="FontFile" uid="uid://cyxhh7ddkn62q" path="res://assets/fonts/Montserrat-Medium.ttf" id="1_qq1dl"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qq1dl"]
+bg_color = Color(0.13333334, 0.13333334, 0.13333334, 0.77254903)
+
+[resource]
+BoxContainer/constants/separation = 50
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("1_qq1dl")
+MarginContainer/constants/margin_bottom = 10
+MarginContainer/constants/margin_left = 20
+MarginContainer/constants/margin_right = 20
+MarginContainer/constants/margin_top = 10
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_qq1dl")
+RichTextLabel/font_sizes/normal_font_size = 24
+RichTextLabel/fonts/normal_font = ExtResource("1_qq1dl")

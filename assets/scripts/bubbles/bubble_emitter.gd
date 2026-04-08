@@ -14,7 +14,7 @@ var _emit_timer: Timer
 
 
 func _ready() -> void:
-		var start_delay: float = randf_range(0, MAX_START_DELAY)
+		var start_delay: float = randf_range(0, 1.0 / bubble_emitter.emit_rate)
 		await get_tree().create_timer(start_delay).timeout
 
 		emit_bubble()
@@ -42,6 +42,7 @@ func emit_bubble() -> void:
 		if bubble_emitter.bubble.gold_scene:
 			var gold_prob: float = bubble_emitter.bubble.gold_probability / 100.0
 			if randf() < gold_prob:
+				print("Emitting gold bubble!")
 				bubble_scene = bubble_emitter.bubble.gold_scene
 				bubble_reward = bubble_emitter.bubble.gold_reward
 
@@ -60,5 +61,6 @@ func can_emit() -> bool:
 	return current_bubbles < bubble_emitter.max_current
 
 
-func _on_bubble_popped(_reward: float) -> void:
+func _on_bubble_popped(reward: float) -> void:
 	current_bubbles = max(0, current_bubbles - 1)
+	Managers.progress_manager.add_coins(reward)

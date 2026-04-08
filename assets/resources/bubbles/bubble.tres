@@ -1,9 +1,12 @@
 [gd_resource type="Resource" script_class="BubbleData" format=3 uid="uid://crcsirnyq50pi"]
 
 [ext_resource type="PackedScene" uid="uid://d3qcjd07kedb2" path="res://scenes/bubbles/bubble.tscn" id="1_giuwj"]
+[ext_resource type="PackedScene" uid="uid://bpq23xvskbuqx" path="res://scenes/bubbles/beach_ball.tscn" id="1_r8m8u"]
 [ext_resource type="Script" uid="uid://chbmu7283cdba" path="res://assets/scripts/bubbles/resources/bubble_data.gd" id="2_0rcc1"]
 
 [resource]
 script = ExtResource("2_0rcc1")
 scene = ExtResource("1_giuwj")
+gold_scene = ExtResource("1_r8m8u")
+gold_probability = 20
 metadata/_custom_type_script = "uid://chbmu7283cdba"

@@ -1,0 +1,36 @@
+[gd_scene format=3 uid="uid://beapg21411sq7"]
+
+[ext_resource type="Script" uid="uid://cap1r6rsqsnhs" path="res://assets/scripts/environment/store/store.gd" id="1_q2ccp"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_ja1ay"]
+size = Vector3(2, 1, 0.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_q2ccp"]
+size = Vector3(2, 1, 0.5)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_ja1ay"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_q2ccp"]
+
+[node name="Store" type="Node3D" unique_id=1120907835]
+script = ExtResource("1_q2ccp")
+
+[node name="StoreFront" type="StaticBody3D" parent="." unique_id=422023142]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StoreFront" unique_id=168793479]
+mesh = SubResource("BoxMesh_ja1ay")
+skeleton = NodePath("../..")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StoreFront" unique_id=1189504203]
+shape = SubResource("BoxShape3D_q2ccp")
+
+[node name="Owner" type="StaticBody3D" parent="." unique_id=1414404528]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Owner" unique_id=1201959824]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.95387214)
+mesh = SubResource("CapsuleMesh_ja1ay")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Owner" unique_id=1979170557]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.95387214)
+shape = SubResource("CapsuleShape3D_q2ccp")

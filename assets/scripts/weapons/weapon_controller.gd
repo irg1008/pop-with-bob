@@ -11,6 +11,7 @@ signal ammo_changed(new_ammo: int)
 
 
 const MAX_PROJECTILE_DISTANCE: float = 1000.0
+const WEAPON_GROUP: String = "weapons"
 
 
 var current_ammo: int = 0
@@ -34,12 +35,13 @@ func spawn_weapon_model() -> void:
 	if weapon.weapon_scene:
 		weapon_model = weapon.weapon_scene.instantiate()
 		weapon_model_parent.add_child(weapon_model)
+		weapon_model.add_to_group(WEAPON_GROUP)
 		weapon_model.position = weapon.weapon_position
 
 
-func switch_weapon(weapoin_data: WeaponData) -> void:
-	weapon = weapoin_data.weapon
-	current_ammo = weapoin_data.ammo
+func switch_weapon(weapon_data: WeaponData) -> void:
+	weapon = weapon_data.weapon
+	set_ammo(weapon_data.ammo)
 	spawn_weapon_model()
 
 

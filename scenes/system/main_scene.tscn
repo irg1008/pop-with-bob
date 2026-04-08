@@ -1,6 +1,5 @@
 [gd_scene format=3 uid="uid://c65a313cgfyf4"]
 
-[ext_resource type="PackedScene" uid="uid://dm5x3qkicfjgm" path="res://levels/prototype_level.tscn" id="1_mgb3u"]
 [ext_resource type="Script" uid="uid://eiu4wtueqyog" path="res://assets/scripts/system/game_manager.gd" id="1_qoi2i"]
 [ext_resource type="PackedScene" uid="uid://cgb15jkhf02vj" path="res://scenes/system/user_interface.tscn" id="1_rtgv3"]
 [ext_resource type="Script" uid="uid://28sv1b06d4cx" path="res://assets/scripts/system/weapon_manager.gd" id="2_bvk2m"]
@@ -9,6 +8,8 @@
 [ext_resource type="Resource" uid="uid://dlymwl6wv41ir" path="res://assets/resources/weapons/shotgun_data.tres" id="5_i0w0i"]
 [ext_resource type="Resource" uid="uid://dhdui3wjoyuud" path="res://assets/resources/weapons/rifle_data.tres" id="6_tpgha"]
 [ext_resource type="PackedScene" uid="uid://dqbkvpkvpfxws" path="res://scenes/player/player_controller.tscn" id="7_rc0n7"]
+[ext_resource type="PackedScene" uid="uid://d0tc4gjf3muh8" path="res://levels/desert_level.tscn" id="7_tpgha"]
+[ext_resource type="Script" uid="uid://bukapps0eoyk2" path="res://assets/scripts/system/progress_manager.gd" id="7_u4ui1"]
 [ext_resource type="PackedScene" uid="uid://cddkm166mcxg4" path="res://scenes/environment/world_environment.tscn" id="9_tpgha"]
 
 [node name="MainScene" type="Node" unique_id=1076180471]
@@ -21,17 +22,21 @@ script = ExtResource("1_qoi2i")
 [node name="WeaponManager" type="Node" parent="Managers" unique_id=75217681 node_paths=PackedStringArray("player")]
 script = ExtResource("2_bvk2m")
 player = NodePath("../../CurrentLevel/PlayerController")
-weapons = Array[ExtResource("3_6aore")]([ExtResource("4_i0w0i"), ExtResource("6_tpgha"), ExtResource("5_i0w0i")])
+weapons = Array[ExtResource("3_6aore")]([ExtResource("6_tpgha"), ExtResource("4_i0w0i"), ExtResource("5_i0w0i")])
+
+[node name="ProgressManager" type="Node" parent="Managers" unique_id=1803826452]
+script = ExtResource("7_u4ui1")
 
 [node name="CurrentLevel" type="Node3D" parent="." unique_id=384735742]
 
-[node name="PrototypeLevel" parent="CurrentLevel" unique_id=2034229489 instance=ExtResource("1_mgb3u")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.006412506, -0.0371027, 0.01640606)
+[node name="DesertLevel" parent="CurrentLevel" unique_id=1797660498 instance=ExtResource("7_tpgha")]
 
 [node name="PlayerController" parent="CurrentLevel" unique_id=1674594320 instance=ExtResource("7_rc0n7")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.98, 0)
 
-[node name="UserInterface" parent="." unique_id=1216850335 instance=ExtResource("1_rtgv3")]
+[node name="UserInterface" parent="." unique_id=1216850335 node_paths=PackedStringArray("player", "progress_manager") instance=ExtResource("1_rtgv3")]
+player = NodePath("../CurrentLevel/PlayerController")
+progress_manager = NodePath("../Managers/ProgressManager")
 
 [node name="WorldEnvironment" parent="." unique_id=669383791 instance=ExtResource("9_tpgha")]
 

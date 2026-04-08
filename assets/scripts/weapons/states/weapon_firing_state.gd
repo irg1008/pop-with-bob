@@ -6,6 +6,9 @@ func _on_firing_state_entered() -> void:
 
 
 func _on_firing_state_physics_processing(_delta: float) -> void:
+	if Managers.is_input_locked():
+		return
+
 	if not weapon_controller.has_ammo():
 		weapon_controller.weapon_state_chart.send_event("onEmpty")
 		return

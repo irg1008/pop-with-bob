@@ -2,6 +2,9 @@ extends PlayerState
 
 
 func _on_grounded_state_physics_processing(_delta: float) -> void:
+	if Managers.is_input_locked():
+		return
+
 	if not player_controller.is_on_floor():
 		player_controller.state_chart.send_event("onAirborne")
 

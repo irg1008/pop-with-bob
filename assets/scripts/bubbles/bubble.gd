@@ -19,6 +19,9 @@ signal inflated()
 @export var wobble_strength: float = 0.5
 @export var wobble_rotation_strength: float = 0.035
 
+@export_category("Collision")
+@export var collision_groups: Array[String] = [CharacterBubbleEmitter.CHARACTER_GROUP]
+
 
 const MIN_PHYSICS_SAFE_SCALE: float = 0.001
 
@@ -75,8 +78,11 @@ func _on_inflate_animation_finished(_animation_name: String) -> void:
 	rigid_body.apply_central_impulse(Vector3.FORWARD * 0.01)
 
 
-func _on_body_entered(_body: Node) -> void:
-	pop()
+func _on_body_entered(body: Node) -> void:
+	for group: String in collision_groups:
+		if body.is_in_group(group):
+			pop()
+			return
 
 
 func _on_health_component_died() -> void:

@@ -2,6 +2,9 @@ extends PlayerState
 
 
 func _on_sprinting_state_physics_processing(_delta: float) -> void:
+	if Managers.is_input_locked():
+		return
+
 	if not Input.is_action_pressed("sprint"):
 		player_controller.state_chart.send_event("onWalking")
 

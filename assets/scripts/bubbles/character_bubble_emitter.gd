@@ -18,9 +18,10 @@ class_name CharacterBubbleEmitter extends SmoothStairsCharacter3D
 @onready var animation_tree: AnimationTree = $AnimationTree
 
 
-# var animation_player: AnimationPlayer
-var animation_state: AnimationNodeStateMachinePlayback
+const CHARACTER_GROUP: String = "characters"
 
+
+var animation_state: AnimationNodeStateMachinePlayback
 var home_position: Vector3
 
 var is_stuck: bool = false
@@ -29,6 +30,8 @@ var _stuck_check_position: Vector3
 
 
 func _ready() -> void:
+	add_to_group(CHARACTER_GROUP)
+
 	await setup_animation_tree()
 	create_stuck_check()
 
@@ -84,7 +87,6 @@ func _on_roaming_state_physics_processing(delta: float) -> void:
 func _on_roaming_state_entered() -> void:
 	if animation_state.get_current_node() != "Roaming":
 		animation_state.travel("Roaming")
-
 
 
 func _set_new_roam_target() -> void:

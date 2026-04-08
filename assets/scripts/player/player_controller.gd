@@ -1,6 +1,11 @@
 class_name PlayerController extends SmoothStairsCharacter3D
 
 
+signal interaction_entered(object: Object, object_owner: Object)
+signal interaction_exited(object: Object, object_owner: Object)
+signal interaction_actioned(object: Object, object_owner: Object)
+
+
 @export_category("References")
 @export var camera: CameraController
 @export var camera_effects: CameraEffects
@@ -26,6 +31,9 @@ class_name PlayerController extends SmoothStairsCharacter3D
 @export var fall_velocity_threhold: float = -5.0
 
 
+const PLAYER_GROUP: String = "player"
+
+
 var _input_dir: Vector2 = Vector2.ZERO
 var _movement_velocity: Vector3 = Vector3.ZERO
 
@@ -35,10 +43,21 @@ var _crouch_modifier: float = 0.0
 
 var _current_fall_speed: float = 0.0
 
+var _current_interaction: Object
+
 var previous_velocity: Vector3 = Vector3.ZERO
 
 
+func _ready() -> void:
+	add_to_group(PLAYER_GROUP)
+
+
 func _physics_process(delta: float) -> void:
+	if Managers.is_input_locked():
+		return
+
+	detect_interaction()
+
 	previous_velocity = velocity
 
 	if not is_on_floor():
@@ -60,6 +79,30 @@ func _physics_process(delta: float) -> void:
 	velocity = _movement_velocity
 
 	smooth_move_and_stair_step()
+
+
+func _unhandled_input(event: InputEvent) -> void:
+	if _current_interaction and event.is_action_pressed("interact"):
+		var interaction_owner: Object = _current_interaction.owner if _current_interaction is Node else null
+		interaction_actioned.emit(_current_interaction, interaction_owner)
+
+
+func detect_interaction() -> Object:
+	var new_interaction: Object = interaction_raycast.get_collider()
+
+	if new_interaction == _current_interaction:
+		return _current_interaction
+
+	var interaction_owner: Object = new_interaction.owner if new_interaction is Node else null
+
+	if _current_interaction:
+		interaction_exited.emit(_current_interaction, interaction_owner)
+
+	if new_interaction:
+		interaction_entered.emit(new_interaction, interaction_owner)
+
+	_current_interaction = new_interaction
+	return new_interaction
 
 
 func _on_smooth_step(_delta: float, _previous_height: float, height_delta: float) -> void:
@@ -111,4 +154,4 @@ func check_fall_speed() -> bool:
 
 
 static func get_player_node(tree: SceneTree) -> PlayerController:
-	return tree.get_first_node_in_group("player")
+	return tree.get_first_node_in_group(PLAYER_GROUP)
