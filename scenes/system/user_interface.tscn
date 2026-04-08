@@ -141,6 +141,15 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_theme")
 
+[node name="Panel" type="Panel" parent="PausePanel" unique_id=1617419580]
+material = SubResource("ShaderMaterial_efj3k")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [node name="ThemeExamplePanel" type="Control" parent="." unique_id=1415255223]
 visible = false
 layout_mode = 3
