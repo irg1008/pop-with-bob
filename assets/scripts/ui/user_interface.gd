@@ -25,7 +25,7 @@ func _ready() -> void:
 	handle_player_changes()
 
 
-func _input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if not event.is_action_pressed("cancel"):
 			return
 

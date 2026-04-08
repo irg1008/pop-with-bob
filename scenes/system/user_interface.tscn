@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://cpbooj1kfgt70" path="res://assets/scripts/ui/reticle_draw.gd" id="1_jqr8t"]
 [ext_resource type="Script" uid="uid://1en1ogvsr0op" path="res://assets/scripts/ui/user_interface.gd" id="1_s3ato"]
 [ext_resource type="Theme" uid="uid://b4ym0ixwh6tmg" path="res://assets/resources/themes/main_theme.tres" id="3_bwudt"]
-[ext_resource type="Script" uid="uid://c2vc4f5wm1stw" path="res://assets/scripts/ui/store_panel.gd" id="4_qrdmj"]
+[ext_resource type="Script" uid="uid://c2vc4f5wm1stw" path="res://assets/scripts/store/store_panel.gd" id="4_qrdmj"]
 
 [node name="UserInterface" type="CanvasLayer" unique_id=1216850335]
 process_mode = 3

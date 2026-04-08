@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://d0tc4gjf3muh8"]
 
 [ext_resource type="PackedScene" uid="uid://0gj34jwk8rmh" path="res://scenes/npcs/cactoro_npc.tscn" id="1_c8esi"]
-[ext_resource type="PackedScene" uid="uid://beapg21411sq7" path="res://scenes/environment/store/store.tscn" id="2_ha1lr"]
+[ext_resource type="PackedScene" uid="uid://beapg21411sq7" path="res://scenes/store/store.tscn" id="2_ha1lr"]
 [ext_resource type="PackedScene" uid="uid://coplwpkalhisn" path="res://scenes/environment/pickups/weapon_pickup.tscn" id="3_gbr81"]
 [ext_resource type="Resource" uid="uid://dnak72xsbbur3" path="res://assets/resources/weapons/shotgun.tres" id="4_i3i3a"]
 
