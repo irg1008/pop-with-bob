@@ -13,7 +13,7 @@ class_name UserInterface extends CanvasLayer
 @onready var interaction_hint: RichTextLabel = $InteractionContainer/InteractionHint
 
 @onready var store_panel: StorePanel = $StorePanel
-@onready var pause_panel: PanelContainer = $PausePanel
+@onready var pause_panel: Control = $PausePanel
 
 
 func _ready() -> void:
@@ -77,13 +77,13 @@ func _on_water_changed(water: float) -> void:
 	water_label.text = "Water: %d" % water
 
 
-func show_ui_panel(panel: PanelContainer) -> void:
+func show_ui_panel(panel: Control) -> void:
 	panel.show()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	Managers.game_manager.lock_input()
 
 
-func close_ui_panel(panel: PanelContainer) -> void:
+func close_ui_panel(panel: Control) -> void:
 	panel.hide()
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 	Managers.game_manager.unlock_input()

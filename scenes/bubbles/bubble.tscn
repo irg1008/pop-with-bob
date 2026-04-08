@@ -115,5 +115,6 @@ process_material = SubResource("ParticleProcessMaterial_g25kj")
 draw_pass_1 = SubResource("SphereMesh_bubble_shape")
 
 [node name="AudioPlayer" type="AudioStreamPlayer3D" parent="." unique_id=1202376153]
+bus = &"Effects"
 
 [connection signal="died" from="BubblePivot/RigidBody3D/HealthComponent" to="." method="_on_health_component_died"]

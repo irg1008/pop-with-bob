@@ -1,1 +1,1 @@
-class_name StorePanel extends PanelContainer
+class_name StorePanel extends Control

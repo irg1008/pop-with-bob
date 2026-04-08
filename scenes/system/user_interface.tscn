@@ -1,102 +1,519 @@
-[gd_scene format=3 uid="uid://cgb15jkhf02vj"]
+[gd_scene format=3 uid="uid://go00m78wweg4"]
 
-[ext_resource type="Script" uid="uid://cpbooj1kfgt70" path="res://assets/scripts/ui/reticle_draw.gd" id="1_jqr8t"]
-[ext_resource type="Script" uid="uid://1en1ogvsr0op" path="res://assets/scripts/ui/user_interface.gd" id="1_s3ato"]
-[ext_resource type="Theme" uid="uid://b4ym0ixwh6tmg" path="res://assets/resources/themes/main_theme.tres" id="3_bwudt"]
-[ext_resource type="Script" uid="uid://c2vc4f5wm1stw" path="res://assets/scripts/store/store_panel.gd" id="4_qrdmj"]
+[ext_resource type="Script" uid="uid://cpbooj1kfgt70" path="res://assets/scripts/ui/reticle_draw.gd" id="1_reticle"]
+[ext_resource type="Script" uid="uid://1en1ogvsr0op" path="res://assets/scripts/ui/user_interface.gd" id="2_ui"]
+[ext_resource type="Theme" uid="uid://b4ym0ixwh6tmg" path="res://assets/resources/themes/main_theme.tres" id="3_theme"]
+[ext_resource type="Script" uid="uid://c2vc4f5wm1stw" path="res://assets/scripts/store/store_panel.gd" id="4_store"]
+[ext_resource type="Shader" uid="uid://cp56g87sva5nt" path="res://assets/shaders/glass_panel.gdshader" id="5_bg1u0"]
 
-[node name="UserInterface" type="CanvasLayer" unique_id=1216850335]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_efj3k"]
+shader = ExtResource("5_bg1u0")
+shader_parameter/brightness = 0.1
+shader_parameter/chromatic_shift_amount = 0.2
+shader_parameter/bend_amount = 0.4
+shader_parameter/blur_amount = 0.5000000074506
+shader_parameter/grain_amount = 0.05
+shader_parameter/curve_light_blend = 0.5
+shader_parameter/rim_light_blend = 0.8
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_fec7k"]
+shader = ExtResource("5_bg1u0")
+shader_parameter/brightness = 0.1
+shader_parameter/chromatic_shift_amount = 0.2
+shader_parameter/bend_amount = 0.4
+shader_parameter/blur_amount = 0.5000000074506
+shader_parameter/grain_amount = 0.05
+shader_parameter/curve_light_blend = 0.5
+shader_parameter/rim_light_blend = 0.8
+shader_parameter/shadow_color = Color(0, 0, 0, 1)
+
+[node name="UserInterface" type="CanvasLayer" unique_id=1254368155]
 process_mode = 3
-script = ExtResource("1_s3ato")
+script = ExtResource("2_ui")
 
-[node name="Reticle" type="CenterContainer" parent="." unique_id=1719101137]
+[node name="Reticle" type="CenterContainer" parent="." unique_id=518017466]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_theme")
 
-[node name="ReticleDraw" type="Control" parent="Reticle" unique_id=1255724308]
+[node name="ReticleDraw" type="Control" parent="Reticle" unique_id=1686267980]
 layout_mode = 2
-script = ExtResource("1_jqr8t")
+script = ExtResource("1_reticle")
 
-[node name="CurrenciesContainer" type="MarginContainer" parent="." unique_id=1477649463]
+[node name="CurrenciesContainer" type="MarginContainer" parent="." unique_id=248282304]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -175.0
-offset_bottom = 48.0
+offset_left = -220.0
+offset_bottom = 72.0
 grow_horizontal = 0
-theme = ExtResource("3_bwudt")
+theme = ExtResource("3_theme")
 
-[node name="BoxContainer" type="BoxContainer" parent="CurrenciesContainer" unique_id=2083780952]
-layout_direction = 2
+[node name="BoxContainer" type="BoxContainer" parent="CurrenciesContainer" unique_id=1016479352]
 layout_mode = 2
-theme = ExtResource("3_bwudt")
+theme = ExtResource("3_theme")
 
-[node name="CoinsLabel" type="Label" parent="CurrenciesContainer/BoxContainer" unique_id=574041458]
+[node name="CoinsLabel" type="Label" parent="CurrenciesContainer/BoxContainer" unique_id=498030352]
 layout_mode = 2
-theme = ExtResource("3_bwudt")
-text = "0"
+theme = ExtResource("3_theme")
+text = "Coins: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="WaterLabel" type="Label" parent="CurrenciesContainer/BoxContainer" unique_id=318964739]
+[node name="WaterLabel" type="Label" parent="CurrenciesContainer/BoxContainer" unique_id=67810589]
 layout_mode = 2
-theme = ExtResource("3_bwudt")
-text = "0"
+theme = ExtResource("3_theme")
+text = "Water: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="AmmoLabel" type="Label" parent="CurrenciesContainer/BoxContainer" unique_id=247816800]
+[node name="AmmoLabel" type="Label" parent="CurrenciesContainer/BoxContainer" unique_id=1918953769]
 layout_mode = 2
-theme = ExtResource("3_bwudt")
-text = "0"
+theme = ExtResource("3_theme")
+text = "Ammo: 0"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="InteractionContainer" type="CenterContainer" parent="." unique_id=2062990287]
+[node name="InteractionContainer" type="CenterContainer" parent="." unique_id=570798614]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -145.0
+offset_left = -190.0
 offset_top = 90.0
-offset_right = 145.0
-offset_bottom = 130.0
+offset_right = 190.0
+offset_bottom = 135.0
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("3_theme")
 
-[node name="InteractionHint" type="RichTextLabel" parent="InteractionContainer" unique_id=759113048]
+[node name="InteractionHint" type="RichTextLabel" parent="InteractionContainer" unique_id=416818588]
 layout_mode = 2
-theme = ExtResource("3_bwudt")
-text = "Interaction Hint"
+theme = ExtResource("3_theme")
 fit_content = true
 autowrap_mode = 0
 
-[node name="StorePanel" type="PanelContainer" parent="." unique_id=1235967010]
+[node name="StorePanel" type="Control" parent="." unique_id=82876709]
+visible = false
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_bwudt")
-script = ExtResource("4_qrdmj")
+theme = ExtResource("3_theme")
+script = ExtResource("4_store")
 
-[node name="StoreContainer" type="CenterContainer" parent="StorePanel" unique_id=1704607788]
-layout_mode = 2
-theme = ExtResource("3_bwudt")
+[node name="Panel" type="Panel" parent="StorePanel" unique_id=1089904360]
+material = SubResource("ShaderMaterial_efj3k")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
-[node name="Button" type="Button" parent="StorePanel/StoreContainer" unique_id=929923794]
+[node name="StoreContainer" type="CenterContainer" parent="StorePanel" unique_id=1988044383]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_theme")
+
+[node name="Button" type="Button" parent="StorePanel/StoreContainer" unique_id=1837968371]
 layout_mode = 2
 text = "Buy ammo (10)"
 
-[node name="PausePanel" type="PanelContainer" parent="." unique_id=2054511169]
+[node name="PausePanel" type="Control" parent="." unique_id=1888137488]
 visible = false
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("3_bwudt")
+theme = ExtResource("3_theme")
+
+[node name="ThemeExamplePanel" type="Control" parent="." unique_id=1415255223]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("3_theme")
+
+[node name="Panel" type="Panel" parent="ThemeExamplePanel" unique_id=1756478577]
+material = SubResource("ShaderMaterial_fec7k")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ThemeExampleRoot" type="CenterContainer" parent="ThemeExamplePanel" unique_id=1659094423]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 1888.0
+offset_bottom = 1048.0
+
+[node name="SettingsFrame" type="PanelContainer" parent="ThemeExamplePanel/ThemeExampleRoot" unique_id=697153232]
+custom_minimum_size = Vector2(980, 620)
+layout_mode = 2
+theme = ExtResource("3_theme")
+
+[node name="FrameMargin" type="MarginContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame" unique_id=1365682833]
+layout_mode = 2
+theme = ExtResource("3_theme")
+
+[node name="RootVBox" type="VBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin" unique_id=970569332]
+layout_mode = 2
+theme = ExtResource("3_theme")
+
+[node name="Header" type="HBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox" unique_id=426462319]
+layout_mode = 2
+
+[node name="Title" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/Header" unique_id=940040259]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "Desert Set Control Room"
+
+[node name="BuildLabel" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/Header" unique_id=1971498915]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "Theme Example"
+
+[node name="Subtitle" type="RichTextLabel" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox" unique_id=2122458931]
+custom_minimum_size = Vector2(0, 46)
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "Complex settings mockup to preview the new UI theme in a realistic menu layout."
+fit_content = true
+
+[node name="HeaderSeparator" type="HSeparator" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox" unique_id=1370981406]
+layout_mode = 2
+theme = ExtResource("3_theme")
+
+[node name="SettingsTabs" type="TabContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox" unique_id=588727117]
+custom_minimum_size = Vector2(0, 460)
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("3_theme")
+current_tab = 0
+
+[node name="Audio" type="VBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs" unique_id=917280567]
+layout_mode = 2
+theme = ExtResource("3_theme")
+metadata/_tab_index = 0
+
+[node name="MasterRow" type="HBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Audio" unique_id=2029953133]
+layout_mode = 2
+
+[node name="MasterLabel" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Audio/MasterRow" unique_id=1847437085]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "Master Volume"
+
+[node name="MasterSlider" type="HSlider" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Audio/MasterRow" unique_id=985133661]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 82.0
+
+[node name="MasterValue" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Audio/MasterRow" unique_id=1233735702]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "82%"
+
+[node name="MusicRow" type="HBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Audio" unique_id=687150700]
+layout_mode = 2
+
+[node name="MusicLabel" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Audio/MusicRow" unique_id=1374971428]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Audio/MusicRow" unique_id=840410762]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 65.0
+
+[node name="MusicValue" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Audio/MusicRow" unique_id=1310582855]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "65%"
+
+[node name="SfxRow" type="HBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Audio" unique_id=1027025584]
+layout_mode = 2
+
+[node name="SfxLabel" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Audio/SfxRow" unique_id=817321000]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "SFX"
+
+[node name="SfxSlider" type="HSlider" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Audio/SfxRow" unique_id=489953467]
+layout_mode = 2
+size_flags_horizontal = 3
+value = 78.0
+
+[node name="SfxValue" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Audio/SfxRow" unique_id=165050386]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "78%"
+
+[node name="AudioSeparator" type="HSeparator" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Audio" unique_id=1790922364]
+layout_mode = 2
+theme = ExtResource("3_theme")
+
+[node name="MuteAll" type="CheckBox" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Audio" unique_id=1458454435]
+layout_mode = 2
+text = "Mute all audio"
+
+[node name="SpatialAudio" type="CheckBox" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Audio" unique_id=411409433]
+layout_mode = 2
+button_pressed = true
+text = "Enhanced spatial audio"
+
+[node name="Controls" type="VBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs" unique_id=900431979]
+visible = false
+layout_mode = 2
+theme = ExtResource("3_theme")
+metadata/_tab_index = 1
+
+[node name="BindingsGrid" type="GridContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls" unique_id=524108111]
+layout_mode = 2
+columns = 3
+
+[node name="MoveForwardLabel" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls/BindingsGrid" unique_id=1363820324]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "Move Forward"
+
+[node name="MoveForwardPrimary" type="Button" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls/BindingsGrid" unique_id=1830677585]
+layout_mode = 2
+text = "W"
+
+[node name="MoveForwardSecondary" type="Button" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls/BindingsGrid" unique_id=758178879]
+layout_mode = 2
+text = "Up"
+
+[node name="MoveLeftLabel" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls/BindingsGrid" unique_id=629325110]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "Move Left"
+
+[node name="MoveLeftPrimary" type="Button" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls/BindingsGrid" unique_id=990085703]
+layout_mode = 2
+text = "A"
+
+[node name="MoveLeftSecondary" type="Button" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls/BindingsGrid" unique_id=1068942949]
+layout_mode = 2
+text = "Left"
+
+[node name="InteractLabel" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls/BindingsGrid" unique_id=1602202078]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "Interact"
+
+[node name="InteractPrimary" type="Button" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls/BindingsGrid" unique_id=1680849249]
+layout_mode = 2
+text = "E"
+
+[node name="InteractSecondary" type="Button" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls/BindingsGrid" unique_id=1480469188]
+layout_mode = 2
+text = "None"
+
+[node name="FireLabel" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls/BindingsGrid" unique_id=351378117]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "Fire"
+
+[node name="FirePrimary" type="Button" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls/BindingsGrid" unique_id=697522907]
+layout_mode = 2
+text = "Mouse 1"
+
+[node name="FireSecondary" type="Button" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls/BindingsGrid" unique_id=391177292]
+layout_mode = 2
+text = "None"
+
+[node name="ControlSeparator" type="HSeparator" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls" unique_id=424379505]
+layout_mode = 2
+theme = ExtResource("3_theme")
+
+[node name="SensitivityRow" type="HBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls" unique_id=751923254]
+layout_mode = 2
+
+[node name="SensitivityLabel" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls/SensitivityRow" unique_id=808205577]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "Mouse Sensitivity"
+
+[node name="SensitivitySlider" type="HSlider" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls/SensitivityRow" unique_id=1807556648]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 0.1
+max_value = 2.5
+step = 0.05
+value = 1.0
+
+[node name="SensitivityValue" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls/SensitivityRow" unique_id=966062039]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "1.00"
+
+[node name="InvertY" type="CheckBox" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Controls" unique_id=479414198]
+layout_mode = 2
+text = "Invert Y axis"
+
+[node name="Graphics" type="VBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs" unique_id=629340044]
+visible = false
+layout_mode = 2
+theme = ExtResource("3_theme")
+metadata/_tab_index = 2
+
+[node name="PresetRow" type="HBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Graphics" unique_id=1533890839]
+layout_mode = 2
+
+[node name="PresetLabel" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Graphics/PresetRow" unique_id=742318614]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "Quality Preset"
+
+[node name="PresetOption" type="OptionButton" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Graphics/PresetRow" unique_id=367148817]
+layout_mode = 2
+
+[node name="ResolutionRow" type="HBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Graphics" unique_id=782666674]
+layout_mode = 2
+
+[node name="ResolutionLabel" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Graphics/ResolutionRow" unique_id=476165712]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "Resolution"
+
+[node name="ResolutionOption" type="OptionButton" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Graphics/ResolutionRow" unique_id=1425892920]
+layout_mode = 2
+
+[node name="RenderScaleRow" type="HBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Graphics" unique_id=1944385543]
+layout_mode = 2
+
+[node name="RenderScaleLabel" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Graphics/RenderScaleRow" unique_id=1752398336]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "Render Scale"
+
+[node name="RenderScaleSlider" type="HSlider" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Graphics/RenderScaleRow" unique_id=1295596846]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 50.0
+max_value = 150.0
+step = 5.0
+value = 100.0
+
+[node name="RenderScaleValue" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Graphics/RenderScaleRow" unique_id=940691792]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "100%"
+
+[node name="VsyncCheck" type="CheckBox" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Graphics" unique_id=716302161]
+layout_mode = 2
+button_pressed = true
+text = "VSync"
+
+[node name="ShadowsCheck" type="CheckBox" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Graphics" unique_id=106645704]
+layout_mode = 2
+button_pressed = true
+text = "Dynamic Shadows"
+
+[node name="BloomCheck" type="CheckBox" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Graphics" unique_id=199655463]
+layout_mode = 2
+button_pressed = true
+text = "Bloom"
+
+[node name="SsaoCheck" type="CheckBox" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Graphics" unique_id=1396946950]
+layout_mode = 2
+button_pressed = true
+text = "Ambient Occlusion"
+
+[node name="Gameplay" type="VBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs" unique_id=916263038]
+visible = false
+layout_mode = 2
+theme = ExtResource("3_theme")
+metadata/_tab_index = 3
+
+[node name="DamageNumbers" type="CheckBox" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Gameplay" unique_id=1551108190]
+layout_mode = 2
+button_pressed = true
+text = "Show damage numbers"
+
+[node name="AutoSwap" type="CheckBox" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Gameplay" unique_id=1015633778]
+layout_mode = 2
+text = "Auto swap to best tool"
+
+[node name="FovRow" type="HBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Gameplay" unique_id=459468801]
+layout_mode = 2
+
+[node name="FovLabel" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Gameplay/FovRow" unique_id=1210422270]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "Field of View"
+
+[node name="FovSlider" type="HSlider" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Gameplay/FovRow" unique_id=744724405]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 70.0
+max_value = 110.0
+value = 90.0
+
+[node name="FovValue" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Gameplay/FovRow" unique_id=2118839479]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "90"
+
+[node name="UiScaleRow" type="HBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Gameplay" unique_id=2127259087]
+layout_mode = 2
+
+[node name="UiScaleLabel" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Gameplay/UiScaleRow" unique_id=133629144]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "UI Scale"
+
+[node name="UiScaleSlider" type="HSlider" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Gameplay/UiScaleRow" unique_id=1494819531]
+layout_mode = 2
+size_flags_horizontal = 3
+min_value = 75.0
+max_value = 150.0
+step = 5.0
+value = 100.0
+
+[node name="UiScaleValue" type="Label" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/SettingsTabs/Gameplay/UiScaleRow" unique_id=1592072354]
+layout_mode = 2
+theme = ExtResource("3_theme")
+text = "100%"
+
+[node name="FooterSeparator" type="HSeparator" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox" unique_id=669249195]
+layout_mode = 2
+theme = ExtResource("3_theme")
+
+[node name="Footer" type="HBoxContainer" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox" unique_id=1057189764]
+layout_mode = 2
+
+[node name="ResetDefaultsButton" type="Button" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/Footer" unique_id=218138571]
+layout_mode = 2
+text = "Reset to Defaults"
+
+[node name="ApplyButton" type="Button" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/Footer" unique_id=688460479]
+layout_mode = 2
+text = "Apply"
+
+[node name="BackButton" type="Button" parent="ThemeExamplePanel/ThemeExampleRoot/SettingsFrame/FrameMargin/RootVBox/Footer" unique_id=422720996]
+layout_mode = 2
+text = "Back"

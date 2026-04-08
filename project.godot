@@ -20,6 +20,10 @@ run/main_scene="uid://c65a313cgfyf4"
 config/features=PackedStringArray("4.6")
 config/icon="res://assets/icon.webp"
 
+[audio]
+
+buses/default_bus_layout=""
+
 [autoload]
 
 Managers="*uid://1dixcc107ukd"
