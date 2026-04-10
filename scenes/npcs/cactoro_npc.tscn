@@ -9,10 +9,10 @@
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Character/Cactoro/CharacterArmature" parent_id_path=PackedInt32Array(873660441, 1740703754) index="0" unique_id=10515920]
-bones/1/position = Vector3(0, 0.6546643, 0)
+bones/1/position = Vector3(0, 0.6983101, 0)
 bones/1/rotation = Quaternion(0, 0, 0, 1)
 bones/2/rotation = Quaternion(0, 0, 0, 1)
-bones/3/rotation = Quaternion(-1.0842062e-19, 3.5471498e-10, -0.0026400534, 0.9999966)
+bones/3/rotation = Quaternion(-2.6829337e-19, 2.8130052e-09, -0.0014222291, 0.999999)
 
 [node name="CollisionShape3D" parent="." index="2" unique_id=47495966]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3503611, 0)

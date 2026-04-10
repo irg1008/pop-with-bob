@@ -11,9 +11,6 @@ enum Currency {COINS, WATER}
 @export var max_available: int = 0
 
 
-@abstract func on_purchased() -> void
-
-
 var available: int = 0
 
 
@@ -23,6 +20,10 @@ func format_text() -> String:
       "price": price,
       "currency": get_currency_label(currency)
     })
+
+
+func on_purchased() -> void:
+  pass
 
 
 func can_purchase() -> bool:

@@ -12,10 +12,16 @@ class_name CharacterBubbleEmitter extends SmoothStairsCharacter3D
 @export var roam_radius: float = 40.0
 @export var min_roam_distance: float = 10.0
 
+@export_category("Soaps")
+@export var max_soaps: int = 4
+@export var initial_soaps: Array[StoreSoap] = []
+
+
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var state_chart: StateChart = $StateChart
 @onready var character_node: Node3D = $Character
 @onready var animation_tree: AnimationTree = $AnimationTree
+@onready var bubble_emitter: BubbleEmitter = $BubbleEmitter
 
 
 const CHARACTER_GROUP: String = "characters"
@@ -28,12 +34,16 @@ var is_stuck: bool = false
 var _stuck_check_timer: Timer
 var _stuck_check_position: Vector3
 
+var soaps: Array[StoreSoap] = [] : set = set_soaps
+
 
 func _ready() -> void:
 	add_to_group(CHARACTER_GROUP)
 
 	await setup_animation_tree()
 	create_stuck_check()
+
+	set_soaps(initial_soaps)
 
 	home_position = global_position
 
@@ -137,3 +147,23 @@ func setup_animation_tree() -> void:
 func update_roaming_blends() -> void:
 	var move_amount: float = remap(velocity.length(), 0.0, move_speed, 0.0, 1.0)
 	animation_tree.set("parameters/Roaming/IdleRoamingBlend/blend_position", move_amount)
+
+
+func get_modified() -> CharacterBubbleEmitter:
+	var mod_character_bubble_emitter: CharacterBubbleEmitter = self.duplicate()
+
+	for soap: StoreSoap in soaps:
+		soap.apply_character_bubble_emitter_mods(mod_character_bubble_emitter)
+
+	return mod_character_bubble_emitter
+
+
+func can_add_soap() -> bool:
+	return soaps.size() < get_modified().max_soaps
+
+
+func set_soaps(new_soaps: Array[StoreSoap]) -> void:
+	soaps = new_soaps
+
+	if bubble_emitter:
+		bubble_emitter.soaps = soaps
