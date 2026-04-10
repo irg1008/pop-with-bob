@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="StoreItem" format=3 uid="uid://cqt7wsiy6nkr3"]
+
+[ext_resource type="Script" uid="uid://cdc3wa1cawqo3" path="res://assets/scripts/store/resources/store_item.gd" id="1_1klw2"]
+
+[resource]
+script = ExtResource("1_1klw2")
+name = "Speed Soap"
+description = "Increases the bubble generation speed up 5%"
+price = 10.0
+max_available = 10

@@ -68,8 +68,6 @@ corner_radius_top_right = 4
 corner_radius_bottom_right = 4
 corner_radius_bottom_left = 4
 shadow_color = Color(0, 0, 0, 0)
-shadow_size = 0
-shadow_offset = Vector2(0, 0)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_button_pressed"]
 content_margin_left = 20.0
@@ -228,6 +226,8 @@ Button/styles/pressed = SubResource("StyleBoxFlat_button_pressed")
 CheckBox/colors/font_color = Color(0.94902, 0.917647, 0.870588, 1)
 CheckBox/font_sizes/font_size = 16
 CheckBox/fonts/font = ExtResource("1_qq1dl")
+GridContainer/constants/h_separation = 12
+GridContainer/constants/v_separation = 16
 HBoxContainer/constants/separation = 16
 HSeparator/constants/separation = 24
 HSeparator/styles/separator = SubResource("StyleBoxLine_separator")

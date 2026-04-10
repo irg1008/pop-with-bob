@@ -78,7 +78,7 @@ func unlock_weapon(weapon_data: WeaponData) -> void:
 	weapon_data.unlocked = true
 
 
-func get_data_for_weapon(weapon: Weapon) -> WeaponData:
+func get_weapon_data(weapon: Weapon) -> WeaponData:
 	for weapon_data: WeaponData in weapons:
 		if weapon_data.weapon == weapon:
 			return weapon_data

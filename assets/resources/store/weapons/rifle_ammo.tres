@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="StoreAmmo" format=3 uid="uid://k7y23cv7dicq"]
+
+[ext_resource type="Script" uid="uid://bor8v5itkq1ag" path="res://assets/scripts/store/resources/store_ammo.gd" id="1_81jal"]
+[ext_resource type="Resource" uid="uid://bc482gd4ufhbv" path="res://assets/resources/weapons/rifle.tres" id="2_mc3o3"]
+
+[resource]
+script = ExtResource("1_81jal")
+weapon = ExtResource("2_mc3o3")
+ammo = 15
+name = "Rifle Ammo"
+description = "Ammo for the  rifle"
+price = 10.0
+metadata/_custom_type_script = "uid://cdc3wa1cawqo3"

@@ -6,7 +6,7 @@ class_name WeaponPickup extends BasePickup
 
 
 func can_pickup(_body: Node3D) -> bool:
-	var weapon_data: WeaponData = Managers.weapon_manager.get_data_for_weapon(weapon)
+	var weapon_data: WeaponData = Managers.weapon_manager.get_weapon_data(weapon)
 	if not weapon_data:
 		return false
 
@@ -14,7 +14,7 @@ func can_pickup(_body: Node3D) -> bool:
 
 
 func apply_pickup(_body: Node3D) -> void:
-	var weapon_data: WeaponData = Managers.weapon_manager.get_data_for_weapon(weapon)
+	var weapon_data: WeaponData = Managers.weapon_manager.get_weapon_data(weapon)
 
 	if not weapon_data.unlocked:
 		Managers.weapon_manager.unlock_weapon(weapon_data)
