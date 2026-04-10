@@ -53,9 +53,6 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	if Managers.is_input_locked():
-		return
-
 	detect_interaction()
 
 	previous_velocity = velocity
@@ -66,11 +63,12 @@ func _physics_process(delta: float) -> void:
 	var speed_modifier: float = _sprint_modifier + _crouch_modifier
 	_speed = base_speed + speed_modifier
 
+
 	_input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
 	var direction: Vector3 = (transform.basis * Vector3(_input_dir.x, 0, _input_dir.y)).normalized()
 
 	var current_velocity: Vector2 = Vector2(_movement_velocity.x, _movement_velocity.z)
-	if direction:
+	if not Managers.is_input_locked() and direction:
 		current_velocity = lerp(current_velocity, Vector2(direction.x, direction.z) * _speed, acceleration)
 	else:
 		current_velocity = current_velocity.move_toward(Vector2.ZERO, deceleration)
