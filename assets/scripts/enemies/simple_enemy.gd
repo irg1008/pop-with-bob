@@ -20,8 +20,6 @@ var animation_state: AnimationNodeStateMachinePlayback
 func _ready() -> void:
 	super._ready()
 
-	target = PlayerController.get_player_node(get_tree())
-
 	health_component.died.connect(_on_died)
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 
@@ -41,6 +39,9 @@ func _on_died() -> void:
 
 
 func _on_triggered() -> void:
+	if not target:
+		target = PlayerController.get_player_node(get_tree())
+
 	state_chart.send_event("onFollowing")
 
 
