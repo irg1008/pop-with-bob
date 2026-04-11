@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_1klw2")
+max_soaps_increase = 2
 name = "Speed Soap"
 price = 100.0
 max_available = 10

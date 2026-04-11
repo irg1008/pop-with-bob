@@ -8,7 +8,6 @@ signal inflated()
 @export var debug: bool = false
 
 @export_category("References")
-@export var animation_player: AnimationPlayer
 @export var rigid_body: RigidBody3D
 @export var bubble_pivot: Node3D
 @export var audio_player: AudioStreamPlayer3D
@@ -18,6 +17,9 @@ signal inflated()
 @export_category("Bubble Properties")
 @export var wobble_strength: float = 0.5
 @export var wobble_rotation_strength: float = 0.035
+@export var inflate_speed: float = 1.0
+@export var max_scale: float = 1.0
+@export var max_lifetime: float = 0.0
 
 @export_category("Collision")
 @export var collision_groups: Array[String] = [CharacterBubbleEmitter.CHARACTER_GROUP]
@@ -26,19 +28,14 @@ signal inflated()
 const MIN_PHYSICS_SAFE_SCALE: float = 0.001
 
 
-var max_lifetime: float
 var time_alive: float = 0.0
 
 
 func _ready() -> void:
 	bubble_pivot.scale = Vector3.ONE * MIN_PHYSICS_SAFE_SCALE
 
-	rigid_body.freeze = true
-	rigid_body.sleeping = true
-	rigid_body.contact_monitor = false
-
-	inflate()
-	animation_player.animation_finished.connect(_on_inflate_animation_finished)
+	disable_rigid_body()
+	await inflate()
 
 	rigid_body.body_entered.connect(_on_body_entered)
 	pop_effect.finished.connect(_on_pop_effect_finished)
@@ -61,20 +58,11 @@ func _physics_process(delta: float) -> void:
 		rigid_body.apply_torque(Vector3.UP * yaw_torque)
 
 
-func _on_inflate_animation_finished(_animation_name: String) -> void:
+func release_bubble() -> void:
 	if not rigid_body:
 		return
 
-	inflated.emit()
-
-	rigid_body.contact_monitor = true
-	rigid_body.max_contacts_reported = 1
-	rigid_body.top_level = true
-
-	if not debug:
-		rigid_body.sleeping = false
-		rigid_body.freeze = false
-
+	enable_rigid_body()
 	rigid_body.apply_central_impulse(Vector3.FORWARD * 0.01)
 
 
@@ -90,8 +78,14 @@ func _on_health_component_died() -> void:
 
 
 func inflate() -> void:
-	if animation_player and animation_player.has_animation("inflate"):
-		animation_player.play("inflate")
+	var tween: Tween = create_tween()
+	tween.tween_property(bubble_pivot, "scale", Vector3.ONE * 0.2, 0.3 * inflate_speed).set_ease(Tween.EASE_OUT)
+	tween.tween_property(bubble_pivot, "scale", Vector3.ONE * 0.2, 0.2 * inflate_speed)
+	tween.tween_property(bubble_pivot, "scale", Vector3.ONE * max_scale, 0.5 * inflate_speed).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BACK)
+	await tween.finished
+
+	inflated.emit()
+	release_bubble()
 
 
 func pop() -> void:
@@ -99,7 +93,7 @@ func pop() -> void:
 	pop_effect.restart()
 
 	popped.emit()
-	rigid_body.queue_free()
+	rigid_body.visible = false
 	play_random_audio(pop_sounds)
 
 
@@ -113,3 +107,19 @@ func play_random_audio(audios: Array[AudioStream]) -> void:
 
 func _on_pop_effect_finished() -> void:
 	queue_free()
+
+
+func disable_rigid_body() -> void:
+	rigid_body.freeze = true
+	rigid_body.sleeping = true
+	rigid_body.contact_monitor = false
+
+
+func enable_rigid_body() -> void:
+	rigid_body.contact_monitor = true
+	rigid_body.max_contacts_reported = 1
+	rigid_body.top_level = true
+
+	if not debug:
+		rigid_body.sleeping = false
+		rigid_body.freeze = false

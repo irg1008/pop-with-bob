@@ -13,7 +13,7 @@ class_name CharacterBubbleEmitter extends SmoothStairsCharacter3D
 @export var min_roam_distance: float = 10.0
 
 @export_category("Soaps")
-@export var max_soaps: int = 4
+@export var initial_max_soaps: int = 4
 @export var initial_soaps: Array[StoreSoap] = []
 
 
@@ -34,7 +34,8 @@ var is_stuck: bool = false
 var _stuck_check_timer: Timer
 var _stuck_check_position: Vector3
 
-var soaps: Array[StoreSoap] = [] : set = set_soaps
+var soaps: Array[StoreSoap] = []: set = set_soaps
+var max_soaps: int
 
 
 func _ready() -> void:
@@ -149,21 +150,21 @@ func update_roaming_blends() -> void:
 	animation_tree.set("parameters/Roaming/IdleRoamingBlend/blend_position", move_amount)
 
 
-func get_modified() -> CharacterBubbleEmitter:
-	var mod_character_bubble_emitter: CharacterBubbleEmitter = self.duplicate()
+func can_add_soap() -> bool:
+	return soaps.size() < max_soaps
+
+
+func reset_modifications() -> void:
+	max_soaps = initial_max_soaps
 
 	for soap: StoreSoap in soaps:
-		soap.apply_character_bubble_emitter_mods(mod_character_bubble_emitter)
-
-	return mod_character_bubble_emitter
-
-
-func can_add_soap() -> bool:
-	return soaps.size() < get_modified().max_soaps
+		soap.apply_character_mods(self)
 
 
 func set_soaps(new_soaps: Array[StoreSoap]) -> void:
 	soaps = new_soaps
+
+	reset_modifications()
 
 	if bubble_emitter:
 		bubble_emitter.soaps = soaps

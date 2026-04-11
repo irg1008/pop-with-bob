@@ -14,7 +14,7 @@ var mod_bubble_emitter: BubbleEmitterData
 var current_bubbles: int = 0
 var _emit_timer: Timer
 
-var soaps: Array[StoreSoap] = [] : set = set_soaps
+var soaps: Array[StoreSoap] = []: set = set_soaps
 
 
 func _ready() -> void:
@@ -23,7 +23,7 @@ func _ready() -> void:
 
 
 func start_emit_timer() -> void:
-		if not bubble_emitter:
+		if not mod_bubble_emitter:
 			return
 
 		var start_delay: float = randf_range(0, 2.0)
@@ -38,7 +38,7 @@ func start_emit_timer() -> void:
 
 
 func emit_bubble() -> void:
-		if not bubble_emitter or not can_emit():
+		if not mod_bubble_emitter or not can_emit():
 			return
 
 		var bubble_scene: PackedScene = mod_bubble_emitter.bubble.scene
@@ -47,12 +47,15 @@ func emit_bubble() -> void:
 		# Check for gold bubble
 		if mod_bubble_emitter.bubble.gold_scene:
 			var gold_prob: float = mod_bubble_emitter.bubble.gold_probability / 100.0
+
 			if randf() < gold_prob:
 				bubble_scene = mod_bubble_emitter.bubble.gold_scene
 				bubble_reward = mod_bubble_emitter.bubble.gold_reward
 
 		var bubble_instance: Bubble = bubble_scene.instantiate()
 		bubble_instance.max_lifetime = mod_bubble_emitter.max_lifetime
+
+		apply_bubble_mods(bubble_instance)
 
 		add_child(bubble_instance)
 		bubble_instance.global_transform = global_transform
@@ -80,14 +83,21 @@ func apply_pop_mods() -> void:
 		soap.apply_pop_mods(prev_soap)
 
 
+func apply_bubble_mods(bubble: Bubble) -> void:
+	for soap: StoreSoap in soaps:
+		soap.apply_bubble_mods(bubble)
+
+
 func reset_modifications() -> void:
 	if not bubble_emitter:
 		return
 
 	mod_bubble_emitter = bubble_emitter.duplicate()
+	mod_bubble_emitter.bubble = bubble_emitter.bubble.duplicate()
 
 	for soap: StoreSoap in soaps:
-		soap.apply_bubble_emitter_mods(mod_bubble_emitter)
+		soap.apply_emitter_data_mods(mod_bubble_emitter)
+		soap.apply_bubble_data_mods(mod_bubble_emitter.bubble)
 
 
 func set_soaps(new_soaps: Array[StoreSoap]) -> void:

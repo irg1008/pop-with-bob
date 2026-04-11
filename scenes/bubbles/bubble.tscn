@@ -15,42 +15,6 @@ material = ExtResource("3_saq75")
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_ch7dl"]
 
-[sub_resource type="Animation" id="Animation_ksa8n"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BubblePivot:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector3(1, 1, 1)]
-}
-
-[sub_resource type="Animation" id="Animation_10lyx"]
-resource_name = "inflate"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("BubblePivot:scale")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3, 0.5, 1),
-"transitions": PackedFloat32Array(1, 0.36602142, 4.4382796, 1),
-"update": 0,
-"values": [Vector3(0.001, 0.001, 0.001), Vector3(0.2, 0.2, 0.2), Vector3(0.2, 0.2, 0.2), Vector3(1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_fb3n0"]
-_data = {
-&"RESET": SubResource("Animation_ksa8n"),
-&"inflate": SubResource("Animation_10lyx")
-}
-
 [sub_resource type="Curve" id="Curve_fb3n0"]
 _data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), -2.0, 0.0, 0, 0]
 point_count = 2
@@ -73,9 +37,8 @@ material = ExtResource("3_saq75")
 radius = 0.1
 height = 0.2
 
-[node name="Bubble" type="Node3D" unique_id=676973399 node_paths=PackedStringArray("animation_player", "rigid_body", "bubble_pivot", "audio_player", "pop_effect")]
+[node name="Bubble" type="Node3D" unique_id=676973399 node_paths=PackedStringArray("rigid_body", "bubble_pivot", "audio_player", "pop_effect")]
 script = ExtResource("1_ksa8n")
-animation_player = NodePath("AnimationPlayer")
 rigid_body = NodePath("BubblePivot/RigidBody3D")
 bubble_pivot = NodePath("BubblePivot")
 audio_player = NodePath("AudioPlayer")
@@ -102,9 +65,6 @@ skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="BubblePivot/RigidBody3D" unique_id=804360001]
 shape = SubResource("SphereShape3D_ch7dl")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=154642980]
-libraries/ = SubResource("AnimationLibrary_fb3n0")
 
 [node name="PopEffect" type="GPUParticles3D" parent="." unique_id=1254866317]
 emitting = false
