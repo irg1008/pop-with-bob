@@ -34,18 +34,13 @@ signal interaction_actioned(object: Object, object_owner: Object)
 const PLAYER_GROUP: String = "player"
 
 
-var _input_dir: Vector2 = Vector2.ZERO
-var _movement_velocity: Vector3 = Vector3.ZERO
+var input_dir: Vector2 = Vector2.ZERO
 
-var _speed: float = 0.0
 var _sprint_modifier: float = 0.0
 var _crouch_modifier: float = 0.0
 
 var _current_fall_speed: float = 0.0
-
 var _current_interaction: Object
-
-var previous_velocity: Vector3 = Vector3.ZERO
 
 
 func _ready() -> void:
@@ -55,26 +50,23 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	detect_interaction()
 
-	previous_velocity = velocity
-
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
 	var speed_modifier: float = _sprint_modifier + _crouch_modifier
-	_speed = base_speed + speed_modifier
+	var speed: float = base_speed + speed_modifier
 
+	input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
+	var direction: Vector3 = (transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 
-	_input_dir = Input.get_vector("move_left", "move_right", "move_forward", "move_backward")
-	var direction: Vector3 = (transform.basis * Vector3(_input_dir.x, 0, _input_dir.y)).normalized()
+	var horizontal_velocity: Vector2 = Vector2(velocity.x, velocity.z)
 
-	var current_velocity: Vector2 = Vector2(_movement_velocity.x, _movement_velocity.z)
 	if not Managers.is_input_locked() and direction:
-		current_velocity = lerp(current_velocity, Vector2(direction.x, direction.z) * _speed, acceleration)
+		horizontal_velocity = horizontal_velocity.move_toward(Vector2(direction.x, direction.z) * speed, acceleration)
 	else:
-		current_velocity = current_velocity.move_toward(Vector2.ZERO, deceleration)
+		horizontal_velocity = horizontal_velocity.move_toward(Vector2.ZERO, deceleration)
 
-	_movement_velocity = Vector3(current_velocity.x, velocity.y, current_velocity.y)
-	velocity = _movement_velocity
+	velocity = Vector3(horizontal_velocity.x, velocity.y, horizontal_velocity.y)
 
 	smooth_move_and_stair_step()
 
@@ -105,14 +97,6 @@ func detect_interaction() -> Object:
 
 func _on_smooth_step(_delta: float, _previous_height: float, height_delta: float) -> void:
 	camera.smooth_step(height_delta)
-
-
-func get_input_direction() -> Vector2:
-	return _input_dir
-
-
-func update_rotation(rotation_input: Vector3) -> void:
-	global_transform.basis = Basis.from_euler(rotation_input)
 
 
 func sprint() -> void:

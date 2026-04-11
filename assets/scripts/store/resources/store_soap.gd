@@ -9,6 +9,7 @@ class_name StoreSoap extends StoreItem
 @export var next_soaps_use_chance: float = 1.0
 @export_group("Water Usage")
 @export var water_usage_mod: float = 1.0
+## Chance of not using water on bubble emission
 @export var no_water_used_chance: float = 0.0
 ## Chance to refill full water when water runs out
 @export var refill_water_on_empty_chance: float = 0.0
