@@ -5,7 +5,6 @@ class_name SimpleEnemy extends BaseEnemy
 @export var acceleration: float = 5.0
 @export var deceleration: float = 5.0
 
-
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
 @onready var state_chart: StateChart = $StateChart
 @onready var health_component: HealthComponent = $HealthComponent
@@ -74,6 +73,10 @@ func _on_following_state_physics_processing(delta: float) -> void:
 
 	nav_agent.target_position = target.global_position
 
+	if is_meele_range():
+		state_chart.send_event("onAttack")
+		return
+
 	if nav_agent.is_navigation_finished():
 		return
 
@@ -100,3 +103,38 @@ func _on_following_state_entered() -> void:
 func update_following_blends() -> void:
 	var move_amount: float = remap(velocity.length(), 0.0, move_speed, 0.0, 1.0)
 	animation_tree.set("parameters/Follow/IdleFollowBlend/blend_position", move_amount)
+
+
+func is_meele_range() -> bool:
+	if not target:
+		return false
+
+	var distance: float = global_position.distance_to(target.global_position)
+	return distance <= nav_agent.target_desired_distance
+
+
+func attack() -> void:
+	if not target:
+		return
+
+	velocity = Vector3.ZERO
+	nav_agent.velocity = Vector3.ZERO
+
+	var direction: Vector3 = (target.global_position - global_position).normalized()
+
+	# Face the target
+	var target_rotation: float = atan2(direction.x, direction.z)
+	rotation.y = target_rotation
+
+	if animation_state.get_current_node() != "Attack":
+		animation_state.travel("Attack")
+	else:
+		animation_state.start("Attack")
+	await animation_tree.animation_finished
+
+	# Check meele range to decide next state
+	print("Is meele range after attack? ", is_meele_range())
+	if is_meele_range():
+		await attack()
+	else:
+		state_chart.send_event("onFollowing")
