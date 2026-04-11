@@ -41,10 +41,10 @@ var max_soaps: int
 func _ready() -> void:
 	add_to_group(CHARACTER_GROUP)
 
+	set_soaps(initial_soaps)
+
 	await setup_animation_tree()
 	create_stuck_check()
-
-	set_soaps(initial_soaps)
 
 	home_position = global_position
 
@@ -154,17 +154,24 @@ func can_add_soap() -> bool:
 	return soaps.size() < max_soaps
 
 
-func reset_modifications() -> void:
-	max_soaps = initial_max_soaps
+func _on_soap_depleted(soap: StoreSoap) -> void:
+	soaps.erase(soap)
+	bubble_emitter.soaps.erase(soap)
 
-	for soap: StoreSoap in soaps:
-		soap.apply_character_mods(self)
+
+func init_soap(soap: StoreSoap) -> StoreSoap:
+	var new_soap: StoreSoap = soap.duplicate()
+
+	new_soap.init()
+	new_soap.soap_depleted.connect(_on_soap_depleted)
+	new_soap.apply_character_mods(self)
+
+	return new_soap
 
 
 func set_soaps(new_soaps: Array[StoreSoap]) -> void:
-	soaps = new_soaps
-
-	reset_modifications()
+	max_soaps = initial_max_soaps
+	soaps.assign(new_soaps.map(init_soap))
 
 	if bubble_emitter:
 		bubble_emitter.soaps = soaps

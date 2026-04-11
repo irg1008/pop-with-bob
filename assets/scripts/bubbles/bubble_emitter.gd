@@ -18,7 +18,9 @@ var soaps: Array[StoreSoap] = []: set = set_soaps
 
 
 func _ready() -> void:
-		reset_modifications()
+		mod_bubble_emitter = bubble_emitter.duplicate()
+		mod_bubble_emitter.bubble = bubble_emitter.bubble.duplicate()
+
 		await start_emit_timer()
 
 
@@ -88,18 +90,9 @@ func apply_bubble_mods(bubble: Bubble) -> void:
 		soap.apply_bubble_mods(bubble)
 
 
-func reset_modifications() -> void:
-	if not bubble_emitter:
-		return
-
-	mod_bubble_emitter = bubble_emitter.duplicate()
-	mod_bubble_emitter.bubble = bubble_emitter.bubble.duplicate()
+func set_soaps(new_soaps: Array[StoreSoap]) -> void:
+	soaps = new_soaps
 
 	for soap: StoreSoap in soaps:
 		soap.apply_emitter_data_mods(mod_bubble_emitter)
 		soap.apply_bubble_data_mods(mod_bubble_emitter.bubble)
-
-
-func set_soaps(new_soaps: Array[StoreSoap]) -> void:
-	soaps = new_soaps
-	reset_modifications()

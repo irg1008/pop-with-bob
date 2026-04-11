@@ -19,20 +19,24 @@ signal inflated()
 @export var wobble_rotation_strength: float = 0.035
 @export var inflate_speed: float = 1.0
 @export var max_scale: float = 1.0
-@export var max_lifetime: float = 0.0
 
 @export_category("Collision")
-@export var collision_groups: Array[String] = [CharacterBubbleEmitter.CHARACTER_GROUP]
 
 
 const MIN_PHYSICS_SAFE_SCALE: float = 0.001
 
 
+var collision_groups: Array[String]
+
 var time_alive: float = 0.0
+var max_lifetime: float = 0.0
+var mute_pop_sound: bool = false
 
 
 func _ready() -> void:
 	bubble_pivot.scale = Vector3.ONE * MIN_PHYSICS_SAFE_SCALE
+
+	collision_groups = [CharacterBubbleEmitter.CHARACTER_GROUP, PlayerController.PLAYER_GROUP]
 
 	disable_rigid_body()
 	await inflate()
@@ -48,6 +52,7 @@ func _physics_process(delta: float) -> void:
 	time_alive += delta
 	if max_lifetime > 0.0 and time_alive >= max_lifetime:
 		pop()
+		time_alive = 0.0
 		return
 
 	if not rigid_body.freeze:
@@ -99,9 +104,14 @@ func pop() -> void:
 
 func play_random_audio(audios: Array[AudioStream]) -> void:
 	if audio_player and audios.size() > 0:
-		audio_player.global_position = rigid_body.global_position
 		var random_index: int = randi_range(0, audios.size() - 1)
+
+		audio_player.global_position = rigid_body.global_position
 		audio_player.stream = audios[random_index]
+
+		if mute_pop_sound:
+			audio_player.max_distance = 5.0
+
 		audio_player.play()
 
 
