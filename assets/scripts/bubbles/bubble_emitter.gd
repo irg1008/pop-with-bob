@@ -24,9 +24,9 @@ func start_emit_timer() -> void:
 		if not emitter_data:
 			return
 
-		var start_delay: float = randf_range(0, 5.0)
-		print("Starting bubble emitter with delay:", start_delay)
+		var start_delay: float = randf_range(0, 2.0)
 		await get_tree().create_timer(start_delay).timeout
+		emit_bubble()
 
 		_emit_timer = Timer.new()
 		add_child(_emit_timer)

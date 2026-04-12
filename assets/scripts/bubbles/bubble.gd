@@ -34,9 +34,11 @@ var mute_pop_sound: bool = false
 
 
 func _ready() -> void:
-	bubble_pivot.scale = Vector3.ONE * MIN_PHYSICS_SAFE_SCALE
+	if not rigid_body:
+		return
 
-	collision_groups = [CharacterBubbleEmitter.CHARACTER_GROUP, PlayerController.PLAYER_GROUP]
+	bubble_pivot.scale = Vector3.ONE * MIN_PHYSICS_SAFE_SCALE
+	collision_groups = [CharacterBubbleEmitter.CHARACTER_GROUP]
 
 	disable_rigid_body()
 	await inflate()
@@ -98,7 +100,7 @@ func pop() -> void:
 	pop_effect.restart()
 
 	popped.emit()
-	rigid_body.visible = false
+	rigid_body.queue_free()
 	play_random_audio(pop_sounds)
 
 

@@ -46,7 +46,7 @@ signal soap_depleted(soap: StoreSoap)
 @export var health_regen_amount: float = 0.0
 @export var health_loss_chance: float = 0.0
 @export var health_loss_amount: float = 0.0
-@export_group("Ammo")
+@export_group("Ammo") # TODO
 @export var ammo_recover_chance: float = 0.0
 @export var ammo_recover_amount: float = 0.0
 @export var ammo_loss_chance: float = 0.0
@@ -101,8 +101,8 @@ func apply_bubble_data_mods(bubble_data: BubbleData) -> void:
 	bubble_data.gold_reward = int(bubble_data.gold_reward * gold_reward_multiplier)
 
 
-# 5. Apply mods to bubble on bubble emission (see bubble_emitter.gd)
-func apply_bubble_created_mods(bubble: Bubble, prev_soap: StoreSoap) -> void:
+# 5. Apply mods to bubble on bubble emission and use soap (see bubble_emitter.gd)
+func use_soap(bubble: Bubble, prev_soap: StoreSoap) -> void:
 	if is_soap_depleted():
 		return
 
@@ -113,6 +113,7 @@ func apply_bubble_created_mods(bubble: Bubble, prev_soap: StoreSoap) -> void:
 	if randf() < mute_pop_sound_chance:
 		bubble.mute_pop_sound = true
 
+	# Check if current or previous soap prevents use
 	var prev_prevents_use: bool = prev_soap and randf() >= prev_soap.next_soap_use_chance
 	var curr_prevents_use: bool = randf() >= soap_use_chance
 

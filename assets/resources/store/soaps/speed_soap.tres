@@ -4,9 +4,10 @@
 
 [resource]
 script = ExtResource("1_1klw2")
-max_uses = 1
-size_mod = 5.0
+inflate_speed_mod = 2.0
 gold_probability_increase = 50
+max_bubbles_increase = 50
+spawn_rate_mod = 20.0
 name = "Speed Soap"
 price = 100.0
 max_available = 10

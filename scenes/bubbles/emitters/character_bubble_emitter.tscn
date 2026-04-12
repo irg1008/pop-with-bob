@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_ate53"]
 [ext_resource type="Resource" uid="uid://cqt7wsiy6nkr3" path="res://assets/resources/store/soaps/speed_soap.tres" id="4_rjrtd"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_14bpf"]
+[ext_resource type="Script" uid="uid://uafhb2odbt5u" path="res://assets/scripts/bubbles/components/water_component.gd" id="5_kxn8d"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="6_p2gyo"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="7_vlowj"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://cywkw1oioudbl" path="res://assets/resources/animations/walk_npc_animation.tres" id="8_bulnd"]
@@ -24,11 +25,16 @@ metadata/_custom_type_script = "uid://dgcufyvakuq3s"
 
 [node name="Components" type="Node" parent="." unique_id=345097862]
 
-[node name="SoapComponent" type="Node" parent="Components" unique_id=698940185 node_paths=PackedStringArray("character_bubble_emitter", "bubble_emitter")]
+[node name="SoapComponent" type="Node" parent="Components" unique_id=698940185 node_paths=PackedStringArray("character_bubble_emitter", "bubble_emitter", "water_component")]
 script = ExtResource("2_3a06d")
 character_bubble_emitter = NodePath("../..")
 bubble_emitter = NodePath("../../BubbleEmitter")
+water_component = NodePath("../WaterComponent")
 initial_soaps = Array[ExtResource("3_kxn8d")]([ExtResource("4_rjrtd")])
+
+[node name="WaterComponent" type="Node" parent="Components" unique_id=1336411476 node_paths=PackedStringArray("bubble_emitter")]
+script = ExtResource("5_kxn8d")
+bubble_emitter = NodePath("../../BubbleEmitter")
 
 [node name="BubbleEmitter" type="Node3D" parent="." unique_id=31996967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
