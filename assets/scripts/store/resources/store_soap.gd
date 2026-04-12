@@ -65,12 +65,21 @@ func init() -> void:
 	soap_uses = max_uses
 
 
-# 1. Apply mods to character on soap change (see character_bubble_emitter.gd)
-func apply_character_mods(character: CharacterBubbleEmitter) -> void:
-	character.max_soaps += max_soaps_increase
+func is_soap_depleted() -> bool:
+	return soap_uses <= 0
 
 
-# 2. Apply mods to bubble emitter on soap change (see bubble_emitter.gd)
+# 1. Apply mods to soap_component on soap change (see soap_component.gd)
+func apply_soap_component_mods(soap_component: SoapComponent) -> void:
+	soap_component.max_soaps += max_soaps_increase
+
+
+# 2. Apply mods to character_bubble_emitter on soap change (see character_bubble_emitter.gd)
+func apply_character_mods(_character: CharacterBubbleEmitter) -> void:
+	pass
+
+
+# 3. Apply mods to bubble emitter on soap change (see bubble_emitter.gd)
 func apply_emitter_data_mods(bubble_emitter_data: BubbleEmitterData) -> void:
 	bubble_emitter_data.max_current += max_bubbles_increase
 	bubble_emitter_data.emit_rate *= spawn_rate_mod
@@ -80,7 +89,7 @@ func apply_emitter_data_mods(bubble_emitter_data: BubbleEmitterData) -> void:
 		bubble_emitter_data.max_lifetime *= autopop_lifetime_mod
 
 
-# 3. Apply mods to bubble data on soap change (see bubble_emitter.gd)
+# 4. Apply mods to bubble data on soap change (see bubble_emitter.gd)
 func apply_bubble_data_mods(bubble_data: BubbleData) -> void:
 	bubble_data.reward += reward_increase
 	bubble_data.reward = int(bubble_data.reward * reward_multiplier)
@@ -92,20 +101,17 @@ func apply_bubble_data_mods(bubble_data: BubbleData) -> void:
 	bubble_data.gold_reward = int(bubble_data.gold_reward * gold_reward_multiplier)
 
 
-# 4. Apply mods to bubble on bubble emission (see bubble_emitter.gd)
-func apply_bubble_mods(bubble: Bubble) -> void:
+# 5. Apply mods to bubble on bubble emission (see bubble_emitter.gd)
+func apply_bubble_created_mods(bubble: Bubble, prev_soap: StoreSoap) -> void:
+	if is_soap_depleted():
+		return
+
 	bubble.max_scale *= size_mod
 	bubble.inflate_speed /= inflate_speed_mod
 	bubble.rigid_body.gravity_scale += gravity_increase
 
 	if randf() < mute_pop_sound_chance:
 		bubble.mute_pop_sound = true
-
-
-# 5. Apply mods after bubble pop (see bubble_emitter.gd)
-func apply_pop_mods(prev_soap: StoreSoap) -> void:
-	if is_soap_depleted():
-		return
 
 	var prev_prevents_use: bool = prev_soap and randf() >= prev_soap.next_soap_use_chance
 	var curr_prevents_use: bool = randf() >= soap_use_chance
@@ -115,7 +121,3 @@ func apply_pop_mods(prev_soap: StoreSoap) -> void:
 
 	if is_soap_depleted():
 		soap_depleted.emit(self)
-
-
-func is_soap_depleted() -> bool:
-	return soap_uses <= 0

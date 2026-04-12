@@ -3,7 +3,10 @@
 [ext_resource type="Script" uid="uid://bkm8khkvdvqe5" path="res://assets/scripts/bubbles/character_bubble_emitter.gd" id="1_4dv0b"]
 [ext_resource type="Script" uid="uid://cj3tui8jn3cxm" path="res://assets/scripts/bubbles/bubble_emitter.gd" id="1_gp703"]
 [ext_resource type="Resource" uid="uid://c7g87lyjwdqnm" path="res://assets/resources/bubbles/bubble_emitter.tres" id="2_2bnqf"]
+[ext_resource type="Script" uid="uid://blme1gd4nmm10" path="res://assets/scripts/bubbles/components/soap_component.gd" id="2_3a06d"]
+[ext_resource type="Script" uid="uid://6876rtfv1adw" path="res://assets/scripts/store/resources/store_soap.gd" id="3_kxn8d"]
 [ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="4_ate53"]
+[ext_resource type="Resource" uid="uid://cqt7wsiy6nkr3" path="res://assets/resources/store/soaps/speed_soap.tres" id="4_rjrtd"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="5_14bpf"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="6_p2gyo"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="7_vlowj"]
@@ -13,15 +16,24 @@
 height = 0.70009816
 radius = 0.4194336
 
-[node name="CharacterBubbleEmitter" type="StairsCharacter3D" unique_id=582313622]
+[node name="CharacterBubbleEmitter" type="StairsCharacter3D" unique_id=582313622 node_paths=PackedStringArray("soap_component")]
 collider = NodePath("CollisionShape3D")
 script = ExtResource("1_4dv0b")
+soap_component = NodePath("Components/SoapComponent")
 metadata/_custom_type_script = "uid://dgcufyvakuq3s"
+
+[node name="Components" type="Node" parent="." unique_id=345097862]
+
+[node name="SoapComponent" type="Node" parent="Components" unique_id=698940185 node_paths=PackedStringArray("character_bubble_emitter", "bubble_emitter")]
+script = ExtResource("2_3a06d")
+character_bubble_emitter = NodePath("../..")
+bubble_emitter = NodePath("../../BubbleEmitter")
+initial_soaps = Array[ExtResource("3_kxn8d")]([ExtResource("4_rjrtd")])
 
 [node name="BubbleEmitter" type="Node3D" parent="." unique_id=31996967]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
 script = ExtResource("1_gp703")
-bubble_emitter = ExtResource("2_2bnqf")
+emitter_data = ExtResource("2_2bnqf")
 
 [node name="Character" type="Node3D" parent="." unique_id=1174441357]
 

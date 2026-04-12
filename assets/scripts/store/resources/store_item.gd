@@ -14,6 +14,10 @@ enum Currency {COINS, WATER}
 var available: int = 0
 
 
+func _init() -> void:
+  resource_local_to_scene = true
+
+
 func format_text() -> String:
   return "{name} - {price} {currency}".format({
       "name": name,

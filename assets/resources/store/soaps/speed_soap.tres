@@ -6,6 +6,7 @@
 script = ExtResource("1_1klw2")
 max_uses = 1
 size_mod = 5.0
+gold_probability_increase = 50
 name = "Speed Soap"
 price = 100.0
 max_available = 10
