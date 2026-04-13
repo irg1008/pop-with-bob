@@ -21,6 +21,7 @@ class_name CharacterBubbleEmitter extends SmoothStairsCharacter3D
 @onready var character_node: Node3D = $Character
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var bubble_emitter: BubbleEmitter = $BubbleEmitter
+@onready var stuck_check: StuckCheckComponent = $Components/StuckCheck
 
 
 const CHARACTER_GROUP: String = "characters"
@@ -29,17 +30,14 @@ const CHARACTER_GROUP: String = "characters"
 var animation_state: AnimationNodeStateMachinePlayback
 var home_position: Vector3
 
-var is_stuck: bool = false
-var _stuck_check_timer: Timer
-var _stuck_check_position: Vector3
 
 func _ready() -> void:
 	add_to_group(CHARACTER_GROUP)
+	home_position = global_position
 
 	await setup_animation_tree()
-	create_stuck_check()
 
-	home_position = global_position
+	stuck_check.stuck.connect(_set_new_roam_target)
 
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	nav_agent.target_position = home_position
@@ -51,6 +49,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
+	push_rigid_bodies()
 	smooth_move_and_stair_step()
 	update_roaming_blends()
 
@@ -81,7 +80,6 @@ func _on_roaming_state_physics_processing(delta: float) -> void:
 		var target_velocity: Vector3 = Vector3(direction.x * move_speed, velocity.y, direction.z * move_speed)
 		velocity = velocity.move_toward(target_velocity, acceleration * delta)
 
-
 	# Face movement direction
 	if direction.length() > 0.01:
 		var target_rotation: float = atan2(direction.x, direction.z)
@@ -107,24 +105,6 @@ func _set_new_roam_target() -> void:
 	var nav_map: RID = nav_agent.get_navigation_map()
 	var closest_nav_point: Vector3 = NavigationServer3D.map_get_closest_point(nav_map, desired_point)
 	nav_agent.target_position = closest_nav_point
-
-
-func create_stuck_check() -> void:
-	_stuck_check_timer = Timer.new()
-	add_child(_stuck_check_timer)
-	_stuck_check_timer.wait_time = 1.0
-	_stuck_check_timer.start()
-	_stuck_check_timer.timeout.connect(_on_stuck_check_timeout)
-
-
-func _on_stuck_check_timeout() -> void:
-	var distance_moved: float = global_position.distance_to(_stuck_check_position)
-
-	is_stuck = distance_moved < 0.1
-	_stuck_check_position = global_position
-
-	if is_stuck:
-		_set_new_roam_target()
 
 
 func setup_animation_tree() -> void:

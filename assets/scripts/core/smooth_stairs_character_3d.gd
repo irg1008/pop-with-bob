@@ -5,6 +5,9 @@ const MIN_STEP_HEIGHT: float = 0.05
 const STEP_HEIGHT_MARGIN: float = 0.001
 
 
+var push_force: float = 0.5
+
+
 func smooth_move_and_stair_step() -> void:
 	var previous_height: float = position.y
 	move_and_stair_step()
@@ -23,3 +26,10 @@ func smooth_move_and_stair_step() -> void:
 
 func _on_smooth_step(_delta: float, _previous_height: float, _height_delta: float) -> void:
 	pass
+
+
+func push_rigid_bodies() -> void:
+	for i: int in get_slide_collision_count():
+		var c: KinematicCollision3D = get_slide_collision(i)
+		if c.get_collider() is RigidBody3D:
+				c.get_collider().apply_central_impulse(-c.get_normal() * push_force)

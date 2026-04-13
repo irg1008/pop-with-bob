@@ -5,19 +5,22 @@
 
 [node name="CactoroNpc" unique_id=582313622 instance=ExtResource("1_0pro0")]
 
+[node name="BubbleEmitter" parent="." index="1" unique_id=31996967]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.89098036, 0)
+
 [node name="Cactoro" parent="Character" parent_id_path=PackedInt32Array(1174441357) index="0" unique_id=873660441 instance=ExtResource("3_w23ek")]
 transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
 
 [node name="Skeleton3D" parent="Character/Cactoro/CharacterArmature" parent_id_path=PackedInt32Array(873660441, 1740703754) index="0" unique_id=10515920]
-bones/1/position = Vector3(0, 0.6981173, 0)
+bones/1/position = Vector3(0, 0.6563235, 0)
 bones/1/rotation = Quaternion(0, 0, 0, 1)
 bones/2/rotation = Quaternion(0, 0, 0, 1)
-bones/3/rotation = Quaternion(3.793949e-20, 2.8129772e-09, 4.0158815e-05, 1)
+bones/3/rotation = Quaternion(-3.9301667e-19, -1.5266696e-09, 0.0029795903, 0.99999565)
 
-[node name="CollisionShape3D" parent="." index="2" unique_id=47495966]
+[node name="CollisionShape3D" parent="." index="3" unique_id=47495966]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.3503611, 0)
 
-[node name="AnimationTree" parent="." index="5" unique_id=231973671]
+[node name="AnimationTree" parent="." index="7" unique_id=231973671]
 root_node = NodePath("../Character/Cactoro")
 anim_player = NodePath("../Character/Cactoro/AnimationPlayer")
 

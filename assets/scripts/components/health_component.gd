@@ -55,5 +55,3 @@ func _handle_death() -> void:
 	is_alive = false
 	current_health = 0.0
 	died.emit()
-
-	print("Entity died")

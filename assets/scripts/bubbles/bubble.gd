@@ -100,7 +100,10 @@ func pop() -> void:
 	pop_effect.restart()
 
 	popped.emit()
-	rigid_body.queue_free()
+
+	rigid_body.visible = false
+	disable_rigid_body()
+
 	play_random_audio(pop_sounds)
 
 
@@ -124,11 +127,11 @@ func _on_pop_effect_finished() -> void:
 func disable_rigid_body() -> void:
 	rigid_body.freeze = true
 	rigid_body.sleeping = true
-	rigid_body.contact_monitor = false
+	rigid_body.set_contact_monitor.call_deferred(false)
 
 
 func enable_rigid_body() -> void:
-	rigid_body.contact_monitor = true
+	rigid_body.set_contact_monitor.call_deferred(true)
 	rigid_body.max_contacts_reported = 1
 	rigid_body.top_level = true
 

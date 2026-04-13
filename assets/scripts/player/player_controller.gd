@@ -68,6 +68,7 @@ func _physics_process(delta: float) -> void:
 
 	velocity = Vector3(horizontal_velocity.x, velocity.y, horizontal_velocity.y)
 
+	push_rigid_bodies()
 	smooth_move_and_stair_step()
 
 
@@ -111,6 +112,8 @@ func crouch() -> void:
 	_crouch_modifier = crouch_speed
 	standing_collision.disabled = true
 	crouching_collision.disabled = false
+
+	# Set stairs collider
 	collider = crouching_collision.get_path()
 
 
@@ -118,6 +121,8 @@ func stand() -> void:
 	_crouch_modifier = 0.0
 	standing_collision.disabled = false
 	crouching_collision.disabled = true
+
+	# Set stairs collider
 	collider = standing_collision.get_path()
 
 

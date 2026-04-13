@@ -6,8 +6,8 @@
 script = ExtResource("1_1klw2")
 inflate_speed_mod = 2.0
 gold_probability_increase = 50
-max_bubbles_increase = 50
-spawn_rate_mod = 20.0
+max_bubbles_increase = 10
+spawn_rate_mod = 10.0
 name = "Speed Soap"
 price = 100.0
 max_available = 10

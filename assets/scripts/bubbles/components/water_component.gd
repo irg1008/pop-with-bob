@@ -3,13 +3,23 @@ class_name WaterComponent extends Node
 
 @export_category("References")
 @export var bubble_emitter: BubbleEmitter
+@export var water_progress_bar: ProgressBar
+
+@export_category("Water Properties")
+@export var initial_water: float = 100.0
 
 
-# Called when the node enters the scene tree for the first time.
+var current_water: float = 0.0
+
+
 func _ready() -> void:
-	pass # Replace with function body.
+	current_water = initial_water
+	water_progress_bar.value = current_water
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+func use_water() -> void:
+	if current_water <= 0.0:
+		return
+
+	current_water = max(0.0, current_water - bubble_emitter.water_per_bubble)
+	water_progress_bar.value = lerp(water_progress_bar.value, current_water, 0.1)

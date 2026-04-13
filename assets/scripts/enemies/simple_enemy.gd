@@ -132,9 +132,8 @@ func attack() -> void:
 		animation_state.start("Attack")
 	await animation_tree.animation_finished
 
-	# Check meele range to decide next state
-	print("Is meele range after attack? ", is_meele_range())
 	if is_meele_range():
 		await attack()
-	else:
-		state_chart.send_event("onFollowing")
+		return
+
+	state_chart.send_event("onFollowing")
