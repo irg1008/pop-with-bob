@@ -52,9 +52,11 @@ character_bubble_emitter = NodePath("../..")
 bubble_emitter = NodePath("../../BubbleEmitter")
 initial_soaps = Array[ExtResource("3_kxn8d")]([ExtResource("4_rjrtd")])
 
-[node name="WaterComponent" type="Node" parent="Components" unique_id=1336411476 node_paths=PackedStringArray("water_progress_bar")]
+[node name="WaterComponent" type="Node" parent="Components" unique_id=1336411476 node_paths=PackedStringArray("water_progress_bar", "water_amount_label")]
 script = ExtResource("5_kxn8d")
 water_progress_bar = NodePath("../../WaterProgressBar/SubViewport/ProgressBar")
+water_amount_label = NodePath("../../WaterProgressBar/SubViewport/CenterContainer/WaterAmountLabel")
+max_water = 200.0
 
 [node name="StuckCheck" type="Node" parent="Components" unique_id=8303350 node_paths=PackedStringArray("parent")]
 script = ExtResource("6_rjrtd")
@@ -76,6 +78,21 @@ theme_override_styles/background = SubResource("StyleBoxFlat_wjwe7")
 theme_override_styles/fill = SubResource("StyleBoxTexture_l8unf")
 value = 100.0
 show_percentage = false
+
+[node name="CenterContainer" type="CenterContainer" parent="WaterProgressBar/SubViewport" unique_id=135939292]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="WaterAmountLabel" type="Label" parent="WaterProgressBar/SubViewport/CenterContainer" unique_id=428120418]
+layout_mode = 2
+theme = ExtResource("9_wjwe7")
+theme_override_font_sizes/font_size = 24
+text = "0.0/0.0"
 
 [node name="Sprite3D" type="Sprite3D" parent="WaterProgressBar" unique_id=556388382]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.86010206, 0)

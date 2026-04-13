@@ -7,6 +7,7 @@ signal water_changed(current_water: float)
 
 @export_category("References")
 @export var water_progress_bar: ProgressBar
+@export var water_amount_label: Label
 
 @export_category("Water Properties")
 @export var initial_water: float = 100.0
@@ -20,6 +21,7 @@ var current_water: float = 0.0: set = set_current_water
 func set_current_water(value: float) -> void:
 	current_water = clamp(value, 0.0, max_water)
 	water_progress_bar.value = current_water / max_water * 100.0
+	water_amount_label.text = "%d / %d" % [current_water, max_water]
 
 	water_changed.emit(current_water)
 
