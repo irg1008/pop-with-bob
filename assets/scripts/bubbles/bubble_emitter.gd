@@ -13,6 +13,8 @@ const MAX_START_DELAY: float = 2.0
 
 
 var current_bubbles: int = 0
+
+var disabled: bool = false
 var _emit_timer: Timer
 
 
@@ -66,7 +68,7 @@ func emit_bubble() -> void:
 
 
 func can_emit() -> bool:
-	return current_bubbles < emitter_data.max_current
+	return not disabled and current_bubbles < emitter_data.max_current
 
 
 func _on_bubble_popped(reward: float) -> void:

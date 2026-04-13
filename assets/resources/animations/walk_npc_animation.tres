@@ -14,14 +14,6 @@ nodes/IdleAnimation/node = SubResource("AnimationNodeAnimation_3ybby")
 nodes/IdleAnimation/position = Vector2(240, 160)
 node_connections = [&"output", 0, &"TimeSeek", &"TimeSeek", 0, &"IdleAnimation"]
 
-[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_pdn58"]
-animation = &"No"
-use_custom_timeline = true
-timeline_length = 1.0
-stretch_time_scale = true
-start_offset = 0.0
-loop_mode = 1
-
 [sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_bn4rw"]
 animation = &"Walk"
 
@@ -29,12 +21,10 @@ animation = &"Walk"
 animation = &"Dance"
 
 [sub_resource type="AnimationNodeBlendSpace1D" id="AnimationNodeBlendSpace1D_t62pc"]
-blend_point_0/node = SubResource("AnimationNodeAnimation_pdn58")
-blend_point_0/pos = 0.0
-blend_point_1/node = SubResource("AnimationNodeAnimation_bn4rw")
-blend_point_1/pos = 1.0
-blend_point_2/node = SubResource("AnimationNodeAnimation_k0t7d")
-blend_point_2/pos = 0.1
+blend_point_0/node = SubResource("AnimationNodeAnimation_bn4rw")
+blend_point_0/pos = 1.0
+blend_point_1/node = SubResource("AnimationNodeAnimation_k0t7d")
+blend_point_1/pos = 0.0
 min_space = 0.0
 
 [sub_resource type="AnimationNodeTimeSeek" id="AnimationNodeTimeSeek_3a06d"]

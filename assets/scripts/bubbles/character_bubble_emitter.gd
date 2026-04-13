@@ -1,9 +1,6 @@
 class_name CharacterBubbleEmitter extends SmoothStairsCharacter3D
 
 
-@export_category("References")
-@export var soap_component: SoapComponent
-
 @export_category("Movement Settings")
 @export var move_speed: float = 1.5
 @export var acceleration: float = 2.0
@@ -14,6 +11,8 @@ class_name CharacterBubbleEmitter extends SmoothStairsCharacter3D
 @export_group("Roaming")
 @export var roam_radius: float = 40.0
 @export var min_roam_distance: float = 10.0
+@export_group("Water")
+@export var min_water_to_emit: float = 20.0
 
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D
@@ -21,7 +20,6 @@ class_name CharacterBubbleEmitter extends SmoothStairsCharacter3D
 @onready var character_node: Node3D = $Character
 @onready var animation_tree: AnimationTree = $AnimationTree
 @onready var bubble_emitter: BubbleEmitter = $BubbleEmitter
-@onready var stuck_check: StuckCheckComponent = $Components/StuckCheck
 
 
 const CHARACTER_GROUP: String = "characters"
@@ -30,14 +28,15 @@ const CHARACTER_GROUP: String = "characters"
 var animation_state: AnimationNodeStateMachinePlayback
 var home_position: Vector3
 
+var player: PlayerController
+
 
 func _ready() -> void:
 	add_to_group(CHARACTER_GROUP)
+
 	home_position = global_position
 
 	await setup_animation_tree()
-
-	stuck_check.stuck.connect(_set_new_roam_target)
 
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	nav_agent.target_position = home_position
@@ -71,6 +70,28 @@ func _on_roaming_state_physics_processing(delta: float) -> void:
 		_set_new_roam_target()
 		return
 
+	move_to_target(delta)
+
+
+func _on_roaming_state_entered() -> void:
+	if animation_state.get_current_node() != "Roaming":
+		animation_state.travel("Roaming")
+
+
+func _on_following_state_physics_processing(delta: float) -> void:
+
+	if not player:
+		player = PlayerController.get_player_node(get_tree())
+
+	nav_agent.target_position = player.global_position
+
+	if nav_agent.is_navigation_finished():
+		return
+
+	move_to_target(delta)
+
+
+func move_to_target(delta: float) -> void:
 	var next_pos: Vector3 = nav_agent.get_next_path_position()
 	var direction: Vector3 = (next_pos - global_position).normalized()
 
@@ -84,11 +105,6 @@ func _on_roaming_state_physics_processing(delta: float) -> void:
 	if direction.length() > 0.01:
 		var target_rotation: float = atan2(direction.x, direction.z)
 		rotation.y = lerp_angle(rotation.y, target_rotation, turn_smoothness * delta)
-
-
-func _on_roaming_state_entered() -> void:
-	if animation_state.get_current_node() != "Roaming":
-		animation_state.travel("Roaming")
 
 
 func _set_new_roam_target() -> void:
@@ -121,3 +137,24 @@ func setup_animation_tree() -> void:
 func update_roaming_blends() -> void:
 	var move_amount: float = remap(velocity.length(), 0.0, move_speed, 0.0, 1.0)
 	animation_tree.set("parameters/Roaming/IdleRoamingBlend/blend_position", move_amount)
+
+
+func _on_water_component_water_changed(current_water: float) -> void:
+	if not bubble_emitter:
+		return
+
+	var previous_disabled: bool = bubble_emitter.disabled
+	var enable_threshold: float = min_water_to_emit if previous_disabled else 0.0
+
+	bubble_emitter.disabled = current_water <= enable_threshold
+
+	if bubble_emitter.disabled and not previous_disabled:
+		state_chart.send_event("onFollowing")
+	elif not bubble_emitter.disabled and previous_disabled:
+		state_chart.send_event("onRoaming")
+		_set_new_roam_target()
+
+
+func _on_stuck_check_stuck() -> void:
+	if not nav_agent.is_navigation_finished():
+		_set_new_roam_target()

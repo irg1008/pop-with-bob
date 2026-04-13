@@ -4,7 +4,6 @@ class_name SoapComponent extends Node
 @export_category("References")
 @export var character_bubble_emitter: CharacterBubbleEmitter
 @export var bubble_emitter: BubbleEmitter
-@export var water_component: WaterComponent
 
 @export_category("Soaps")
 @export var initial_max_soaps: int = 4

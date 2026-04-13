@@ -16,9 +16,10 @@ signal soap_depleted(soap: StoreSoap)
 @export var soap_use_chance: float = 1.0
 @export_group("Water Usage") # TODO
 @export var water_usage_mod: float = 1.0
+@export var max_water_increase: float = 0.0
 ## Chance of not using water on bubble emission
 @export var no_water_used_chance: float = 0.0
-## Chance to refill full water when water runs out
+## Chance to fully refill water when water runs out
 @export var refill_water_on_empty_chance: float = 0.0
 @export var destroy_soap_instead_chance: float = 0.0
 @export_group("Bubble")

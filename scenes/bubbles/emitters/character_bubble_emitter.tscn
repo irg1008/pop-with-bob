@@ -15,7 +15,8 @@
 [ext_resource type="AnimationNodeStateMachine" uid="uid://cywkw1oioudbl" path="res://assets/resources/animations/walk_npc_animation.tres" id="8_bulnd"]
 [ext_resource type="Theme" uid="uid://b4ym0ixwh6tmg" path="res://assets/resources/themes/main_theme.tres" id="9_wjwe7"]
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gf4gg"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wjwe7"]
+bg_color = Color(0.5568628, 0.91764706, 0.9882353, 0.35686275)
 
 [sub_resource type="Gradient" id="Gradient_u5ck0"]
 colors = PackedColorArray(0.09411765, 0.59607846, 0.67058825, 1, 0.5554183, 0.91782403, 0.98992056, 1)
@@ -38,24 +39,21 @@ viewport_path = NodePath("WaterProgressBar/SubViewport")
 height = 0.70009816
 radius = 0.4194336
 
-[node name="CharacterBubbleEmitter" type="StairsCharacter3D" unique_id=582313622 node_paths=PackedStringArray("soap_component")]
+[node name="CharacterBubbleEmitter" type="StairsCharacter3D" unique_id=582313622]
 collider = NodePath("CollisionShape3D")
 script = ExtResource("1_4dv0b")
-soap_component = NodePath("Components/SoapComponent")
 metadata/_custom_type_script = "uid://dgcufyvakuq3s"
 
 [node name="Components" type="Node" parent="." unique_id=345097862]
 
-[node name="SoapComponent" type="Node" parent="Components" unique_id=698940185 node_paths=PackedStringArray("character_bubble_emitter", "bubble_emitter", "water_component")]
+[node name="SoapComponent" type="Node" parent="Components" unique_id=698940185 node_paths=PackedStringArray("character_bubble_emitter", "bubble_emitter")]
 script = ExtResource("2_3a06d")
 character_bubble_emitter = NodePath("../..")
 bubble_emitter = NodePath("../../BubbleEmitter")
-water_component = NodePath("../WaterComponent")
 initial_soaps = Array[ExtResource("3_kxn8d")]([ExtResource("4_rjrtd")])
 
-[node name="WaterComponent" type="Node" parent="Components" unique_id=1336411476 node_paths=PackedStringArray("bubble_emitter", "water_progress_bar")]
+[node name="WaterComponent" type="Node" parent="Components" unique_id=1336411476 node_paths=PackedStringArray("water_progress_bar")]
 script = ExtResource("5_kxn8d")
-bubble_emitter = NodePath("../../BubbleEmitter")
 water_progress_bar = NodePath("../../WaterProgressBar/SubViewport/ProgressBar")
 
 [node name="StuckCheck" type="Node" parent="Components" unique_id=8303350 node_paths=PackedStringArray("parent")]
@@ -74,9 +72,9 @@ offset_right = 450.0
 offset_bottom = 50.0
 size_flags_vertical = 1
 theme = ExtResource("9_wjwe7")
-theme_override_styles/background = SubResource("StyleBoxEmpty_gf4gg")
+theme_override_styles/background = SubResource("StyleBoxFlat_wjwe7")
 theme_override_styles/fill = SubResource("StyleBoxTexture_l8unf")
-value = 50.0
+value = 100.0
 show_percentage = false
 
 [node name="Sprite3D" type="Sprite3D" parent="WaterProgressBar" unique_id=556388382]
@@ -97,6 +95,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4077328, 0)
 shape = SubResource("CylinderShape3D_nte5j")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1895610180]
+target_desired_distance = 1.5
 avoidance_enabled = true
 radius = 1.0
 debug_enabled = true
@@ -117,6 +116,9 @@ script = ExtResource("6_p2gyo")
 [node name="Roaming" type="Node" parent="StateChart/Root" unique_id=954715744]
 script = ExtResource("6_p2gyo")
 
+[node name="Following" type="Node" parent="StateChart/Root" unique_id=1248554689]
+script = ExtResource("6_p2gyo")
+
 [node name="OnIdle" type="Node" parent="StateChart/Root" unique_id=1513245057]
 script = ExtResource("7_vlowj")
 to = NodePath("../Idle")
@@ -129,12 +131,20 @@ to = NodePath("../Roaming")
 event = &"onRoaming"
 delay_in_seconds = "0.0"
 
+[node name="OnFollowing" type="Node" parent="StateChart/Root" unique_id=1185104800]
+script = ExtResource("7_vlowj")
+to = NodePath("../Following")
+event = &"onFollowing"
+delay_in_seconds = "0.0"
+
 [node name="AnimationTree" type="AnimationTree" parent="." unique_id=231973671]
 tree_root = ExtResource("8_bulnd")
 parameters/Idle/TimeSeek/seek_request = -1.0
 parameters/Roaming/IdleRoamingBlend/blend_position = 0.0056962026
 parameters/Roaming/TimeSeek/seek_request = -1.0
 
-[connection signal="state_entered" from="StateChart/Root/Idle" to="." method="_on_idle_state_entered"]
+[connection signal="water_changed" from="Components/WaterComponent" to="." method="_on_water_component_water_changed"]
+[connection signal="stuck" from="Components/StuckCheck" to="." method="_on_stuck_check_stuck"]
 [connection signal="state_entered" from="StateChart/Root/Roaming" to="." method="_on_roaming_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Roaming" to="." method="_on_roaming_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Following" to="." method="_on_following_state_physics_processing"]
