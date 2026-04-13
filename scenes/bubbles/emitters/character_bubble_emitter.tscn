@@ -14,6 +14,8 @@
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="7_vlowj"]
 [ext_resource type="AnimationNodeStateMachine" uid="uid://cywkw1oioudbl" path="res://assets/resources/animations/walk_npc_animation.tres" id="8_bulnd"]
 [ext_resource type="Theme" uid="uid://b4ym0ixwh6tmg" path="res://assets/resources/themes/main_theme.tres" id="9_wjwe7"]
+[ext_resource type="Script" uid="uid://ckhglsdmvttg2" path="res://assets/scripts/bubbles/states/character_roaming_state.gd" id="10_gf4gg"]
+[ext_resource type="Script" uid="uid://cggyb4gtow7bt" path="res://assets/scripts/bubbles/states/character_following_state.gd" id="11_u5ck0"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wjwe7"]
 bg_color = Color(0.5568628, 0.91764706, 0.9882353, 0.35686275)
@@ -119,6 +121,18 @@ debug_enabled = true
 debug_use_custom = true
 debug_path_custom_point_size = 8.0
 
+[node name="StateMachine" type="Node" parent="." unique_id=1312777497]
+
+[node name="IdleState" type="Node" parent="StateMachine" unique_id=1054832673]
+
+[node name="RoamingState" type="Node" parent="StateMachine" unique_id=2108932156 node_paths=PackedStringArray("character_bubble_emitter")]
+script = ExtResource("10_gf4gg")
+character_bubble_emitter = NodePath("../..")
+
+[node name="FollowingState" type="Node" parent="StateMachine" unique_id=1725596888 node_paths=PackedStringArray("character_bubble_emitter")]
+script = ExtResource("11_u5ck0")
+character_bubble_emitter = NodePath("../..")
+
 [node name="StateChart" type="Node" parent="." unique_id=1760279286]
 script = ExtResource("4_ate53")
 metadata/_custom_type_script = "uid://couw105c3bde4"
@@ -162,6 +176,6 @@ parameters/Roaming/TimeSeek/seek_request = -1.0
 
 [connection signal="water_changed" from="Components/WaterComponent" to="." method="_on_water_component_water_changed"]
 [connection signal="stuck" from="Components/StuckCheck" to="." method="_on_stuck_check_stuck"]
-[connection signal="state_entered" from="StateChart/Root/Roaming" to="." method="_on_roaming_state_entered"]
-[connection signal="state_physics_processing" from="StateChart/Root/Roaming" to="." method="_on_roaming_state_physics_processing"]
-[connection signal="state_physics_processing" from="StateChart/Root/Following" to="." method="_on_following_state_physics_processing"]
+[connection signal="state_entered" from="StateChart/Root/Roaming" to="StateMachine/RoamingState" method="_on_roaming_state_entered"]
+[connection signal="state_physics_processing" from="StateChart/Root/Roaming" to="StateMachine/RoamingState" method="_on_roaming_state_physics_processing"]
+[connection signal="state_physics_processing" from="StateChart/Root/Following" to="StateMachine/FollowingState" method="_on_following_state_physics_processing"]

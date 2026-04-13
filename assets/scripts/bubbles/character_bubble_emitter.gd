@@ -63,34 +63,6 @@ func _on_velocity_computed(safe_velocity: Vector3) -> void:
 	velocity = velocity.move_toward(target_velocity, accel * get_physics_process_delta_time())
 
 
-func _on_roaming_state_physics_processing(delta: float) -> void:
-	_on_roaming_state_entered()
-
-	if nav_agent.is_navigation_finished():
-		_set_new_roam_target()
-		return
-
-	move_to_target(delta)
-
-
-func _on_roaming_state_entered() -> void:
-	if animation_state.get_current_node() != "Roaming":
-		animation_state.travel("Roaming")
-
-
-func _on_following_state_physics_processing(delta: float) -> void:
-
-	if not player:
-		player = PlayerController.get_player_node(get_tree())
-
-	nav_agent.target_position = player.global_position
-
-	if nav_agent.is_navigation_finished():
-		return
-
-	move_to_target(delta)
-
-
 func move_to_target(delta: float) -> void:
 	var next_pos: Vector3 = nav_agent.get_next_path_position()
 	var direction: Vector3 = (next_pos - global_position).normalized()
@@ -107,7 +79,7 @@ func move_to_target(delta: float) -> void:
 		rotation.y = lerp_angle(rotation.y, target_rotation, turn_smoothness * delta)
 
 
-func _set_new_roam_target() -> void:
+func set_new_roam_target() -> void:
 	var random_offset: Vector3 = Vector3(
 		randf_range(-roam_radius, roam_radius),
 		0.0,
@@ -121,6 +93,13 @@ func _set_new_roam_target() -> void:
 	var nav_map: RID = nav_agent.get_navigation_map()
 	var closest_nav_point: Vector3 = NavigationServer3D.map_get_closest_point(nav_map, desired_point)
 	nav_agent.target_position = closest_nav_point
+
+
+func set_player_target() -> void:
+	if not player:
+		player = PlayerController.get_player_node(get_tree())
+
+	nav_agent.target_position = player.global_position
 
 
 func setup_animation_tree() -> void:
@@ -152,9 +131,9 @@ func _on_water_component_water_changed(current_water: float) -> void:
 		state_chart.send_event("onFollowing")
 	elif not bubble_emitter.disabled and previous_disabled:
 		state_chart.send_event("onRoaming")
-		_set_new_roam_target()
+		set_new_roam_target()
 
 
 func _on_stuck_check_stuck() -> void:
 	if not nav_agent.is_navigation_finished():
-		_set_new_roam_target()
+		set_new_roam_target()
