@@ -28,18 +28,22 @@ const CHARACTER_GROUP: String = "characters"
 var animation_state: AnimationNodeStateMachinePlayback
 var home_position: Vector3
 
+var follow_target: Node3D
+
 var player: PlayerController
+var other_characters: Array[CharacterBubbleEmitter] = []
 
 
 func _ready() -> void:
 	add_to_group(CHARACTER_GROUP)
 
-	home_position = global_position
-
 	await setup_animation_tree()
 
 	nav_agent.velocity_computed.connect(_on_velocity_computed)
 	nav_agent.target_position = home_position
+
+	home_position = global_position
+	target_player.call_deferred()
 
 	state_chart.send_event("onRoaming")
 
@@ -95,11 +99,28 @@ func set_new_roam_target() -> void:
 	nav_agent.target_position = closest_nav_point
 
 
-func set_player_target() -> void:
+func update_follow_target_position() -> void:
+	if not follow_target:
+		return
+
+	nav_agent.target_position = follow_target.global_position
+
+
+func target_player() -> void:
 	if not player:
 		player = PlayerController.get_player_node(get_tree())
 
-	nav_agent.target_position = player.global_position
+	follow_target = player
+
+
+func target_random_character() -> void:
+	other_characters.assign(get_tree().get_nodes_in_group(CHARACTER_GROUP))
+	other_characters.erase(self)
+
+	follow_target = other_characters.pick_random()
+
+	if not follow_target:
+		target_player()
 
 
 func setup_animation_tree() -> void:

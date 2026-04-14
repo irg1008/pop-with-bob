@@ -12,6 +12,8 @@ signal inflated()
 @export var bubble_pivot: Node3D
 @export var audio_player: AudioStreamPlayer3D
 @export var pop_effect: GPUParticles3D
+
+@export_category("Audio")
 @export var pop_sounds: Array[AudioStream] = []
 
 @export_category("Bubble Properties")
@@ -19,8 +21,7 @@ signal inflated()
 @export var wobble_rotation_strength: float = 0.035
 @export var inflate_speed: float = 1.0
 @export var max_scale: float = 1.0
-
-@export_category("Collision")
+@export var resist_pop_chance: float = 0.0
 
 
 const MIN_PHYSICS_SAFE_SCALE: float = 0.001
@@ -96,6 +97,9 @@ func inflate() -> void:
 
 
 func pop() -> void:
+	if randf() < resist_pop_chance:
+		return
+
 	pop_effect.global_position = rigid_body.global_position
 	pop_effect.restart()
 

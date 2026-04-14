@@ -6,7 +6,7 @@ extends Node
 
 
 func _on_following_state_physics_processing(delta: float) -> void:
-	character_bubble_emitter.set_player_target()
+	character_bubble_emitter.update_follow_target_position()
 
 	if character_bubble_emitter.nav_agent.is_navigation_finished():
 		return

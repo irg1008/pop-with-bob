@@ -29,4 +29,4 @@ func _unhandled_input(event: InputEvent) -> void:
 		mouse_input.y -= mouse_event.screen_relative.y * mouse_sensitivity
 
 	if debug:
-		print(mouse_input)
+		print_debug(mouse_input)

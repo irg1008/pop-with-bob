@@ -59,6 +59,8 @@ initial_soaps = Array[ExtResource("3_kxn8d")]([ExtResource("4_rjrtd")])
 script = ExtResource("5_kxn8d")
 water_progress_bar = NodePath("../../WaterProgressBar/SubViewport/ProgressBar")
 water_amount_label = NodePath("../../WaterProgressBar/SubViewport/CenterContainer/WaterAmountLabel")
+initial_water = 10.0
+max_water = 10.0
 
 [node name="StuckCheck" type="Node" parent="Components" unique_id=8303350 node_paths=PackedStringArray("parent")]
 script = ExtResource("6_rjrtd")
@@ -116,7 +118,7 @@ shape = SubResource("CylinderShape3D_nte5j")
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1895610180]
 target_desired_distance = 1.5
 avoidance_enabled = true
-radius = 1.0
+avoidance_mask = 3
 debug_enabled = true
 debug_use_custom = true
 debug_path_custom_point_size = 8.0

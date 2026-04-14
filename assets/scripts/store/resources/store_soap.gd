@@ -35,7 +35,7 @@ signal soap_ammo_change(amount: int)
 @export var gold_reward_increase: int = 0
 @export var gold_reward_multiplier: float = 1.0
 ## Chance the bubble won't explode on collision
-@export var bubble_resist_chance: float = 0.0 # TODO
+@export var bubble_resist_chance: float = 0.0
 @export_group("Bubble Emitter")
 ## Chance the bubble won't pop on collision
 @export var max_bubbles_increase: int = 0
@@ -53,11 +53,9 @@ signal soap_ammo_change(amount: int)
 @export var ammo_recover_amount: int = 0
 @export var ammo_loss_chance: float = 0.0
 @export var ammo_loss_amount: int = 0
-@export_group("Character Behavior") # TODO
+@export_group("Character Behavior")
 ## Chance the npc will attack other npcs instead of the player
 @export var crazy_chance: float = 0.0
-## Chance the npc will stop generating bubbles and just stand there
-@export var sindicated_chance: float = 0.0
 
 
 var soap_uses: int = 0
@@ -94,13 +92,19 @@ func apply_water_component_mods(water_component: WaterComponent) -> void:
 
 
 ## Apply mods to water component when soap is depleted (see soap_component.gd)
-func apply_water_component_depleted_mods(water_component: WaterComponent) -> void:
-	if randf() < empty_refill_water_chance:
-		water_component.refill_water()
+func apply_water_component_depleted_mods(character: CharacterBubbleEmitter, water_component: WaterComponent) -> void:
+	if water_component:
+		if randf() < empty_refill_water_chance:
+			water_component.refill_water()
 
-	if randf() < deplete_refill_water_chance:
-		water_component.refill_water()
-		deplete_soap()
+		if randf() < deplete_refill_water_chance:
+			water_component.refill_water()
+			deplete_soap()
+
+	if character:
+		# Crazy chance to follow other npc instead of player
+		if randf() < crazy_chance:
+			character.target_random_character()
 
 
 ## Apply mods to bubble emitter on soap change (see soap_component.gd)
@@ -134,6 +138,7 @@ func use_soap(bubble: Bubble, prev_soap: StoreSoap) -> void:
 	bubble.max_scale *= size_mod
 	bubble.inflate_speed /= inflate_speed_mod
 	bubble.rigid_body.gravity_scale += gravity_increase
+	bubble.resist_pop_chance = bubble_resist_chance
 
 	bubble.popped.connect(_apply_pop_mods)
 

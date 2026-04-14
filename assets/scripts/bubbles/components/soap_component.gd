@@ -32,7 +32,7 @@ func _on_bubble_created(bubble: Bubble) -> void:
 
 func _on_water_depleted() -> void:
 	for soap: StoreSoap in soaps:
-		soap.apply_water_component_depleted_mods(water_component)
+		soap.apply_water_component_depleted_mods(character_bubble_emitter, water_component)
 
 
 func init_soap(soap: StoreSoap) -> StoreSoap:
@@ -73,4 +73,3 @@ func use_soap(bubble: Bubble) -> void:
 		var prev_soap: StoreSoap = soaps[i - 1] if i > 0 else null
 		var soap: StoreSoap = soaps[i]
 		soap.use_soap(bubble, prev_soap)
-
