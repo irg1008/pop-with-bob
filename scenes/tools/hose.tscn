@@ -8,6 +8,47 @@ size = Vector3(0.14, 0.115, 1)
 [sub_resource type="BoxShape3D" id="BoxShape3D_rci64"]
 size = Vector3(2.2822266, 2.0463867, 2.5966797)
 
+[sub_resource type="Curve" id="Curve_hose_spray_alpha"]
+_data = [Vector2(0, 0), 0.0, 3.0, 0, 0, Vector2(0.1, 1), 0.0, 0.0, 0, 0, Vector2(0.76, 1), 0.0, -2.2, 0, 0, Vector2(1, 0), -2.8, 0.0, 0, 0]
+point_count = 4
+
+[sub_resource type="CurveTexture" id="CurveTexture_hose_spray_alpha"]
+curve = SubResource("Curve_hose_spray_alpha")
+
+[sub_resource type="Gradient" id="Gradient_hose_spray_color"]
+offsets = PackedFloat32Array(0, 0.22, 0.72, 1)
+colors = PackedColorArray(0.84, 0.94, 1, 0, 0.78, 0.9, 1, 0.88, 0.62, 0.84, 1, 0.55, 0.48, 0.72, 0.96, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_hose_spray_color"]
+gradient = SubResource("Gradient_hose_spray_color")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_hose_spray"]
+emission_shape = 3
+emission_box_extents = Vector3(0.01, 0.01, 0.03)
+direction = Vector3(0, -0.04, -1)
+spread = 5.0
+initial_velocity_min = 8.0
+initial_velocity_max = 10.5
+gravity = Vector3(0, -7.5, 0)
+damping_min = 0.12
+damping_max = 0.35
+scale_min = 0.011
+scale_max = 0.022
+color_initial_ramp = SubResource("GradientTexture1D_hose_spray_color")
+alpha_curve = SubResource("CurveTexture_hose_spray_alpha")
+hue_variation_min = -0.01
+hue_variation_max = 0.01
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_hose_drop"]
+transparency = 1
+shading_mode = 0
+vertex_color_use_as_albedo = true
+billboard_mode = 1
+
+[sub_resource type="QuadMesh" id="QuadMesh_hose_drop"]
+material = SubResource("StandardMaterial3D_hose_drop")
+size = Vector2(0.024, 0.052)
+
 [node name="Hose" type="Node3D" unique_id=201069446]
 script = ExtResource("1_a1tr0")
 
@@ -19,3 +60,14 @@ mesh = SubResource("BoxMesh_rci64")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="WateringArea" unique_id=1241897368]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.52319336, -1.7983398)
 shape = SubResource("BoxShape3D_rci64")
+
+[node name="WaterSpray" type="GPUParticles3D" parent="." unique_id=1336579218]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.02, -0.55)
+emitting = false
+amount = 360
+lifetime = 0.42
+randomness = 0.32
+visibility_aabb = AABB(-0.9, -1.6, -4.6, 1.8, 2.4, 5.1)
+local_coords = true
+process_material = SubResource("ParticleProcessMaterial_hose_spray")
+draw_pass_1 = SubResource("QuadMesh_hose_drop")

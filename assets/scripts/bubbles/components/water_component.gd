@@ -13,7 +13,7 @@ signal water_changed(current_water: float)
 @export var initial_water: float = 100.0
 @export var max_water: float = 100.0
 @export var water_use_rate: float = 2.0
-@export var water_absorption_rate: float = 5.0
+@export var water_absorption_rate: float = 10.0
 
 
 var current_water: float = 0.0: set = set_current_water
