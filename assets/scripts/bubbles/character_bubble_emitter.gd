@@ -12,7 +12,7 @@ class_name CharacterBubbleEmitter extends SmoothStairsCharacter3D
 @export var roam_radius: float = 40.0
 @export var min_roam_distance: float = 10.0
 @export_group("Water")
-@export var min_water_to_emit: float = 20.0
+@export var min_water_to_emit: float = 5.0
 
 
 @onready var nav_agent: NavigationAgent3D = $NavigationAgent3D

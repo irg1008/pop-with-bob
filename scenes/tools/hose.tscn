@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://cohbudd01vu5t"]
+
+[ext_resource type="Script" uid="uid://dxgyd1qobvcgl" path="res://assets/scripts/tools/hose.gd" id="1_a1tr0"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_rci64"]
+size = Vector3(0.14, 0.115, 1)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_rci64"]
+size = Vector3(2.2822266, 2.0463867, 2.5966797)
+
+[node name="Hose" type="Node3D" unique_id=201069446]
+script = ExtResource("1_a1tr0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1905653279]
+mesh = SubResource("BoxMesh_rci64")
+
+[node name="WateringArea" type="Area3D" parent="." unique_id=690453392]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="WateringArea" unique_id=1241897368]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.52319336, -1.7983398)
+shape = SubResource("BoxShape3D_rci64")

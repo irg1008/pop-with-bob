@@ -121,6 +121,7 @@ func _spawn_projectile() -> void:
 	var ray_normal: Vector3 = camera.project_ray_normal(viewport_center)
 	var ray_end: Vector3 = ray_origin + ray_normal * MAX_PROJECTILE_DISTANCE
 
+	# Perform raycast to find target point
 	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
 	var result: Dictionary = camera.get_world_3d().direct_space_state.intersect_ray(query)
 	var target_position: Vector3 = result.position if result else ray_end

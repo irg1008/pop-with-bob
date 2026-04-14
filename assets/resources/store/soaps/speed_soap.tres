@@ -4,7 +4,6 @@
 
 [resource]
 script = ExtResource("1_1klw2")
-crazy_chance = 0.5
 name = "Speed Soap"
 price = 100.0
 max_available = 10
