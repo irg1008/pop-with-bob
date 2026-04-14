@@ -68,7 +68,6 @@ func _physics_process(delta: float) -> void:
 
 	velocity = Vector3(horizontal_velocity.x, velocity.y, horizontal_velocity.y)
 
-	push_rigid_bodies()
 	smooth_move_and_stair_step()
 
 

@@ -15,7 +15,7 @@ func _physics_process(delta: float) -> void:
 	var end_pos: Vector3 = global_position + velocity * delta
 
 	var query: PhysicsRayQueryParameters3D = PhysicsRayQueryParameters3D.create(start_pos, end_pos)
-	query.collision_mask = 1
+	query.collision_mask = collision_mask
 	var result: Dictionary = space_state.intersect_ray(query)
 
 	if not result:

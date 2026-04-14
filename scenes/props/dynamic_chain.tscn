@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://iip3efkq65f2"]
+
+[ext_resource type="Script" uid="uid://b72iphjpqn7et" path="res://assets/scripts/props/dynamic_chain.gd" id="1_0gv4b"]
+
+[node name="DynamicChain" type="Node3D" unique_id=1944360379 node_paths=PackedStringArray("anchor", "link_container")]
+script = ExtResource("1_0gv4b")
+anchor = NodePath("Anchor")
+link_container = NodePath("LinkContainer")
+collision_layer = 4
+collision_mask = 7
+
+[node name="Anchor" type="StaticBody3D" parent="." unique_id=27272142]
+
+[node name="LinkContainer" type="Node3D" parent="." unique_id=510713385]

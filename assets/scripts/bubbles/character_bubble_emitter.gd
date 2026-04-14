@@ -52,7 +52,6 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 
-	push_rigid_bodies()
 	smooth_move_and_stair_step()
 	update_roaming_blends()
 
