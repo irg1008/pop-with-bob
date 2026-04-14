@@ -23,12 +23,12 @@ func set_current_water(value: float) -> void:
 	water_progress_bar.value = current_water / max_water * 100.0
 	water_amount_label.text = "%d / %d" % [current_water, max_water]
 
-	water_changed.emit(current_water)
-
 	if current_water <= 0.0:
 		water_depleted.emit()
 	elif current_water >= max_water:
 		water_refilled.emit()
+
+	water_changed.emit(current_water)
 
 
 func _ready() -> void:
@@ -36,7 +36,7 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if current_water <= max_water:
+	if current_water <= max_water and water_use_rate > 0.0:
 		use_water(water_use_rate * delta)
 
 

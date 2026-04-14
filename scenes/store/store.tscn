@@ -12,6 +12,13 @@ size = Vector3(2, 1, 0.5)
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_q2ccp"]
 
+[sub_resource type="SphereMesh" id="SphereMesh_756f3"]
+radius = 0.1
+height = 0.2
+
+[sub_resource type="SphereMesh" id="SphereMesh_7b83j"]
+radius = 0.1
+
 [node name="Store" type="Node3D" unique_id=1120907835]
 script = ExtResource("1_q2ccp")
 
@@ -34,3 +41,15 @@ mesh = SubResource("CapsuleMesh_ja1ay")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Owner" unique_id=1979170557]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -0.95387214)
 shape = SubResource("CapsuleShape3D_q2ccp")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Owner" unique_id=456058664]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.12273598, 0.58680177, -0.51621914)
+mesh = SubResource("SphereMesh_756f3")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Owner" unique_id=198444030]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.1466623, 0.58680177, -0.5686586)
+mesh = SubResource("SphereMesh_756f3")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Owner" unique_id=320618332]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0016688704, 0.08264446, -0.44037056)
+mesh = SubResource("SphereMesh_7b83j")

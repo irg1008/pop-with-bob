@@ -4,6 +4,7 @@ class_name SoapComponent extends Node
 @export_category("References")
 @export var character_bubble_emitter: CharacterBubbleEmitter
 @export var bubble_emitter: BubbleEmitter
+@export var water_component: WaterComponent
 
 @export_category("Soaps")
 @export var initial_max_soaps: int = 4
@@ -17,7 +18,8 @@ var max_soaps: int
 func _ready() -> void:
 	set_soaps(initial_soaps)
 
-	bubble_emitter.bubble_created.connect(use_soap)
+	bubble_emitter.bubble_created.connect(_on_bubble_created)
+	water_component.water_depleted.connect(_on_water_depleted)
 
 
 func can_add_soap() -> bool:
@@ -26,6 +28,15 @@ func can_add_soap() -> bool:
 
 func _on_soap_depleted(soap: StoreSoap) -> void:
 	soaps.erase(soap)
+
+
+func _on_bubble_created(bubble: Bubble) -> void:
+	use_soap(bubble)
+
+
+func _on_water_depleted() -> void:
+	for soap: StoreSoap in soaps:
+		soap.apply_water_component_depleted_mods(water_component)
 
 
 func init_soap(soap: StoreSoap) -> StoreSoap:
@@ -40,6 +51,9 @@ func init_soap(soap: StoreSoap) -> StoreSoap:
 	if bubble_emitter:
 		soap.apply_emitter_data_mods(bubble_emitter.emitter_data)
 		soap.apply_bubble_data_mods(bubble_emitter.emitter_data.bubble)
+
+	if water_component:
+		soap.apply_water_component_mods(water_component)
 
 	return soap
 

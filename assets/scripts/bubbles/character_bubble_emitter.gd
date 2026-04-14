@@ -118,22 +118,23 @@ func update_roaming_blends() -> void:
 	animation_tree.set("parameters/Roaming/IdleRoamingBlend/blend_position", move_amount)
 
 
-func _on_water_component_water_changed(current_water: float) -> void:
-	if not bubble_emitter:
-		return
-
-	var previous_disabled: bool = bubble_emitter.disabled
-	var enable_threshold: float = min_water_to_emit if previous_disabled else 0.0
-
-	bubble_emitter.disabled = current_water <= enable_threshold
-
-	if bubble_emitter.disabled and not previous_disabled:
-		state_chart.send_event("onFollowing")
-	elif not bubble_emitter.disabled and previous_disabled:
-		state_chart.send_event("onRoaming")
-		set_new_roam_target()
-
-
 func _on_stuck_check_stuck() -> void:
 	if not nav_agent.is_navigation_finished():
 		set_new_roam_target()
+
+
+func _on_water_component_water_changed(current_water: float) -> void:
+	if not bubble_emitter or not bubble_emitter.disabled:
+		return
+
+	if current_water >= min_water_to_emit:
+		bubble_emitter.disabled = false
+		state_chart.send_event("onRoaming")
+
+
+func _on_water_component_water_depleted() -> void:
+	if not bubble_emitter or bubble_emitter.disabled:
+		return
+
+	bubble_emitter.disabled = true
+	state_chart.send_event("onFollowing")

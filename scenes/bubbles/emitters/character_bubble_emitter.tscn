@@ -48,17 +48,19 @@ metadata/_custom_type_script = "uid://dgcufyvakuq3s"
 
 [node name="Components" type="Node" parent="." unique_id=345097862]
 
-[node name="SoapComponent" type="Node" parent="Components" unique_id=698940185 node_paths=PackedStringArray("character_bubble_emitter", "bubble_emitter")]
+[node name="SoapComponent" type="Node" parent="Components" unique_id=698940185 node_paths=PackedStringArray("character_bubble_emitter", "bubble_emitter", "water_component")]
 script = ExtResource("2_3a06d")
 character_bubble_emitter = NodePath("../..")
 bubble_emitter = NodePath("../../BubbleEmitter")
+water_component = NodePath("../WaterComponent")
 initial_soaps = Array[ExtResource("3_kxn8d")]([ExtResource("4_rjrtd")])
 
 [node name="WaterComponent" type="Node" parent="Components" unique_id=1336411476 node_paths=PackedStringArray("water_progress_bar", "water_amount_label")]
 script = ExtResource("5_kxn8d")
 water_progress_bar = NodePath("../../WaterProgressBar/SubViewport/ProgressBar")
 water_amount_label = NodePath("../../WaterProgressBar/SubViewport/CenterContainer/WaterAmountLabel")
-max_water = 200.0
+initial_water = 10.0
+max_water = 20.0
 
 [node name="StuckCheck" type="Node" parent="Components" unique_id=8303350 node_paths=PackedStringArray("parent")]
 script = ExtResource("6_rjrtd")
@@ -175,6 +177,7 @@ parameters/Roaming/IdleRoamingBlend/blend_position = 0.0056962026
 parameters/Roaming/TimeSeek/seek_request = -1.0
 
 [connection signal="water_changed" from="Components/WaterComponent" to="." method="_on_water_component_water_changed"]
+[connection signal="water_depleted" from="Components/WaterComponent" to="." method="_on_water_component_water_depleted"]
 [connection signal="stuck" from="Components/StuckCheck" to="." method="_on_stuck_check_stuck"]
 [connection signal="state_entered" from="StateChart/Root/Roaming" to="StateMachine/RoamingState" method="_on_roaming_state_entered"]
 [connection signal="state_physics_processing" from="StateChart/Root/Roaming" to="StateMachine/RoamingState" method="_on_roaming_state_physics_processing"]
