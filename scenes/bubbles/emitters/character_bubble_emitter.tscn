@@ -98,20 +98,24 @@ theme_override_font_sizes/font_size = 24
 text = "0.0/0.0"
 
 [node name="Sprite3D" type="Sprite3D" parent="WaterProgressBar" unique_id=556388382]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.86010206, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.8446983, 0)
 pixel_size = 0.002
 billboard = 2
 texture = SubResource("ViewportTexture_wjwe7")
 
 [node name="BubbleEmitter" type="Node3D" parent="." unique_id=31996967]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.9619566, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.95168746, 0)
 script = ExtResource("1_gp703")
 emitter_data = ExtResource("2_2bnqf")
 
 [node name="Character" type="Node3D" parent="." unique_id=1174441357]
 
+[node name="GPUParticlesCollisionBox3D" type="GPUParticlesCollisionBox3D" parent="." unique_id=1186653244]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.36773682, 0)
+size = Vector3(0.8652344, 0.6143799, 0.87402344)
+
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=47495966]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.4077328, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.35, 0)
 shape = SubResource("CylinderShape3D_nte5j")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="." unique_id=1895610180]
