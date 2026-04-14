@@ -7,10 +7,6 @@ class_name DynamicChain extends Node3D
 	set(value):
 		anchor = value
 		await _regenerate_chain()
-@export var end_anchor: StaticBody3D:
-	set(value):
-		end_anchor = value
-		await _regenerate_chain()
 @export var link_container: Node3D
 
 @export_category("Chain Settings")
@@ -98,15 +94,9 @@ func _generate_chain() -> void:
 		body_b.add_child(joint)
 		joints.append(joint)
 
-	# Attach end anchor to last link
-	var last_link: RigidBody3D = links[links.size() - 1]
-	if end_anchor and last_link:
-		var end_joint: Generic6DOFJoint3D = _create_joint(last_link, end_anchor)
-		end_anchor.add_child(end_joint)
-		joints.append(end_joint)
-
 	# Attach scene to last link
-	if attached_scene and last_link:
+	if attached_scene and links.size() > 0:
+		var last_link: RigidBody3D = links[links.size() - 1]
 		var attachment: Node = attached_scene.instantiate()
 		link_container.add_child(attachment)
 
