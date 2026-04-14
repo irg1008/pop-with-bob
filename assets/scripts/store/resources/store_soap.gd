@@ -15,10 +15,13 @@ signal soap_ammo_change(amount: int)
 @export var next_soap_use_chance: float = 1.0
 ## Chance the soap will be used on bubble emission
 @export var soap_use_chance: float = 1.0
-@export_group("Water Usage")
-@export var water_use_rate_mod: float = 1.0
+@export_group("Water")
 @export var max_water_increase: float = 0.0
 @export var max_water_mod: float = 1.0
+@export var water_use_rate_increase: float = 0.0
+@export var water_use_rate_mod: float = 1.0
+@export var water_absorption_increase: float = 0.0
+@export var water_absorption_mod: float = 1.0
 ## Chance to fully refill water when water runs out
 @export var empty_refill_water_chance: float = 0.0
 ## Chance to deplete soap and fully refill water when water runs out
@@ -71,7 +74,7 @@ func is_soap_depleted() -> bool:
 
 func deplete_soap() -> void:
 	soap_uses = 0
-	soap_depleted.emit(self )
+	soap_depleted.emit(self)
 
 
 ## Apply mods to soap_component on soap change (see soap_component.gd)
@@ -86,9 +89,14 @@ func apply_character_mods(_character: CharacterBubbleEmitter) -> void:
 
 ## Apply mods to water_component on soap change (see soap_component.gd)
 func apply_water_component_mods(water_component: WaterComponent) -> void:
-	water_component.water_use_rate *= water_use_rate_mod
 	water_component.max_water += max_water_increase
 	water_component.max_water *= max_water_mod
+
+	water_component.water_use_rate += water_use_rate_increase
+	water_component.water_use_rate *= water_use_rate_mod
+
+	water_component.water_absorption_rate += water_absorption_increase
+	water_component.water_absorption_rate *= water_absorption_mod
 
 
 ## Apply mods to water component when soap is depleted (see soap_component.gd)
@@ -154,7 +162,7 @@ func use_soap(bubble: Bubble, prev_soap: StoreSoap) -> void:
 		soap_uses -= 1
 
 	if is_soap_depleted():
-		soap_depleted.emit(self )
+		soap_depleted.emit(self)
 
 
 func _apply_pop_mods() -> void:

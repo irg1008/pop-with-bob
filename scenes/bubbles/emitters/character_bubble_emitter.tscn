@@ -52,8 +52,7 @@ metadata/_custom_type_script = "uid://dgcufyvakuq3s"
 script = ExtResource("5_kxn8d")
 water_progress_bar = NodePath("../../WaterProgressBar/SubViewport/ProgressBar")
 water_amount_label = NodePath("../../WaterProgressBar/SubViewport/CenterContainer/WaterAmountLabel")
-initial_water = 10.0
-max_water = 10.0
+initial_water = 50.0
 
 [node name="SoapComponent" type="Node" parent="Components" unique_id=698940185 node_paths=PackedStringArray("character_bubble_emitter", "bubble_emitter", "water_component")]
 script = ExtResource("2_3a06d")
