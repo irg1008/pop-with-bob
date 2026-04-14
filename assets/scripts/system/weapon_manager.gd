@@ -68,10 +68,15 @@ func refill_ammo(weapon_data: WeaponData) -> void:
 
 
 func add_ammo(weapon_data: WeaponData, amount: int) -> void:
-	weapon_data.ammo += amount
+	weapon_data.ammo = clampi(weapon_data.ammo + amount, 0, weapon_data.weapon.max_ammo)
 
 	if weapon_data == current_weapon:
 		player.weapon_controller.set_ammo(weapon_data.ammo)
+
+
+func add_currrent_weapon_ammo(amount: int) -> void:
+	if current_weapon:
+		add_ammo(current_weapon, amount)
 
 
 func unlock_weapon(weapon_data: WeaponData) -> void:

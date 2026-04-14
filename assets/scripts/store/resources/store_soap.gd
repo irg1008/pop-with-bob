@@ -2,6 +2,7 @@ class_name StoreSoap extends StoreItem
 
 
 signal soap_depleted(soap: StoreSoap)
+signal soap_ammo_change(amount: int)
 
 
 @export var max_uses: int = 100
@@ -47,11 +48,11 @@ signal soap_depleted(soap: StoreSoap)
 @export var health_regen_amount: float = 0.0
 @export var health_loss_chance: float = 0.0
 @export var health_loss_amount: float = 0.0
-@export_group("Ammo") # TODO
+@export_group("Ammo")
 @export var ammo_recover_chance: float = 0.0
-@export var ammo_recover_amount: float = 0.0
+@export var ammo_recover_amount: int = 0
 @export var ammo_loss_chance: float = 0.0
-@export var ammo_loss_amount: float = 0.0
+@export var ammo_loss_amount: int = 0
 @export_group("Character Behavior") # TODO
 ## Chance the npc will attack other npcs instead of the player
 @export var crazy_chance: float = 0.0
@@ -72,7 +73,7 @@ func is_soap_depleted() -> bool:
 
 func deplete_soap() -> void:
 	soap_uses = 0
-	soap_depleted.emit(self)
+	soap_depleted.emit(self )
 
 
 ## Apply mods to soap_component on soap change (see soap_component.gd)
@@ -129,10 +130,14 @@ func use_soap(bubble: Bubble, prev_soap: StoreSoap) -> void:
 	if is_soap_depleted():
 		return
 
+	# Bubble mods
 	bubble.max_scale *= size_mod
 	bubble.inflate_speed /= inflate_speed_mod
 	bubble.rigid_body.gravity_scale += gravity_increase
 
+	bubble.popped.connect(_apply_pop_mods)
+
+	# Mute mod
 	if randf() < mute_pop_sound_chance:
 		bubble.mute_pop_sound = true
 
@@ -144,4 +149,12 @@ func use_soap(bubble: Bubble, prev_soap: StoreSoap) -> void:
 		soap_uses -= 1
 
 	if is_soap_depleted():
-		soap_depleted.emit(self)
+		soap_depleted.emit(self )
+
+
+func _apply_pop_mods() -> void:
+	# Ammo mods
+	if randf() < ammo_recover_chance:
+		soap_ammo_change.emit(ammo_recover_amount)
+	if randf() < ammo_loss_chance:
+		soap_ammo_change.emit(-ammo_loss_amount)

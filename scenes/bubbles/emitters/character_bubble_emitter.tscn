@@ -59,8 +59,6 @@ initial_soaps = Array[ExtResource("3_kxn8d")]([ExtResource("4_rjrtd")])
 script = ExtResource("5_kxn8d")
 water_progress_bar = NodePath("../../WaterProgressBar/SubViewport/ProgressBar")
 water_amount_label = NodePath("../../WaterProgressBar/SubViewport/CenterContainer/WaterAmountLabel")
-initial_water = 10.0
-max_water = 20.0
 
 [node name="StuckCheck" type="Node" parent="Components" unique_id=8303350 node_paths=PackedStringArray("parent")]
 script = ExtResource("6_rjrtd")

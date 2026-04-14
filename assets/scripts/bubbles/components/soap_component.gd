@@ -26,10 +26,6 @@ func can_add_soap() -> bool:
 	return soaps.size() < max_soaps
 
 
-func _on_soap_depleted(soap: StoreSoap) -> void:
-	soaps.erase(soap)
-
-
 func _on_bubble_created(bubble: Bubble) -> void:
 	use_soap(bubble)
 
@@ -42,6 +38,7 @@ func _on_water_depleted() -> void:
 func init_soap(soap: StoreSoap) -> StoreSoap:
 	soap.init()
 	soap.soap_depleted.connect(_on_soap_depleted)
+	soap.soap_ammo_change.connect(_on_soap_ammo_changed)
 
 	soap.apply_soap_component_mods(self)
 
@@ -56,6 +53,14 @@ func init_soap(soap: StoreSoap) -> StoreSoap:
 		soap.apply_water_component_mods(water_component)
 
 	return soap
+
+
+func _on_soap_depleted(soap: StoreSoap) -> void:
+	soaps.erase(soap)
+
+
+func _on_soap_ammo_changed(ammo: int) -> void:
+	Managers.weapon_manager.add_currrent_weapon_ammo(ammo)
 
 
 func set_soaps(new_soaps: Array[StoreSoap]) -> void:
