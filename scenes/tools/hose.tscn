@@ -60,7 +60,7 @@ shader_parameter/refraction_strength = 0.05
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_water_drop"]
 material = SubResource("ShaderMaterial_water_drop")
-radius = 0.02
+radius = 0.01
 height = 0.1
 radial_segments = 12
 rings = 12

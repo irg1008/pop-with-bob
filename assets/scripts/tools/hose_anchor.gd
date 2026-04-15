@@ -1,7 +1,7 @@
 class_name HoseAnchor extends Node
 
 
-@export var hose: Hose3D
+@export var hose: RigidHose3D
 
 
 func _ready() -> void:

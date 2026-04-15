@@ -4,6 +4,7 @@
 
 [resource]
 script = ExtResource("1_1klw2")
+water_absorption_increase = 10.0
 name = "Speed Soap"
 price = 100.0
 max_available = 10

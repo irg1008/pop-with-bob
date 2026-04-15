@@ -46,7 +46,7 @@ signal soap_ammo_change(amount: int)
 @export var autopop_chance: float = 0.0
 @export var autopop_lifetime: float = 30.0
 @export var autopop_lifetime_mod: float = 1.0
-@export_group("Health")
+@export_group("Health") # TODO
 @export var health_regen_chance: float = 0.0
 @export var health_regen_amount: float = 0.0
 @export var health_loss_chance: float = 0.0
