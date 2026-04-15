@@ -123,10 +123,11 @@ weapon = ExtResource("4_i3i3a")
 [node name="Hose3D2" parent="HoseAnchor" index="0" unique_id=1512090745]
 thickness = 0.04
 radial_segments = 12
-enable_self_collision = true
 
 [node name="_CSGPolygon3D_114893" parent="HoseAnchor/Hose3D2" index="0" unique_id=67561059]
 polygon = PackedVector2Array(0.04, 0, 0.034641016, 0.02, 0.02, 0.034641016, 2.4492127e-18, 0.04, -0.02, 0.034641016, -0.034641016, 0.02, -0.04, 4.8984254e-18, -0.034641016, -0.02, -0.02, -0.034641016, -7.347638e-18, -0.04, 0.02, -0.034641016, 0.034641016, -0.02)
-path_interval = 0.1
+
+[node name="HoseAnchorStart" parent="HoseAnchor" index="1" unique_id=442340910]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.4610555, 1.7049992, 9.980927)
 
 [editable path="HoseAnchor"]
