@@ -44,7 +44,7 @@ window/size/viewport_height=1080
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/SignalVisualizer/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg")
+enabled=PackedStringArray("res://addons/SignalVisualizer/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/hose3d/plugin.cfg", "res://addons/rope3d/plugin.cfg")
 
 [file_customization]
 

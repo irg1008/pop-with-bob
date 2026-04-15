@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://cnhxaylmg6o53"]
+
+[ext_resource type="Script" uid="uid://n68bc24feuqx" path="res://assets/scripts/tools/hose_anchor.gd" id="1_354te"]
+[ext_resource type="Script" uid="uid://b63uj1ql5qpuh" path="res://addons/hose3d/hose_3d.gd" id="2_hl0lu"]
+
+[sub_resource type="Curve3D" id="Curve3D_i3i3a"]
+bake_interval = 1.0
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -0.42718625, 0, 0.21592219, 0, 0, 0, 0, 0, 0, -1.4357703, 0, 0.35665497, 0, 0, 0, 0, 0, 0, -2.327079, 0, 0.3449274, 0, 0, 0, 0, 0, 0, -3.3825743, 0, 0.32147178, 0, 0, 0, 0, 0, 0, -3.7578623, 0, 0.6850315, 0, 0, 0, 0, 0, 0, -3.40603, 0, 1.2245075, 0, 0, 0, 0, 0, 0, -2.89001, 0, 1.423879, 0, 0, 0, 0, 0, 0, -2.1511633, 0, 1.5177008, 0, 0, 0, 0, 0, 0, -1.0604832, 0, 0.95476943, 0, 0, 0, 0, 0, 0, -0.6265576, 0, 1.1189579, 0, 0, 0, 0, 0, 0, -0.3920033, 0, 1.9516269, 0, 0, 0, 0, 0, 0, -0.7086508, 0, 2.197909, 0, 0, 0, 0, 0, 0, -1.4357703, 0, 2.3151865, 0, 0, 0, 0, 0, 0, -2.4443562, 0, 1.8226217, 0, 0, 0, 0, 0, 0, -3.218387, 0, 2.3620975, 0, 0, 0, 0, 0, 0, -2.5733607, 0, 3.1830392, 0, 0, 0, 0, 0, 0, -1.5889196, 0, 3.0870025, 0, 0, 0, 0, 0, 0, -0.6465478, 0, 3.2893457, 0, 0, 0, 0, 0, 0, 0.22956729, 0, 4.508273, 0, 0, 0, 0, 0, 0, -0.6734679, 0, 5.5989523, 0, 0, 0, 0, 0, 0, -1.9752467, 0, 5.6341352, 0, 0, 0, 0, 0, 0, -2.549906, 0, 5.423036, 0, 0, 0, 0, 0, 0, -3.2652972, 0, 5.4464917, 0, 0, 0, 0, 0, 0, -3.6757681, 0, 5.7279572, 0, 0, 0, 0, 0, 0, -3.549176, 0, 6.328503, 0, 0, 0, 0, 0, 0, -2.7921708, 0, 6.6635013, 0, 0, 0, 0, 0, 0, -1.9983073, 0, 6.736542, 0, 0, 0, 0, 0, 0, -1.3302224, 0, 7.0062804),
+"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+}
+point_count = 29
+
+[node name="HoseAnchor" type="Node3D" unique_id=713593107 node_paths=PackedStringArray("hose")]
+script = ExtResource("1_354te")
+hose = NodePath("Hose3D2")
+
+[node name="Hose3D2" type="Path3D" parent="." unique_id=1512090745]
+curve = SubResource("Curve3D_i3i3a")
+script = ExtResource("2_hl0lu")
+attachment_start = NodePath("../HoseAnchorStart")
+attachment_end = NodePath("../PlaceholderHoseAnchorEnd")
+custom_initial_shape = true
+length = 23.670013
+segments = 100
+thickness = 0.05
+enable_self_collision = true
+metadata/_custom_type_script = "uid://b63uj1ql5qpuh"
+
+[node name="_CSGPolygon3D_114893" type="CSGPolygon3D" parent="Hose3D2" unique_id=67561059]
+collision_layer = 4
+collision_mask = 7
+polygon = PackedVector2Array(0.05, 0, 0.03535534, 0.03535534, 3.061516e-18, 0.05, -0.03535534, 0.03535534, -0.05, 6.123032e-18, -0.03535534, -0.03535534, -9.184548e-18, -0.05, 0.03535534, -0.03535534)
+mode = 2
+path_node = NodePath("..")
+path_interval_type = 0
+path_interval = 0.1
+path_simplify_angle = 0.0
+path_rotation = 2
+path_rotation_accurate = false
+path_local = false
+path_continuous_u = true
+path_u_distance = 1.0
+path_joined = false
+smooth_faces = true
+
+[node name="HoseAnchorStart" type="Node3D" parent="." unique_id=442340910]
+
+[node name="PlaceholderHoseAnchorEnd" type="Node3D" parent="." unique_id=1607253637]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.662559, 0, 6.314)
