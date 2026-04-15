@@ -21,13 +21,13 @@ attachment_start = NodePath("../HoseAnchorStart")
 attachment_end = NodePath("../PlaceholderHoseAnchorEnd")
 custom_initial_shape = true
 length = 23.155994
-segments = 100
+segments = 30
 thickness = 0.2
 collision_layer = 4
 collision_mask = 7
 
 [node name="@CSGPolygon3D@45585" type="CSGPolygon3D" parent="RigidHose3D" unique_id=68626993]
-polygon = PackedVector2Array(0.1, 0, 0.07071068, 0.07071068, 6.123032e-18, 0.1, -0.07071068, 0.07071068, -0.1, 1.2246064e-17, -0.07071068, -0.07071068, -1.8369096e-17, -0.1, 0.07071068, -0.07071068)
+polygon = PackedVector2Array(0.2, 0, 0.14142136, 0.14142136, 1.2246064e-17, 0.2, -0.14142136, 0.14142136, -0.2, 2.4492128e-17, -0.14142136, -0.14142136, -3.673819e-17, -0.2, 0.14142136, -0.14142136)
 mode = 2
 path_node = NodePath("..")
 path_interval_type = 0
