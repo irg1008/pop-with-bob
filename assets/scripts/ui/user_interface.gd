@@ -49,19 +49,19 @@ func handle_progress_changes() -> void:
 	progress_manager.coins_changed.connect(_on_coins_changed)
 
 
-func _on_player_interaction_entered(object: Object, object_owner: Object) -> void:
-	if object is Store or object_owner is Store:
+func _on_player_interaction_entered(interaction: InteractableComponent) -> void:
+	if interaction and interaction.actionable:
 		interaction_hint.text = "Press [E] to interact"
 	else:
 		interaction_hint.text = ""
 
 
-func _on_player_interaction_exited(_object: Object, _object_owner: Object) -> void:
+func _on_player_interaction_exited(_interaction: InteractableComponent) -> void:
 	interaction_hint.text = ""
 
 
-func _on_player_interaction_actioned(object: Object, object_owner: Object) -> void:
-	if object is Store or object_owner is Store:
+func _on_player_interaction_actioned(interaction: InteractableComponent) -> void:
+	if interaction.owner is Store:
 		show_ui_panel(store_panel)
 
 

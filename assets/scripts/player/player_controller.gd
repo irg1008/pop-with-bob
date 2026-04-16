@@ -1,13 +1,16 @@
 class_name PlayerController extends SmoothStairsCharacter3D
 
 
-signal interaction_entered(object: Object, object_owner: Object)
-signal interaction_exited(object: Object, object_owner: Object)
-signal interaction_actioned(object: Object, object_owner: Object)
+signal interaction_entered(interaction: InteractableComponent)
+signal interaction_exited(interaction: InteractableComponent)
+signal interaction_actioned(interaction: InteractableComponent)
 
+
+# TODO: Picking objects is absolutely broken
 
 @export_category("References")
 @export var camera: CameraController
+@export var camera_hand: Node3D
 @export var camera_effects: CameraEffects
 @export var state_chart: StateChart
 @export var standing_collision: CollisionShape3D
@@ -40,7 +43,7 @@ var _sprint_modifier: float = 0.0
 var _crouch_modifier: float = 0.0
 
 var _current_fall_speed: float = 0.0
-var _current_interaction: Object
+var _current_interaction: InteractableComponent
 
 
 func _ready() -> void:
@@ -73,26 +76,28 @@ func _physics_process(delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if _current_interaction and event.is_action_pressed("interact"):
-		var interaction_owner: Object = _current_interaction.owner if _current_interaction is Node else null
-		interaction_actioned.emit(_current_interaction, interaction_owner)
+		interaction_actioned.emit(_current_interaction)
+		_current_interaction.action()
 
 
-func detect_interaction() -> Object:
-	var new_interaction: Object = interaction_raycast.get_collider()
+func detect_interaction() -> void:
+	var current_object: Object = interaction_raycast.current_object
 
-	if new_interaction == _current_interaction:
-		return _current_interaction
+	var inter_comp: InteractableComponent
+	if current_object:
+		inter_comp = current_object.get_node_or_null("InteractableComponent")
 
-	var interaction_owner: Object = new_interaction.owner if new_interaction is Node else null
+	if inter_comp == _current_interaction:
+		return
 
 	if _current_interaction:
-		interaction_exited.emit(_current_interaction, interaction_owner)
+		_current_interaction.drop()
+		interaction_exited.emit(_current_interaction)
 
-	if new_interaction:
-		interaction_entered.emit(new_interaction, interaction_owner)
+	if inter_comp:
+		interaction_entered.emit(inter_comp)
 
-	_current_interaction = new_interaction
-	return new_interaction
+	_current_interaction = inter_comp
 
 
 func _on_smooth_step(_delta: float, _previous_height: float, height_delta: float) -> void:

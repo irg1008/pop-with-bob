@@ -12,7 +12,6 @@
 [ext_resource type="Script" uid="uid://dmdecm6dgylmy" path="res://assets/scripts/player/states/grounded_state.gd" id="6_ggkdx"]
 [ext_resource type="Script" uid="uid://dsnqb17qqenio" path="res://assets/scripts/components/health_component.gd" id="6_ii78e"]
 [ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="6_rkuj1"]
-[ext_resource type="PackedScene" uid="uid://cohbudd01vu5t" path="res://scenes/tools/hose.tscn" id="6_rue81"]
 [ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="7_ers80"]
 [ext_resource type="Script" uid="uid://hvrdobdtlagg" path="res://assets/scripts/player/states/moving_state.gd" id="7_y4pjd"]
 [ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="8_2k8ub"]
@@ -44,11 +43,12 @@ height = 1.0
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ii78e"]
 
-[node name="PlayerController" type="StairsCharacter3D" unique_id=2076778556 node_paths=PackedStringArray("camera", "camera_effects", "state_chart", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "weapon_controller", "health_component")]
+[node name="PlayerController" type="StairsCharacter3D" unique_id=2076778556 node_paths=PackedStringArray("camera", "camera_hand", "camera_effects", "state_chart", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "weapon_controller", "health_component")]
 collider = NodePath("StandingCollision")
 collision_layer = 2
 script = ExtResource("1_0cfoe")
 camera = NodePath("CameraController")
+camera_hand = NodePath("")
 camera_effects = NodePath("CameraController/Camera3D")
 state_chart = NodePath("Components/StateChart")
 standing_collision = NodePath("StandingCollision")
@@ -100,12 +100,11 @@ script = ExtResource("4_cv1cy")
 player_controller = NodePath("../..")
 
 [node name="InteractionRayCast" type="RayCast3D" parent="CameraController/Camera3D" unique_id=267050600]
-target_position = Vector3(0, 0, -3)
+target_position = Vector3(0, 0, -2)
+collision_mask = 5
+collide_with_areas = true
 debug_shape_custom_color = Color(0.99999994, 0.7096994, 0.32264382, 1)
 script = ExtResource("4_kqh78")
-
-[node name="Hose" parent="CameraController/Camera3D" unique_id=201069446 instance=ExtResource("6_rue81")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.33675575, -0.11600977, -0.29008165)
 
 [node name="HealthComponent" type="Node" parent="." unique_id=100040121]
 script = ExtResource("6_ii78e")

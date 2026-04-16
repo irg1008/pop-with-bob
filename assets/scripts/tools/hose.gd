@@ -26,7 +26,6 @@ func _physics_process(delta: float) -> void:
 		current_flow = lerp(current_flow, 0.0, delta * 10.0)
 
 	water_spray.amount_ratio = current_flow
-	# water_spray.process_material.scale_min = 0.05 + (current_flow * 0.03)
 	water_spray.emitting = current_flow > 0.01
 
 

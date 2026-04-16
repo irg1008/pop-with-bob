@@ -117,3 +117,4 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.013314724, -2.3841858e-07, 
 attachment_start = NodePath("../PlayerHoseAndhor")
 
 [node name="PlayerHoseAndhor" type="Node3D" parent="." unique_id=1177588600]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0133965, 0, 0)

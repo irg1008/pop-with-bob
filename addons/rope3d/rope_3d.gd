@@ -50,6 +50,19 @@ signal anchor_distanced(offset: Vector3)
 		else:
 			_validate_end_anchor_dynamic()
 
+@export_category("Custom Segments")
+## Completely replaces the FIRST generated rope segment with your own RigidBody3D. It physically joins the solver chain.
+@export_node_path("RigidBody3D") var custom_body_start: NodePath:
+	set(val):
+		custom_body_start = val
+		_request_update()
+
+## Completely replaces the LAST generated rope segment with your own RigidBody3D. It physically joins the solver chain.
+@export_node_path("RigidBody3D") var custom_body_end: NodePath:
+	set(val):
+		custom_body_end = val
+		_request_update()
+
 @export_category("Debug")
 @export var show_debug_meshes: bool = false:
 	set(val): show_debug_meshes = val; _request_update()
@@ -100,9 +113,9 @@ func _process(_delta: float) -> void:
 					dist_to_anchor = _bodies[-1].global_position.distance_to(_valid_end_anchor.global_position)
 				
 				var stretch_allowed := lerpf(0.5, 0.12, rigidity)
-				var is_attached := dist_to_anchor <= stretch_allowed + 0.02
+				var is_attached := dist_to_anchor > stretch_allowed + 0.02
 
-				_debug_label.global_position = _bodies[int(_bodies.size()/2.0)].global_position + Vector3.UP * 0.5
+				_debug_label.global_position = _bodies[int(_bodies.size() / 2.0)].global_position + Vector3.UP * 0.5
 				_debug_label.modulate = Color.WHITE if is_attached else Color.RED
 				_debug_label.text = "Attached: %s\nAnchor Distance: %.3fm" % [
 					str(is_attached), dist_to_anchor
@@ -245,45 +258,67 @@ func _build_rope() -> void:
 		if x_axis.length_squared() < 0.1: x_axis = Vector3.RIGHT.cross(y_axis).normalized()
 		var z_axis := x_axis.cross(y_axis).normalized()
 
-		var body := RigidBody3D.new()
-		body.global_transform = Transform3D(Basis(x_axis, y_axis, z_axis), p_center)
-		body.mass = maxf(total_mass / float(segment_count), 0.05)
-		body.physics_material_override = phys_mat
-		body.collision_layer = collision_layer
-		body.collision_mask = collision_mask
-		body.continuous_cd = true
-		body.contact_monitor = true
-		body.max_contacts_reported = 4
+		var is_custom_start := (i == 0 and not custom_body_start.is_empty())
+		var is_custom_end := (i == segment_count - 1 and not custom_body_end.is_empty())
 
-		# A little damping natively keeps Jolt from flying away
-		body.linear_damp_mode = RigidBody3D.DAMP_MODE_REPLACE
-		body.angular_damp_mode = RigidBody3D.DAMP_MODE_REPLACE
-		body.linear_damp = 1.0
-		body.angular_damp = 2.0
+		var body: RigidBody3D = null
+		if is_custom_start:
+			body = get_node_or_null(custom_body_start) as RigidBody3D
+		elif is_custom_end:
+			body = get_node_or_null(custom_body_end) as RigidBody3D
 
-		var col := CollisionShape3D.new()
-		var cap := CapsuleShape3D.new()
-		cap.radius = thickness
-		# By sizing the capsule to 85% of the segment length, we leave a small resting gap between them.
-		# This allows us to rely purely on Jolt's native self-collision without it exploding on spawn!
-		cap.height = maxf(_segment_length * 0.85, thickness * 2.0)
-		col.shape = cap
-		body.add_child(col)
+		var is_generated := false
+		if not is_instance_valid(body):
+			body = RigidBody3D.new()
+			is_generated = true
 
-		if show_debug_meshes:
-			var mi := MeshInstance3D.new()
-			var cm := CapsuleMesh.new()
-			cm.radius = thickness
-			cm.height = _segment_length
-			var mat := StandardMaterial3D.new()
-			mat.albedo_color = Color(1.0, 0.2, 0.2, 0.7)
-			mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
-			cm.surface_set_material(0, mat)
-			mi.mesh = cm
-			body.add_child(mi)
+		if is_generated:
+			body.global_transform = Transform3D(Basis(x_axis, y_axis, z_axis), p_center)
+			body.mass = maxf(total_mass / float(segment_count), 0.05)
+			body.physics_material_override = phys_mat
+			body.collision_layer = collision_layer
+			body.collision_mask = collision_mask
+			body.continuous_cd = true
+			body.contact_monitor = true
+			body.max_contacts_reported = 4
 
-		_physics_container.add_child(body)
+			body.linear_damp_mode = RigidBody3D.DAMP_MODE_REPLACE
+			body.angular_damp_mode = RigidBody3D.DAMP_MODE_REPLACE
+			body.linear_damp = 1.0
+			body.angular_damp = 2.0
+
+			var col := CollisionShape3D.new()
+			var cap := CapsuleShape3D.new()
+			cap.radius = thickness
+			cap.height = maxf(_segment_length * 0.85, thickness * 2.0)
+			col.shape = cap
+			body.add_child(col)
+
+			if show_debug_meshes:
+				var mi := MeshInstance3D.new()
+				var cm := CapsuleMesh.new()
+				cm.radius = thickness
+				cm.height = _segment_length
+				var mat := StandardMaterial3D.new()
+				mat.albedo_color = Color(1.0, 0.2, 0.2, 0.7)
+				mat.transparency = BaseMaterial3D.TRANSPARENCY_ALPHA
+				cm.surface_set_material(0, mat)
+				mi.mesh = cm
+				body.add_child(mi)
+
+			_physics_container.add_child(body)
+			
 		_bodies.append(body)
+
+	var cb_start := get_node_or_null(custom_body_start) as RigidBody3D
+	var cb_end := get_node_or_null(custom_body_end) as RigidBody3D
+	for b in _bodies:
+		if is_instance_valid(cb_start) and b != cb_start:
+			cb_start.add_collision_exception_with(b)
+			b.add_collision_exception_with(cb_start)
+		if is_instance_valid(cb_end) and b != cb_end:
+			cb_end.add_collision_exception_with(b)
+			b.add_collision_exception_with(cb_end)
 
 # ── Physics Constraint Loop ──────────────────────────────────────────────
 
@@ -322,7 +357,7 @@ func _physics_process(_delta: float) -> void:
 		var anchor_pos := _valid_end_anchor.global_position
 		body_end.global_position = body_end.global_position.lerp(anchor_pos, 0.8)
 	
-	for _iter in range(max_iters):		
+	for _iter in range(max_iters):
 		# 2. RIGIDIFIER: Enforce 0cm resting gaps across the entire chain
 		var is_reverse := (_iter % 2 == 1)
 		var body_count := _bodies.size() - 1

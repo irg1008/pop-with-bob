@@ -1,6 +1,10 @@
 [gd_scene format=3 uid="uid://beapg21411sq7"]
 
 [ext_resource type="Script" uid="uid://cap1r6rsqsnhs" path="res://assets/scripts/store/store.gd" id="1_q2ccp"]
+[ext_resource type="Script" uid="uid://c2rd6w64o0vdn" path="res://assets/scripts/components/interactable_component.gd" id="2_7b83j"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_756f3"]
+size = Vector3(1.9833984, 2.1328125, 1.6724243)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ja1ay"]
 size = Vector3(2, 1, 0.5)
@@ -19,8 +23,16 @@ height = 0.2
 [sub_resource type="SphereMesh" id="SphereMesh_7b83j"]
 radius = 0.1
 
-[node name="Store" type="Node3D" unique_id=1120907835]
+[node name="Store" type="Area3D" unique_id=2121371422]
 script = ExtResource("1_q2ccp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=40313151]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.56640625, -0.5880432)
+shape = SubResource("BoxShape3D_756f3")
+
+[node name="InteractableComponent" type="Node" parent="." unique_id=995234523]
+script = ExtResource("2_7b83j")
+metadata/_custom_type_script = "uid://c2rd6w64o0vdn"
 
 [node name="StoreFront" type="StaticBody3D" parent="." unique_id=422023142]
 

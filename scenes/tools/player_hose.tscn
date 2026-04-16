@@ -1,7 +1,9 @@
 [gd_scene format=3 uid="uid://cnhxaylmg6o53"]
 
-[ext_resource type="Script" uid="uid://n68bc24feuqx" path="res://assets/scripts/tools/hose_anchor.gd" id="1_354te"]
+[ext_resource type="Script" uid="uid://n68bc24feuqx" path="res://assets/scripts/tools/player_hose.gd" id="1_354te"]
 [ext_resource type="Script" uid="uid://bw3vi0375udha" path="res://addons/rope3d/rope_3d.gd" id="2_8tyq4"]
+[ext_resource type="Script" uid="uid://c2rd6w64o0vdn" path="res://assets/scripts/components/interactable_component.gd" id="3_dgfsd"]
+[ext_resource type="PackedScene" uid="uid://cohbudd01vu5t" path="res://scenes/tools/hose.tscn" id="3_heuxd"]
 
 [sub_resource type="Curve3D" id="Curve3D_i3i3a"]
 _data = {
@@ -10,11 +12,12 @@ _data = {
 }
 point_count = 4
 
-[sub_resource type="SphereShape3D" id="SphereShape3D_8tyq4"]
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_heuxd"]
+radius = 0.14013672
+height = 0.5708008
 
-[node name="PlayerHose" type="Node3D" unique_id=1248293760 node_paths=PackedStringArray("rope")]
+[node name="PlayerHose" type="Node3D" unique_id=1248293760]
 script = ExtResource("1_354te")
-rope = NodePath("Rope3D")
 
 [node name="Rope3D" type="Path3D" parent="." unique_id=111299192]
 curve = SubResource("Curve3D_i3i3a")
@@ -22,9 +25,9 @@ script = ExtResource("2_8tyq4")
 quality = 1.0
 thickness = 0.08
 radial_segments = 12
-friction = 1.0
 collision_layer = 4
 collision_mask = 7
+custom_body_end = NodePath("../HoseNozzle")
 metadata/_custom_type_script = "uid://bw3vi0375udha"
 
 [node name="_CSGPolygon3D_130469" type="CSGPolygon3D" parent="Rope3D" unique_id=1561630768]
@@ -42,7 +45,27 @@ path_u_distance = 1.0
 path_joined = false
 smooth_faces = true
 
-[node name="InteractArea" type="Area3D" parent="." unique_id=37428561]
+[node name="HoseNozzle" type="RigidBody3D" parent="." unique_id=2143352678]
+collision_layer = 4
+axis_lock_linear_x = true
+axis_lock_linear_y = true
+axis_lock_linear_z = true
+mass = 0.2
+freeze = true
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea" unique_id=536095802]
-shape = SubResource("SphereShape3D_8tyq4")
+[node name="InteractableComponent" type="Node" parent="HoseNozzle" unique_id=55069673]
+script = ExtResource("3_dgfsd")
+metadata/_custom_type_script = "uid://c2rd6w64o0vdn"
+
+[node name="Hose" parent="HoseNozzle" unique_id=201069446 instance=ExtResource("3_heuxd")]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.12776223, 0.0048623085)
+
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="HoseNozzle" unique_id=690579271]
+polygon = PackedVector2Array(0.14369687, -0.0028350204, 0.114798106, 0.22222507, 0.1288096, 0.22134936, 0.09290514, 0.45341522, -0.00079693645, 0.4525395, 7.883459e-05, 0.0024193078)
+mode = 1
+spin_degrees = 360.0
+spin_sides = 16
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="HoseNozzle" unique_id=395980155]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19067383, 0)
+shape = SubResource("CapsuleShape3D_heuxd")
