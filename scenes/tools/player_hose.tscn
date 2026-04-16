@@ -10,19 +10,17 @@ _data = {
 }
 point_count = 39
 
-[node name="HoseAnchor" type="Node3D" unique_id=713593107 node_paths=PackedStringArray("hose")]
+[node name="PlayerHose" type="Node3D" unique_id=713593107]
 script = ExtResource("1_354te")
-hose = NodePath("RigidHose3D")
 
 [node name="RigidHose3D" type="Path3D" parent="." unique_id=1152598919]
 curve = SubResource("Curve3D_354te")
 script = ExtResource("3_hl0lu")
-attachment_start = NodePath("../HoseAnchorStart")
+attachment_start = NodePath("../PlaceholderHoseAnchorStart")
 attachment_end = NodePath("../PlaceholderHoseAnchorEnd")
 custom_initial_shape = true
 length = 23.155994
-segments = 30
-thickness = 0.2
+segments = 40
 collision_layer = 4
 collision_mask = 7
 
@@ -34,14 +32,14 @@ path_interval_type = 0
 path_interval = 0.1
 path_simplify_angle = 0.0
 path_rotation = 2
-path_rotation_accurate = false
+path_rotation_accurate = true
 path_local = false
 path_continuous_u = true
 path_u_distance = 1.0
 path_joined = false
 smooth_faces = true
 
-[node name="HoseAnchorStart" type="Node3D" parent="." unique_id=442340910]
+[node name="PlaceholderHoseAnchorStart" type="Node3D" parent="." unique_id=442340910]
 
 [node name="PlaceholderHoseAnchorEnd" type="Node3D" parent="." unique_id=1607253637]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.5780625, 0, -0.45448065)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)

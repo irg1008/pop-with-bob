@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://beapg21411sq7" path="res://scenes/store/store.tscn" id="2_ha1lr"]
 [ext_resource type="PackedScene" uid="uid://coplwpkalhisn" path="res://scenes/environment/pickups/weapon_pickup.tscn" id="3_gbr81"]
 [ext_resource type="Resource" uid="uid://dnak72xsbbur3" path="res://assets/resources/weapons/shotgun.tres" id="4_i3i3a"]
-[ext_resource type="PackedScene" uid="uid://cnhxaylmg6o53" path="res://scenes/tools/hose_anchor.tscn" id="5_i3i3a"]
+[ext_resource type="PackedScene" uid="uid://cnhxaylmg6o53" path="res://scenes/tools/player_hose.tscn" id="5_i3i3a"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_c8esi"]
 vertices = PackedVector3Array(-9.5, 11, 10, 9.5, 11, 10, 10, 11, 9.5, 10, 11, -9.5, -9.5, 11, -9.5, -9.25, 0.5, -9.25, -9.25, 0.5, 9.5, 9.5, 0.5, 9.5, 9.5, 0.5, -9.25)
@@ -118,12 +118,8 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.453809, 3.749543e-07, -3.79
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1072702, 0.26912516, 2.8282342)
 weapon = ExtResource("4_i3i3a")
 
-[node name="HoseAnchor" parent="." unique_id=713593107 instance=ExtResource("5_i3i3a")]
+[node name="PlayerHose" parent="." unique_id=713593107 node_paths=PackedStringArray("attachment_start") instance=ExtResource("5_i3i3a")]
+attachment_start = NodePath("../PlayerHoseAnchor")
 
-[node name="@CSGPolygon3D@45585" parent="HoseAnchor/RigidHose3D" parent_id_path=PackedInt32Array(713593107, 1152598919) index="0" unique_id=68626993]
-polygon = PackedVector2Array(0.2, 0, 0.14142136, 0.14142136, 1.2246064e-17, 0.2, -0.14142136, 0.14142136, -0.2, 2.4492128e-17, -0.14142136, -0.14142136, -3.673819e-17, -0.2, 0.14142136, -0.14142136)
-
-[node name="HoseAnchorStart" parent="HoseAnchor" index="1" unique_id=442340910]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.160626, 0.79979753, 10.525402)
-
-[editable path="HoseAnchor"]
+[node name="PlayerHoseAnchor" type="Node3D" parent="." unique_id=725605853]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -10, 1, 0)
