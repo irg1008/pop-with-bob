@@ -1,31 +1,34 @@
 [gd_scene format=3 uid="uid://cnhxaylmg6o53"]
 
 [ext_resource type="Script" uid="uid://n68bc24feuqx" path="res://assets/scripts/tools/hose_anchor.gd" id="1_354te"]
-[ext_resource type="Script" uid="uid://doqsro3w4okm6" path="res://addons/hose3d/rigid_hose_3d.gd" id="3_hl0lu"]
+[ext_resource type="Script" uid="uid://bw3vi0375udha" path="res://addons/rope3d/rope_3d.gd" id="2_8tyq4"]
 
-[sub_resource type="Curve3D" id="Curve3D_354te"]
+[sub_resource type="Curve3D" id="Curve3D_i3i3a"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1.1033121, 0, 0.26068652, 0, 0, 0, 0, 0, 0, -1.5658394, 0, 0.25040805, 0, 0, 0, 0, 0, 0, -2.6039562, 0, 0.20929466, 0, 0, 0, 0, 0, 0, -2.973978, 0, 0.32235682, 0, 0, 0, 0, 0, 0, -3.374835, 0, 0.6821002, 0, 0, 0, 0, 0, 0, -3.5804024, 0, 1.0521222, 0, 0, 0, 0, 0, 0, -3.518732, 0, 1.5043712, 0, 0, 0, 0, 0, 0, -3.08704, 0, 1.8024442, 0, 0, 0, 0, 0, 0, -1.9564182, 0, 1.8024442, 0, 0, 0, 0, 0, 0, -1.2369314, 0, 1.422144, 0, 0, 0, 0, 0, 0, -1.0930334, 0, 1.0007302, 0, 0, 0, 0, 0, 0, -0.6613418, 0, 0.83627594, 0, 0, 0, 0, 0, 0, -0.42493927, 0, 1.1549059, 0, 0, 0, 0, 0, 0, -0.43521702, 0, 1.6791036, 0, 0, 0, 0, 0, 0, -0.6613418, 0, 1.9771767, 0, 0, 0, 0, 0, 0, -1.1444255, 0, 2.1210742, 0, 0, 0, 0, 0, 0, -1.6994582, 0, 2.1827443, 0, 0, 0, 0, 0, 0, -2.1517072, 0, 2.2033012, 0, 0, 0, 0, 0, 0, -2.4497805, 0, 2.2444148, 0, 0, 0, 0, 0, 0, -2.6245127, 0, 2.5630445, 0, 0, 0, 0, 0, 0, -2.6553478, 0, 2.97418, 0, 0, 0, 0, 0, 0, -2.4497805, 0, 3.3955936, 0, 0, 0, 0, 0, 0, -1.6275097, 0, 3.4880993, 0, 0, 0, 0, 0, 0, -0.9799715, 0, 3.220861, 0, 0, 0, 0, 0, 0, -0.6202284, 0, 2.8508394, 0, 0, 0, 0, 0, 0, -0.13714421, 0, 2.7172203, 0, 0, 0, 0, 0, 0, -0.075473905, 0, 3.1797476, 0, 0, 0, 0, 0, 0, -0.3015982, 0, 3.6217184, 0, 0, 0, 0, 0, 0, -0.599671, 0, 3.7656152, 0, 0, 0, 0, 0, 0, -1.1033121, 0, 4.197308, 0, 0, 0, 0, 0, 0, -2.0180879, 0, 3.9711833, 0, 0, 0, 0, 0, 0, -2.8609157, 0, 3.6833882, 0, 0, 0, 0, 0, 0, -3.3953915, 0, 3.4058723, 0, 0, 0, 0, 0, 0, -4.248497, 0, 3.2722528, 0, 0, 0, 0, 0, 0, -4.4849005, 0, 3.5600479, 0, 0, 0, 0, 0, 0, -4.310168, 0, 4.197308, 0, 0, 0, 0, 0, 0, -2.686183, 0, 4.6495566, 0, 0, 0, 0, 0, 0, -2.2236557, 0, 4.6289997),
-"tilts": PackedFloat32Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.11734885, 0.011010647, -0.35011125, 0, 0, 0, 0, 0, 0, 2.1464422, 0.010986328, 1.0756534, 0, 0, 0, 0, 0, 0, -0.29860157, 0.010986328, 2.6337883, 0, 0, 0, 0, 0, 0, -0.13320881, 0.010986567, 0.0664559),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
 }
-point_count = 39
+point_count = 4
 
-[node name="PlayerHose" type="Node3D" unique_id=713593107]
+[sub_resource type="SphereShape3D" id="SphereShape3D_8tyq4"]
+
+[node name="PlayerHose" type="Node3D" unique_id=1248293760 node_paths=PackedStringArray("rope")]
 script = ExtResource("1_354te")
+rope = NodePath("Rope3D")
 
-[node name="RigidHose3D" type="Path3D" parent="." unique_id=1152598919]
-curve = SubResource("Curve3D_354te")
-script = ExtResource("3_hl0lu")
-attachment_start = NodePath("../PlaceholderHoseAnchorStart")
-attachment_end = NodePath("../PlaceholderHoseAnchorEnd")
-custom_initial_shape = true
-length = 23.155994
-segments = 40
+[node name="Rope3D" type="Path3D" parent="." unique_id=111299192]
+curve = SubResource("Curve3D_i3i3a")
+script = ExtResource("2_8tyq4")
+quality = 1.0
+thickness = 0.08
+radial_segments = 12
+friction = 1.0
 collision_layer = 4
 collision_mask = 7
+metadata/_custom_type_script = "uid://bw3vi0375udha"
 
-[node name="@CSGPolygon3D@45585" type="CSGPolygon3D" parent="RigidHose3D" unique_id=68626993]
-polygon = PackedVector2Array(0.2, 0, 0.14142136, 0.14142136, 1.2246064e-17, 0.2, -0.14142136, 0.14142136, -0.2, 2.4492128e-17, -0.14142136, -0.14142136, -3.673819e-17, -0.2, 0.14142136, -0.14142136)
+[node name="_CSGPolygon3D_130469" type="CSGPolygon3D" parent="Rope3D" unique_id=1561630768]
+polygon = PackedVector2Array(0.08, 0, 0.06928203, 0.04, 0.04, 0.06928203, 4.8984254e-18, 0.08, -0.04, 0.06928203, -0.06928203, 0.04, -0.08, 9.796851e-18, -0.06928203, -0.04, -0.04, -0.06928203, -1.4695276e-17, -0.08, 0.04, -0.06928203, 0.06928203, -0.04)
 mode = 2
 path_node = NodePath("..")
 path_interval_type = 0
@@ -39,7 +42,7 @@ path_u_distance = 1.0
 path_joined = false
 smooth_faces = true
 
-[node name="PlaceholderHoseAnchorStart" type="Node3D" parent="." unique_id=442340910]
+[node name="InteractArea" type="Area3D" parent="." unique_id=37428561]
 
-[node name="PlaceholderHoseAnchorEnd" type="Node3D" parent="." unique_id=1607253637]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+[node name="CollisionShape3D" type="CollisionShape3D" parent="InteractArea" unique_id=536095802]
+shape = SubResource("SphereShape3D_8tyq4")
