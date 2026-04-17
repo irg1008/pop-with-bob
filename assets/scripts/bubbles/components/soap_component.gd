@@ -5,6 +5,7 @@ class_name SoapComponent extends Node
 @export var character_bubble_emitter: CharacterBubbleEmitter
 @export var bubble_emitter: BubbleEmitter
 @export var water_component: WaterComponent
+@export var soap_amount_label: Label
 
 @export_category("Soaps")
 @export var initial_max_soaps: int = 4
@@ -40,7 +41,7 @@ func init_soap(soap: StoreSoap) -> StoreSoap:
 	soap.soap_depleted.connect(_on_soap_depleted)
 	soap.soap_ammo_change.connect(_on_soap_ammo_changed)
 
-	soap.apply_soap_component_mods(self)
+	soap.apply_soap_component_mods(self )
 
 	if character_bubble_emitter:
 		soap.apply_character_mods(character_bubble_emitter)
@@ -66,6 +67,7 @@ func _on_soap_ammo_changed(ammo: int) -> void:
 func set_soaps(new_soaps: Array[StoreSoap]) -> void:
 	max_soaps = initial_max_soaps
 	soaps.assign(new_soaps.map(init_soap))
+	soap_amount_label.text = "%d/%d" % [soaps.size(), max_soaps]
 
 
 func use_soap(bubble: Bubble) -> void:

@@ -82,22 +82,16 @@ func _unhandled_input(event: InputEvent) -> void:
 
 
 func detect_interaction() -> void:
-	var current_object: Object = interaction_raycast.current_object
-
 	var inter_comp: InteractableComponent
-	if current_object:
-		inter_comp = current_object.get_node_or_null("InteractableComponent")
-
-	if inter_comp == _current_interaction:
-		return
-
-	if _current_interaction:
-		interaction_exited.emit(_current_interaction)
+	if is_instance_valid(interaction_raycast.current_object):
+		inter_comp = interaction_raycast.current_object.get_node_or_null("InteractableComponent")
 
 	if inter_comp:
+		_current_interaction = inter_comp
 		interaction_entered.emit(inter_comp)
-
-	_current_interaction = inter_comp
+	else:
+		_current_interaction = null
+		interaction_exited.emit(_current_interaction)
 
 
 func _on_smooth_step(_delta: float, _previous_height: float, height_delta: float) -> void:

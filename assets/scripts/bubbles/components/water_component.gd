@@ -55,6 +55,5 @@ func receive_water(delta: float) -> void:
 	current_water += water_absorption_rate * delta
 
 
-
 func refill_water() -> void:
 	current_water = max_water
