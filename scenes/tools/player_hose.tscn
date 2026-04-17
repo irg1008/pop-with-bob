@@ -7,10 +7,14 @@
 
 [sub_resource type="Curve3D" id="Curve3D_i3i3a"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -0.11734885, 0.011010647, -0.35011125, 0, 0, 0, 0, 0, 0, 2.1464422, 0.010986328, 1.0756534, 0, 0, 0, 0, 0, 0, -0.29860157, 0.010986328, 2.6337883, 0, 0, 0, 0, 0, 0, -0.13320881, 0.010986567, 0.0664559),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.8756185, 0.011010647, 1.0044906, 0, 0, 0, 0, 0, 0, 1.5247533, 0.01098609, 2.3710828, 0, 0, 0, 0, 0, 0, -0.29860157, 0.010986328, 2.6337883, 0, 0, 0, 0, 0, 0, -0.51114166, 0.010986567, 0.0664559),
 "tilts": PackedFloat32Array(0, 0, 0, 0)
 }
 point_count = 4
+
+[sub_resource type="SphereMesh" id="SphereMesh_heuxd"]
+radius = 0.15
+height = 0.3
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_heuxd"]
 radius = 0.14013672
@@ -46,25 +50,29 @@ path_joined = false
 smooth_faces = true
 
 [node name="HoseNozzle" type="RigidBody3D" parent="." unique_id=2143352678]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0.1499674)
 collision_layer = 4
-axis_lock_linear_x = true
-axis_lock_linear_y = true
-axis_lock_linear_z = true
 mass = 0.2
 freeze = true
 
 [node name="InteractableComponent" type="Node" parent="HoseNozzle" unique_id=55069673]
 script = ExtResource("3_dgfsd")
+pickable = true
 metadata/_custom_type_script = "uid://c2rd6w64o0vdn"
 
 [node name="Hose" parent="HoseNozzle" unique_id=201069446 instance=ExtResource("3_heuxd")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.12776223, 0.0048623085)
 
+[node name="MeshInstance3D" type="MeshInstance3D" parent="HoseNozzle" unique_id=810815966]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.014604777, -6.383951e-10)
+mesh = SubResource("SphereMesh_heuxd")
+skeleton = NodePath("")
+
 [node name="CSGPolygon3D" type="CSGPolygon3D" parent="HoseNozzle" unique_id=690579271]
 polygon = PackedVector2Array(0.14369687, -0.0028350204, 0.114798106, 0.22222507, 0.1288096, 0.22134936, 0.09290514, 0.45341522, -0.00079693645, 0.4525395, 7.883459e-05, 0.0024193078)
 mode = 1
 spin_degrees = 360.0
-spin_sides = 16
+spin_sides = 64
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HoseNozzle" unique_id=395980155]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19067383, 0)

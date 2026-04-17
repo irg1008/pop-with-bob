@@ -4,7 +4,7 @@ class_name Weapon extends Resource
 @export_category("Weapon Settings")
 @export var weapon_name: String = "Pistol"
 @export var weapon_scene: PackedScene
-@export var weapon_position: Vector3 = Vector3(0.2, -0.2, -0.3)
+@export var weapon_position: Vector3 = Vector3.ZERO
 
 @export_category("Weapon Stats")
 @export_range(0, 100, 1, "suffix:%") var accuracy: int = 100

@@ -11,6 +11,7 @@ signal interaction_actioned(interaction: InteractableComponent)
 @export_category("References")
 @export var camera: CameraController
 @export var camera_hand: Node3D
+@export var camera_pick: SpringArm3D
 @export var camera_effects: CameraEffects
 @export var state_chart: StateChart
 @export var standing_collision: CollisionShape3D
@@ -91,7 +92,6 @@ func detect_interaction() -> void:
 		return
 
 	if _current_interaction:
-		_current_interaction.drop()
 		interaction_exited.emit(_current_interaction)
 
 	if inter_comp:

@@ -9,10 +9,8 @@ class_name PlayerHose extends Node3D
 @onready var nozzle: RigidBody3D = $HoseNozzle
 
 
-# TODO: Make a proper picable nozzle that stays properly at the end of rope. And make a proper handler when picked up.
-
 var player: PlayerController
-var picked_up: bool = false
+var just_picked_up: bool = false
 
 
 func _ready() -> void:
@@ -20,14 +18,16 @@ func _ready() -> void:
 		rope.attachment_start = attachment_start.get_path()
 	rope.anchor_distanced.connect(_on_anchor_distanced)
 
-	interactable_component.actioned.connect(toggle_follow_player)
+	interactable_component.picked_up.connect(_on_interactable_component_picked_up)
+	interactable_component.dropped.connect(_on_interactable_component_dropped)
 
 	set_player.call_deferred()
 
 
-func _physics_process(_delta: float) -> void:
-	if picked_up:
-		nozzle.global_rotation.y = player.camera.global_rotation.y - deg_to_rad(180)
+func _process(_delta: float) -> void:
+	if interactable_component.is_picked_up:
+		var target_yaw: float = player.camera.global_rotation.y
+		nozzle.global_rotation = Vector3(deg_to_rad(-90), target_yaw, 0)
 
 
 func set_player() -> void:
@@ -35,17 +35,18 @@ func set_player() -> void:
 
 
 func _on_anchor_distanced(offset: Vector3) -> void:
-	if picked_up and abs(offset.x) > 1.0:
-		await toggle_follow_player()
-
-
-func toggle_follow_player() -> void:
-	if rope.attachment_end.is_empty():
-		rope.attachment_end = player.get_path()
-		# nozzle.freeze = true # Freeze physical drooping when explicitly held
+	if just_picked_up:
 		await get_tree().create_timer(0.5).timeout
-		picked_up = true
-	else:
-		rope.attachment_end = ""
-		picked_up = false
-		# nozzle.freeze = false
+		just_picked_up = false
+
+	if interactable_component.is_picked_up and abs(offset.x) > 1.5:
+		interactable_component.drop()
+
+
+func _on_interactable_component_picked_up() -> void:
+	rope.attachment_end = player.camera_pick.get_path()
+	just_picked_up = true
+
+
+func _on_interactable_component_dropped() -> void:
+	rope.attachment_end = ""

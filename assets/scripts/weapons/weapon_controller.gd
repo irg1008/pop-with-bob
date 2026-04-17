@@ -36,7 +36,7 @@ func spawn_weapon_model() -> void:
 		weapon_model = weapon.weapon_scene.instantiate()
 		weapon_model_parent.add_child(weapon_model)
 		weapon_model.add_to_group(WEAPON_GROUP)
-		weapon_model.position = weapon.weapon_position
+		weapon_model.position += weapon.weapon_position
 
 
 func switch_weapon(weapon_data: WeaponData) -> void:
@@ -113,7 +113,7 @@ func _spawn_projectile() -> void:
 	weapon_model.add_child(projectile)
 
 	# Offset for weapon muzzle position
-	projectile.position.z = weapon.weapon_position.z
+	projectile.position.z = -0.25
 
 	# Intersect the target position
 	var viewport_center: Vector2 = get_viewport().get_visible_rect().size * 0.5

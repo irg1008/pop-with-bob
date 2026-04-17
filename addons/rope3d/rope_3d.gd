@@ -330,7 +330,7 @@ func _physics_process(_delta: float) -> void:
 	
 	# Continuous End Anchor Tracking
 	if is_instance_valid(_valid_end_anchor) and _bodies.size() >= 3:
-		var offset := _valid_end_anchor.global_position - _bodies[-1].global_position
+		var offset := _valid_end_anchor.global_position - _bodies[-2].global_position
 		if offset.length() > 0.05:
 			anchor_distanced.emit(offset)
 

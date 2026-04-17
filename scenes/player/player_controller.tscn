@@ -43,12 +43,15 @@ height = 1.0
 
 [sub_resource type="CameraAttributesPractical" id="CameraAttributesPractical_ii78e"]
 
-[node name="PlayerController" type="StairsCharacter3D" unique_id=2076778556 node_paths=PackedStringArray("camera", "camera_hand", "camera_effects", "state_chart", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "weapon_controller", "health_component")]
+[sub_resource type="SphereShape3D" id="SphereShape3D_ii78e"]
+
+[node name="PlayerController" type="StairsCharacter3D" unique_id=2076778556 node_paths=PackedStringArray("camera", "camera_hand", "camera_pick", "camera_effects", "state_chart", "standing_collision", "crouching_collision", "crouch_check", "interaction_raycast", "weapon_controller", "health_component")]
 collider = NodePath("StandingCollision")
 collision_layer = 2
 script = ExtResource("1_0cfoe")
 camera = NodePath("CameraController")
-camera_hand = NodePath("")
+camera_hand = NodePath("CameraController/Camera3D/CameraHand")
+camera_pick = NodePath("CameraController/Camera3D/CameraPick")
 camera_effects = NodePath("CameraController/Camera3D")
 state_chart = NodePath("Components/StateChart")
 standing_collision = NodePath("StandingCollision")
@@ -105,6 +108,13 @@ collision_mask = 5
 collide_with_areas = true
 debug_shape_custom_color = Color(0.99999994, 0.7096994, 0.32264382, 1)
 script = ExtResource("4_kqh78")
+
+[node name="CameraPick" type="SpringArm3D" parent="CameraController/Camera3D" unique_id=1579869817]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, -0.5, 0)
+shape = SubResource("SphereShape3D_ii78e")
+
+[node name="CameraHand" type="Node3D" parent="CameraController/Camera3D" unique_id=1837825205]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.138, -0.06800002, -0.208)
 
 [node name="HealthComponent" type="Node" parent="." unique_id=100040121]
 script = ExtResource("6_ii78e")
@@ -243,7 +253,7 @@ delay_in_seconds = "0.0"
 [node name="WeaponController" type="Node" parent="." unique_id=1154290142 node_paths=PackedStringArray("camera", "weapon_model_parent", "weapon_state_chart")]
 script = ExtResource("8_3nb03")
 camera = NodePath("../CameraController/Camera3D")
-weapon_model_parent = NodePath("../CameraController/Camera3D")
+weapon_model_parent = NodePath("../CameraController/Camera3D/CameraHand")
 weapon_state_chart = NodePath("../WeaponComponents/WeaponStateChart")
 
 [node name="WeaponComponents" type="Node" parent="." unique_id=282010181]

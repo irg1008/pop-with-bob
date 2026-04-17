@@ -10,9 +10,11 @@ signal dropped()
 @export var pickable: bool = false
 
 
+static var current_picked: InteractableComponent
+
 var player: PlayerController
-var is_picked_up: bool = false
 var current_parent: Node
+var is_picked_up: bool = false
 
 
 func _ready() -> void:
@@ -25,6 +27,9 @@ func set_player() -> void:
 
 
 func action() -> void:
+	if current_picked:
+		current_picked.drop()
+
 	if is_picked_up:
 		drop()
 	else:
@@ -38,7 +43,11 @@ func pick_up() -> void:
 		return
 
 	is_picked_up = true
-	get_parent().reparent(player.camera)
+	current_picked = self
+
+	var parent: Node3D = get_parent()
+	parent.reparent(player.camera_pick)
+
 	picked_up.emit()
 
 
@@ -47,5 +56,7 @@ func drop() -> void:
 		return
 
 	is_picked_up = false
+	current_picked = null
+
 	get_parent().reparent(current_parent)
 	dropped.emit()
