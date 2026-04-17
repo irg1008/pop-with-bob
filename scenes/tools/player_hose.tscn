@@ -7,7 +7,7 @@
 
 [sub_resource type="Curve3D" id="Curve3D_i3i3a"]
 _data = {
-"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 2.8756185, 0.011010647, 1.0044906, 0, 0, 0, 0, 0, 0, 1.5247533, 0.01098609, 2.3710828, 0, 0, 0, 0, 0, 0, -0.29860157, 0.010986328, 2.6337883, 0, 0, 0, 0, 0, 0, -0.51114166, 0.010986567, 0.0664559),
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, 1.5247533, 0.01098609, 2.3710828, 0, 0, 0, 0, 0, 0, -0.29860157, 0.010986328, 2.6337883, 0, 0, 0, 0, 0, 0, -0.51114166, 0.010986567, 0.0664559, 0, 0, 0, 0, 0, 0, -1.7809489, 0.010986328, 0.30791622),
 "tilts": PackedFloat32Array(0, 0, 0, 0)
 }
 point_count = 4
@@ -26,8 +26,6 @@ script = ExtResource("1_354te")
 [node name="Rope3D" type="Path3D" parent="." unique_id=111299192]
 curve = SubResource("Curve3D_i3i3a")
 script = ExtResource("2_8tyq4")
-quality = 1.0
-thickness = 0.08
 radial_segments = 12
 collision_layer = 4
 collision_mask = 7
@@ -35,7 +33,7 @@ custom_body_end = NodePath("../HoseNozzle")
 metadata/_custom_type_script = "uid://bw3vi0375udha"
 
 [node name="_CSGPolygon3D_130469" type="CSGPolygon3D" parent="Rope3D" unique_id=1561630768]
-polygon = PackedVector2Array(0.08, 0, 0.06928203, 0.04, 0.04, 0.06928203, 4.8984254e-18, 0.08, -0.04, 0.06928203, -0.06928203, 0.04, -0.08, 9.796851e-18, -0.06928203, -0.04, -0.04, -0.06928203, -1.4695276e-17, -0.08, 0.04, -0.06928203, 0.06928203, -0.04)
+polygon = PackedVector2Array(0.1, 0, 0.08660254, 0.05, 0.05, 0.08660254, 6.123032e-18, 0.1, -0.05, 0.08660254, -0.08660254, 0.05, -0.1, 1.2246064e-17, -0.08660254, -0.05, -0.05, -0.08660254, -1.8369096e-17, -0.1, 0.05, -0.08660254, 0.08660254, -0.05)
 mode = 2
 path_node = NodePath("..")
 path_interval_type = 0
@@ -60,19 +58,20 @@ script = ExtResource("3_dgfsd")
 pickable = true
 metadata/_custom_type_script = "uid://c2rd6w64o0vdn"
 
-[node name="Hose" parent="HoseNozzle" unique_id=201069446 instance=ExtResource("3_heuxd")]
+[node name="HoseHead" parent="HoseNozzle" unique_id=201069446 instance=ExtResource("3_heuxd")]
 transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.12776223, 0.0048623085)
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="HoseNozzle" unique_id=810815966]
-transform = Transform3D(1, 0, 0, 0, -4.371139e-08, -1, 0, 1, -4.371139e-08, 0, -0.014604777, -6.383951e-10)
-mesh = SubResource("SphereMesh_heuxd")
-skeleton = NodePath("")
-
-[node name="CSGPolygon3D" type="CSGPolygon3D" parent="HoseNozzle" unique_id=690579271]
+[node name="CSGPolygon3D" type="CSGPolygon3D" parent="HoseNozzle/HoseHead" unique_id=690579271]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, -0.004862314, -0.12776223)
 polygon = PackedVector2Array(0.14369687, -0.0028350204, 0.114798106, 0.22222507, 0.1288096, 0.22134936, 0.09290514, 0.45341522, -0.00079693645, 0.4525395, 7.883459e-05, 0.0024193078)
 mode = 1
 spin_degrees = 360.0
 spin_sides = 64
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="HoseNozzle/HoseHead" unique_id=810815966]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.004862314, -0.11315745)
+mesh = SubResource("SphereMesh_heuxd")
+skeleton = NodePath("")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="HoseNozzle" unique_id=395980155]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.19067383, 0)

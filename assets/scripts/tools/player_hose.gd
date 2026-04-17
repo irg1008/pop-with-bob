@@ -39,13 +39,13 @@ func _on_anchor_distanced(offset: Vector3) -> void:
 		await get_tree().create_timer(0.5).timeout
 		just_picked_up = false
 
-	if interactable_component.is_picked_up and abs(offset.x) > 1.5:
+	if interactable_component.is_picked_up and abs(offset.x) > 1.0:
 		interactable_component.drop()
 
 
 func _on_interactable_component_picked_up() -> void:
-	rope.attachment_end = player.camera_pick.get_path()
 	just_picked_up = true
+	rope.attachment_end = player.camera_pick.get_path()
 
 
 func _on_interactable_component_dropped() -> void:

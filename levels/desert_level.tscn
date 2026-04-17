@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://beapg21411sq7" path="res://scenes/store/store.tscn" id="2_ha1lr"]
 [ext_resource type="PackedScene" uid="uid://coplwpkalhisn" path="res://scenes/environment/pickups/weapon_pickup.tscn" id="3_gbr81"]
-[ext_resource type="PackedScene" uid="uid://cnhxaylmg6o53" path="res://scenes/tools/player_hose.tscn" id="4_gbr81"]
+[ext_resource type="PackedScene" uid="uid://0gj34jwk8rmh" path="res://scenes/npcs/cactoro_npc.tscn" id="4_gbr81"]
 [ext_resource type="Resource" uid="uid://dnak72xsbbur3" path="res://assets/resources/weapons/shotgun.tres" id="4_i3i3a"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_c8esi"]
@@ -61,7 +61,6 @@ shape = SubResource("BoxShape3D_floor")
 
 [node name="Ceiling" type="StaticBody3D" parent="NavigationRegion3D/RoomCage" unique_id=534567361]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10.25, 0)
-visible = false
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="NavigationRegion3D/RoomCage/Ceiling" unique_id=783838954]
 mesh = SubResource("BoxMesh_floor")
@@ -112,9 +111,8 @@ transform = Transform3D(-1, 0, 8.742278e-08, 0, 1, 0, -8.742278e-08, 0, -1, 4.09
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.1072702, 0.26912516, 2.8282342)
 weapon = ExtResource("4_i3i3a")
 
-[node name="PlayerHose" parent="." unique_id=1248293760 node_paths=PackedStringArray("attachment_start") instance=ExtResource("4_gbr81")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.013314724, -2.3841858e-07, -0.011978388)
-attachment_start = NodePath("../PlayerHoseAndhor")
+[node name="CactoroNpc" parent="." unique_id=582313622 instance=ExtResource("4_gbr81")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.44796, 1.3653572e-07, -2.8183205)
 
-[node name="PlayerHoseAndhor" type="Node3D" parent="." unique_id=1177588600]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.0133965, 0, 0)
+[node name="CactoroNpc2" parent="." unique_id=2093912495 instance=ExtResource("4_gbr81")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.0030065, 6.133729e-07, 0.94723105)
